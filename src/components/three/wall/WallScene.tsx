@@ -25,6 +25,7 @@ import {
   type HoldPlacement,
 } from './wallLayout';
 import { ChalkBursts, FermentBubbles, MagnesiaDust, type BurstHandle } from '../shared/Particles';
+import { FirstFrames } from '../shared/FirstFrames';
 
 type Quality = 'high' | 'low';
 
@@ -191,7 +192,9 @@ function ChalkDecals({ placements }: { placements: HoldPlacement[] }) {
       q.copy(p.quaternion).multiply(qz);
       const k = p.scale * (p.section !== undefined ? 2.9 : 2.5) * (0.8 + r() * 0.45);
       const n = new THREE.Vector3(0, 0, 1).applyQuaternion(p.quaternion);
-      _p.copy(p.position).addScaledVector(n, 0.003).add(new THREE.Vector3(0, -p.scale * 0.2, 0));
+      _p.copy(p.position)
+        .addScaledVector(n, 0.003)
+        .add(new THREE.Vector3(0, -p.scale * 0.2, 0));
       _m.compose(_p, q, _s.set(k, k * 1.15, 1));
       mesh.setMatrixAt(i, _m);
     });
@@ -220,7 +223,9 @@ function ContactShadows({ placements }: { placements: HoldPlacement[] }) {
     if (!mesh) return;
     placements.forEach((p, i) => {
       const n = new THREE.Vector3(0, 0, 1).applyQuaternion(p.quaternion);
-      _p.copy(p.position).addScaledVector(n, 0.002).add(new THREE.Vector3(-p.scale * 0.12, -p.scale * 0.22, 0));
+      _p.copy(p.position)
+        .addScaledVector(n, 0.002)
+        .add(new THREE.Vector3(-p.scale * 0.12, -p.scale * 0.22, 0));
       const k = p.scale * 2.35;
       _m.compose(_p, p.quaternion, _s.set(k, k * 0.92, 1));
       mesh.setMatrixAt(i, _m);
@@ -307,7 +312,9 @@ function RouteHolds({ route, quality, burst }: RouteHoldsProps) {
     const act = items[Math.max(0, Math.min(items.length - 1, activeIndex))];
     if (light.current && act) {
       // la lumière colorée éclaire la paroi autour de la prise, pas la prise elle-même
-      _p.copy(act.p.position).addScaledVector(act.normal, 0.75).add(_up.set(-0.25, 0.35, 0));
+      _p.copy(act.p.position)
+        .addScaledVector(act.normal, 0.75)
+        .add(_up.set(-0.25, 0.35, 0));
       light.current.position.lerp(_p, 1 - Math.exp(-dt * 4));
       light.current.color.lerp(new THREE.Color(act.p.color), 1 - Math.exp(-dt * 3));
       const want = reachedIndex >= 0 ? 1.5 : 0;
@@ -374,15 +381,17 @@ function CameraRig({ count, mobile, spot, focus }: RigProps) {
     const cam = camera as THREE.PerspectiveCamera;
     const dist = mobile ? 3.7 : 3.4;
     const halfW = dist * Math.tan(THREE.MathUtils.degToRad(cam.fov / 2)) * aspect;
-    const offX = mobile ? 0.15 : halfW * 0.4;
     const hero = 1 - smoothstep(0, 0.9, climb);
-    const lookY = y + (mobile ? -0.85 : -0.05) - hero * 0.55;
+    // au départ, la caméra descend et lève les yeux vers la première prise ;
+    // sur mobile, la prise se place dans la bande libre à droite du titre
+    const offX = mobile ? 0.15 + hero * 0.3 : halfW * 0.4;
+    const lookY = y + (mobile ? -0.85 : -0.05) + hero * (mobile ? 0.97 : -0.55);
     const t = state.clock.elapsedTime;
 
     tLook.set(x - offX, lookY, surf.point.z);
     tPos.set(
       x - offX - 0.3 + pointer.current.x * 0.28 + Math.sin(t * 0.37) * 0.04,
-      lookY - 0.5 - hero * 0.75 + pointer.current.y * 0.16 + Math.sin(t * 0.51) * 0.03,
+      lookY - 0.5 - hero * (mobile ? 0.65 : 0.75) + pointer.current.y * 0.16 + Math.sin(t * 0.51) * 0.03,
       surf.point.z + dist + hero * 0.3,
     );
     if (!cur.current) cur.current = { pos: tPos.clone(), look: tLook.clone() };
@@ -411,7 +420,11 @@ function CameraRig({ count, mobile, spot, focus }: RigProps) {
 function WallWorld({ colors, quality, mobile }: { colors: string[]; quality: Quality; mobile: boolean }) {
   const route = useMemo(() => buildRoute(colors.length, colors), [colors]);
   const decor = useMemo(
-    () => buildDecor(quality, route.map((r) => r.position)),
+    () =>
+      buildDecor(
+        quality,
+        route.map((r) => r.position),
+      ),
     [quality, route],
   );
   const all = useMemo(() => [...route, ...decor], [route, decor]);
@@ -473,7 +486,15 @@ function WallWorld({ colors, quality, mobile }: { colors: string[]; quality: Qua
         follow={follow}
         light={lightInfo}
       />
-      <FermentBubbles count={quality === 'high' ? 70 : 30} width={7} height={6} size={1.6} opacity={0.5} follow={follow} colorRef={routeColor} />
+      <FermentBubbles
+        count={quality === 'high' ? 70 : 30}
+        width={7}
+        height={6}
+        size={1.6}
+        opacity={0.5}
+        follow={follow}
+        colorRef={routeColor}
+      />
 
       <CameraRig count={colors.length} mobile={mobile} spot={spot} focus={focus} />
 
@@ -487,15 +508,6 @@ function WallWorld({ colors, quality, mobile }: { colors: string[]; quality: Qua
 }
 
 /** Prévient le parent après les premières images (textures prêtes). */
-function FirstFrames({ onReady }: { onReady?: () => void }) {
-  const n = useRef(0);
-  useFrame(() => {
-    n.current++;
-    if (n.current === 3) onReady?.();
-  });
-  return null;
-}
-
 function Effects() {
   return (
     <EffectComposer multisampling={4}>
@@ -546,7 +558,7 @@ export default function WallCanvas({ colors, onReady }: { colors: string[]; onRe
 
   return (
     <Canvas
-        resize={{ offsetSize: true }}
+      resize={{ offsetSize: true }}
       className="!pointer-events-none"
       style={{ position: 'fixed', inset: 0, zIndex: 0 }}
       frameloop={visible || presentation ? 'always' : 'never'}

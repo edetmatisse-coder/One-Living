@@ -14,6 +14,7 @@ import { Badge } from '@/components/ui/Badge';
 import { useCapabilities } from '@/lib/device';
 import { useInView } from '@/lib/use-in-view';
 import { BOTTLES_PER_MESH, GYM_CAPACITY } from '@/components/three/gym/constants';
+import { Still } from '@/components/three/Still';
 
 const GymScene = dynamic(() => import('@/components/three/gym/GymScene'), { ssr: false });
 
@@ -64,7 +65,14 @@ function Gauge({ sim }: { sim: Simulation }) {
           </linearGradient>
         </defs>
         <path d="M 24 120 A 96 96 0 0 1 216 120" fill="none" stroke="rgba(243,239,232,.08)" strokeWidth="16" strokeLinecap="round" />
-        <path d="M 24 120 A 96 96 0 0 1 216 120" fill="none" stroke="url(#gauge-grad)" strokeWidth="16" strokeLinecap="round" opacity="0.9" />
+        <path
+          d="M 24 120 A 96 96 0 0 1 216 120"
+          fill="none"
+          stroke="url(#gauge-grad)"
+          strokeWidth="16"
+          strokeLinecap="round"
+          opacity="0.9"
+        />
         {Array.from({ length: 13 }, (_, i) => {
           const a = Math.PI * (1 - i / 12);
           const r1 = 76;
@@ -81,7 +89,9 @@ function Gauge({ sim }: { sim: Simulation }) {
             />
           );
         })}
-        <g style={{ transform: `rotate(${angle}deg)`, transformOrigin: '120px 120px', transition: 'transform .7s cubic-bezier(.2,.8,.1,1)' }}>
+        <g
+          style={{ transform: `rotate(${angle}deg)`, transformOrigin: '120px 120px', transition: 'transform .7s cubic-bezier(.2,.8,.1,1)' }}
+        >
           <path d="M 117 120 L 120 36 L 123 120 Z" fill={color} style={{ transition: 'fill .5s' }} />
         </g>
         <circle cx="120" cy="120" r="8" fill="#141210" stroke={color} strokeWidth="2.5" />
@@ -164,9 +174,12 @@ export function Simulateur({ meta }: { meta: SectionMeta }) {
     const id = window.setTimeout(playYear, 0);
     return () => window.clearTimeout(id);
   }, [stageOn, caps.reducedMotion, playYear]);
-  useEffect(() => () => {
-    if (timer.current) window.clearInterval(timer.current);
-  }, []);
+  useEffect(
+    () => () => {
+      if (timer.current) window.clearInterval(timer.current);
+    },
+    [],
+  );
 
   const meshes = Math.round(sim.bottles / BOTTLES_PER_MESH);
   const shown = Math.round((meshes * month) / 12);
@@ -223,8 +236,8 @@ export function Simulateur({ meta }: { meta: SectionMeta }) {
               ))}
             </div>
             <p data-hide-in-slides className="mt-6 text-[13px] leading-relaxed text-dust">
-              Activation : frigo prêté, PLV et dotation de lancement, sur l’année. Le prix de revente fixe la marge de la salle, pas
-              la contribution de One Living.
+              Activation : frigo prêté, PLV et dotation de lancement, sur l’année. Le prix de revente fixe la marge de la salle, pas la
+              contribution de One Living.
             </p>
           </div>
 
@@ -237,9 +250,7 @@ export function Simulateur({ meta }: { meta: SectionMeta }) {
               {show3D ? (
                 <GymScene count={Math.min(shown, GYM_CAPACITY)} className="absolute inset-0" />
               ) : (
-                <div className="absolute inset-0 grid place-items-center text-center text-dust">
-                  <p className="font-display text-[64px] text-chalk">{fmtInt(sim.bottles)}</p>
-                </div>
+                <Still name="salle" className="absolute inset-0 h-full w-full object-cover" />
               )}
               <div className="pointer-events-none absolute inset-x-0 top-0 flex items-start justify-between p-2.5 md:p-4">
                 <div className="rounded-[3px] bg-ply-900/80 px-2.5 py-1.5 md:px-3 md:py-2">
@@ -255,16 +266,24 @@ export function Simulateur({ meta }: { meta: SectionMeta }) {
               </div>
               <div className="pointer-events-auto absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-2.5 md:p-4">
                 <p className="label-mono rounded-[3px] bg-ply-900/80 px-2 py-1.5 text-[8.5px] text-dust md:text-[9.5px]">
-                  1 bouteille dessinée = {BOTTLES_PER_MESH} vendues
-                  {meshes > GYM_CAPACITY ? ' · salle pleine' : ''}
+                  {show3D ? (
+                    <>
+                      1 bouteille dessinée = {BOTTLES_PER_MESH} vendues
+                      {meshes > GYM_CAPACITY ? ' · salle pleine' : ''}
+                    </>
+                  ) : (
+                    'Image fixe : la salle type au bout d’un an'
+                  )}
                 </p>
-                <button
-                  type="button"
-                  onClick={playYear}
-                  className="label-mono shrink-0 whitespace-nowrap rounded-[3px] border border-chalk/20 bg-ply-900/80 px-2.5 py-1.5 text-[9px] text-chalk-dim hover:text-chalk md:text-[9.5px]"
-                >
-                  Rejouer l’année
-                </button>
+                {show3D && (
+                  <button
+                    type="button"
+                    onClick={playYear}
+                    className="label-mono shrink-0 whitespace-nowrap rounded-[3px] border border-chalk/20 bg-ply-900/80 px-2.5 py-1.5 text-[9px] text-chalk-dim hover:text-chalk md:text-[9.5px]"
+                  >
+                    Rejouer l’année
+                  </button>
+                )}
               </div>
             </div>
 

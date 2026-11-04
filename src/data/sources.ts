@@ -92,7 +92,7 @@ export const SOURCES: Source[] = [
     publisher: 'Foodinnov',
     title: 'Allégation « probiotique » : la décision du Médiateur européen',
     url: 'https://foodinnov.fr/allegation-probiotique-decision-du-mediateur-europeen/',
-    supports: ['Pourquoi le site n’emploie jamais le mot « probiotique »'],
+    supports: ['Pourquoi « probiotique » figure dans la colonne « On évite »'],
   },
 ];
 

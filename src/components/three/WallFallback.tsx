@@ -1,10 +1,13 @@
 'use client';
 
 import { Hold, type HoldKind } from '@/components/ui/Hold';
+import { Still } from './Still';
 
 /**
- * Paroi fixe dessinée en SVG : fond de remplacement quand la 3D est coupée
- * (mouvement réduit, WebGL absent) ou pendant son chargement.
+ * Paroi fixe : le visuel rendu depuis la scène 3D (public/fallback/), posé sur
+ * une paroi dessinée en SVG qui sert de secours si l'image manque. Fond de
+ * remplacement quand la 3D est coupée (mouvement réduit, WebGL absent) ou
+ * pendant son chargement.
  */
 const HOLDS: { k: HoldKind; x: number; y: number; s: number; r: number; c: string; o?: number }[] = [
   { k: 'jug', x: 64, y: 22, s: 120, r: -14, c: '#F2B705' },
@@ -40,6 +43,7 @@ export function WallFallback({ className = '' }: { className?: string }) {
         />
       ))}
       <div className="absolute inset-0 shadow-[inset_0_0_220px_rgba(0,0,0,.7)]" />
+      <Still name="paroi" responsive priority className="absolute inset-0 h-full w-full object-cover" />
     </div>
   );
 }

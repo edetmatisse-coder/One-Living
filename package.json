@@ -17,7 +17,8 @@
     "test:watch": "vitest",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "screens": "node scripts/screenshots.mjs"
+    "screens": "node scripts/screenshots.mjs",
+    "fallbacks": "node scripts/render-fallbacks.mjs"
   },
   "dependencies": {
     "@gsap/react": "2.1.2",

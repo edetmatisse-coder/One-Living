@@ -4,14 +4,13 @@ import dynamic from 'next/dynamic';
 import { useCallback, useRef, useState, type CSSProperties } from 'react';
 import type { SectionMeta } from '@/data/sections';
 import { ROUTE_COLORS } from '@/data/routes';
-import { FLAVORS } from '@/data/campagne';
 import { KineticTitle } from '@/components/ui/KineticTitle';
 import { StartCard } from '@/components/ui/StartCard';
 import { Arrow, Button } from '@/components/ui/Button';
 import { Hold, type HoldKind } from '@/components/ui/Hold';
 import { useCapabilities } from '@/lib/device';
 import { scrollToElement } from '@/lib/scroll';
-import { BottleSketch } from './Gamme';
+import { Still } from '@/components/three/Still';
 import type { GameApi } from '@/components/three/game/GameScene';
 
 const GameScene = dynamic(() => import('@/components/three/game/GameScene'), { ssr: false });
@@ -30,6 +29,8 @@ export function CampagneHero({ meta }: { meta: SectionMeta }) {
   const show3D = caps.ready && caps.webgl && !caps.reducedMotion;
   const [step, setStep] = useState(0);
   const [top, setTop] = useState(false);
+  const [gameReady, setGameReady] = useState(false);
+  const onReady = useCallback(() => setGameReady(true), []);
   const [hint, setHint] = useState<string | null>(null);
   const [round, setRound] = useState(0);
   const api = useRef<GameApi | null>(null);
@@ -65,23 +66,25 @@ export function CampagneHero({ meta }: { meta: SectionMeta }) {
     >
       {/* le jeu remplit l'arrière-plan */}
       <div className="absolute inset-0">
-        {show3D ? (
+        {show3D && (
           <GameScene
             key={round}
             className="absolute inset-0"
             onStep={onStep}
             onWrong={onWrong}
             onTop={onTop}
+            onReady={onReady}
             apiRef={api}
             framing={caps.mobile ? 'center' : 'side'}
           />
-        ) : (
-          <div className="plywood absolute inset-0">
-            <div className="absolute right-[8%] top-1/2 h-[70%] -translate-y-1/2">
-              <BottleSketch flavor={FLAVORS[0]} className="h-full" />
-            </div>
-          </div>
         )}
+        {/* visuel fixe de la voie : en mouvement réduit, et pendant le chargement du jeu */}
+        <div
+          aria-hidden
+          className={`plywood pointer-events-none absolute inset-0 transition-opacity duration-700 ${show3D && gameReady ? 'opacity-0' : 'opacity-100'}`}
+        >
+          <Still name="voie" responsive priority className="absolute inset-0 h-full w-full object-cover" />
+        </div>
       </div>
       <div
         aria-hidden
@@ -90,7 +93,15 @@ export function CampagneHero({ meta }: { meta: SectionMeta }) {
 
       <div className="pointer-events-none relative flex min-h-[100svh] flex-col justify-end px-[var(--gutter)] pb-[clamp(28px,7vh,80px)] pt-[calc(var(--header-h)+60px)] md:justify-center">
         <div className="pointer-events-auto max-w-[620px]">
-          <StartCard num={0} name="Après la voie" grade={meta.grade} color={hex} foot="One Living · salles de l’Ouest" size="sm" className="mb-8 hidden md:block" />
+          <StartCard
+            num={0}
+            name="Après la voie"
+            grade={meta.grade}
+            color={hex}
+            foot="One Living · salles de l’Ouest"
+            size="sm"
+            className="mb-8 hidden md:block"
+          />
           <KineticTitle
             as="h1"
             id="campagne-title"
@@ -103,7 +114,7 @@ export function CampagneHero({ meta }: { meta: SectionMeta }) {
             Le moment pour souffler, juste après ta séance.
           </p>
 
-          <div className="mt-10 rounded-[6px] border border-chalk/12 bg-ply-900/70 p-5 backdrop-blur-sm md:max-w-[460px]">
+          <div className="mt-10 rounded-[6px] border border-chalk/12 bg-ply-900/85 p-5 md:max-w-[460px]">
             {!top ? (
               <>
                 <p className="text-[15px] font-semibold text-chalk">
@@ -111,15 +122,24 @@ export function CampagneHero({ meta }: { meta: SectionMeta }) {
                 </p>
                 <ol className="mt-4 flex items-center gap-2" aria-label="Progression sur la voie">
                   {HOLD_COLORS.map((c, i) => {
-                    const done = i < step;
-                    const next = i === step;
+                    // sans 3D, la voie est une simple légende : les 5 prises allumées, aucune à toucher
+                    const done = show3D ? i < step : true;
+                    const next = show3D && i === step;
                     return (
                       <li key={i}>
                         <button
                           type="button"
                           disabled={!next || !show3D}
                           onClick={() => api.current?.next()}
-                          aria-label={done ? `Prise ${i + 1} atteinte` : next ? `Attraper la prise ${i + 1}` : `Prise ${i + 1}`}
+                          aria-label={
+                            !show3D
+                              ? `Prise ${i + 1}`
+                              : done
+                                ? `Prise ${i + 1} atteinte`
+                                : next
+                                  ? `Attraper la prise ${i + 1}`
+                                  : `Prise ${i + 1}`
+                          }
                           className={`relative grid h-11 w-11 place-items-center rounded-full border transition-all ${
                             next ? 'border-chalk/60 bg-chalk/10' : 'border-chalk/10'
                           } disabled:cursor-default`}
@@ -133,9 +153,11 @@ export function CampagneHero({ meta }: { meta: SectionMeta }) {
                     );
                   })}
                 </ol>
-                <p className="mt-3 h-5 text-[13.5px] text-route" aria-live="polite">
-                  {hint ?? (step > 0 ? `${step} sur 5. Continue.` : 'Touche la prise 1 qui brille.')}
-                </p>
+                {show3D && (
+                  <p className="mt-3 h-5 text-[13.5px] text-route" aria-live="polite">
+                    {hint ?? (step > 0 ? `${step} sur 5. Continue.` : 'Touche la prise 1 qui brille.')}
+                  </p>
+                )}
               </>
             ) : (
               <div aria-live="polite">

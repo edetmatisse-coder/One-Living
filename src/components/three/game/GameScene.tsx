@@ -12,6 +12,7 @@ import { makeHoldGeometry, makeHoldMaterial, type HoldShape } from '../wall/hold
 import { arc, BODY, bodyFor, createPose, solvePose, type Targets } from './climber';
 import { Bottle, createSpin } from '../bottle/Bottle';
 import { useBrandAsset } from '@/components/ui/Brand';
+import { FirstFrames } from '../shared/FirstFrames';
 
 const loadBurst = () => import('./BubbleBurst');
 const BubbleBurst = lazy(loadBurst);
@@ -52,17 +53,34 @@ export const GAME_HOLDS: { x: number; y: number; shape: HoldShape; color: string
 ];
 
 const FOOTHOLDS: [number, number][][] = [
-  [[-0.16, 0.04], [0.16, 0.04]],
-  [[-0.2, 0.28], [0.24, 0.42]],
-  [[-0.28, 0.95], [0.12, 0.82]],
-  [[-0.08, 1.62], [0.32, 1.5]],
-  [[-0.3, 2.36], [0.1, 2.28]],
-  [[-0.2, 3.5], [0.28, 3.42]],
+  [
+    [-0.16, 0.04],
+    [0.16, 0.04],
+  ],
+  [
+    [-0.2, 0.28],
+    [0.24, 0.42],
+  ],
+  [
+    [-0.28, 0.95],
+    [0.12, 0.82],
+  ],
+  [
+    [-0.08, 1.62],
+    [0.32, 1.5],
+  ],
+  [
+    [-0.3, 2.36],
+    [0.1, 2.28],
+  ],
+  [
+    [-0.2, 3.5],
+    [0.28, 3.42],
+  ],
 ];
 
 const grip = (i: number, dx = 0) => new THREE.Vector3(GAME_HOLDS[i].x + dx, GAME_HOLDS[i].y + 0.03, 0.09);
-const foot = (k: number, side: 0 | 1) =>
-  new THREE.Vector3(FOOTHOLDS[k][side][0], FOOTHOLDS[k][side][1] + 0.04, k === 0 ? 0.2 : 0.07);
+const foot = (k: number, side: 0 | 1) => new THREE.Vector3(FOOTHOLDS[k][side][0], FOOTHOLDS[k][side][1] + 0.04, k === 0 ? 0.2 : 0.07);
 
 interface Tween {
   target: THREE.Vector3;
@@ -85,7 +103,15 @@ function Wall() {
     tex.bump.repeat.set(W / SHEET_W, H / SHEET_H);
     tex.orm.repeat.set(W / SHEET_W, H / SHEET_H);
     return {
-      mat: new THREE.MeshStandardMaterial({ map: tex.map, bumpMap: tex.bump, bumpScale: 1.4, roughnessMap: tex.orm, metalnessMap: tex.orm, roughness: 1, metalness: 1 }),
+      mat: new THREE.MeshStandardMaterial({
+        map: tex.map,
+        bumpMap: tex.bump,
+        bumpScale: 1.4,
+        roughnessMap: tex.orm,
+        metalnessMap: tex.orm,
+        roughness: 1,
+        metalness: 1,
+      }),
       pads: new THREE.MeshStandardMaterial({ color: '#23262c', roughness: 0.9 }),
     };
   }, [gl]);
@@ -177,10 +203,16 @@ function HoldsLayer({
         </group>
       ))}
       {items.map((it, i) => (
-        <group key={i} ref={(el) => { groups.current[i] = el; }} position={[it.h.x, it.h.y, 0]}>
+        <group
+          key={i}
+          ref={(el) => {
+            groups.current[i] = el;
+          }}
+          position={[it.h.x, it.h.y, 0]}
+        >
           <mesh geometry={decals.plane} material={decals.ao} position={[-0.02, -0.04, 0.002]} scale={[0.5, 0.46, 1]} />
           <mesh geometry={decals.plane} material={decals.chalk} position={[0, -0.02, 0.003]} scale={[0.62, 0.7, 1]} />
-          <mesh geometry={it.g} material={it.m} scale={i === 0 ? 0.16 : 0.19} rotation={[0, 0, (i * 0.9) % 1.4 - 0.7]} castShadow />
+          <mesh geometry={it.g} material={it.m} scale={i === 0 ? 0.16 : 0.19} rotation={[0, 0, ((i * 0.9) % 1.4) - 0.7]} castShadow />
           {/* zone de clic généreuse */}
           <mesh
             onClick={(e) => onHold(i, e)}
@@ -325,15 +357,42 @@ function Climber({ targets, topped, shirt }: { targets: Targets; topped: boolean
   });
 
   const setters = useMemo(() => {
-    const keys = [...SEGMENTS, 'elbowL', 'elbowR', 'kneeL', 'kneeR', 'shoulderL', 'shoulderR', 'torso', 'chestM', 'hips', 'handL', 'handR', 'head', 'hair', 'bag', 'shoeL', 'shoeR'];
-    return Object.fromEntries(keys.map((k) => [k, (el: THREE.Object3D | null) => void (refs.current[k] = el)])) as Record<string, (el: THREE.Object3D | null) => void>;
+    const keys = [
+      ...SEGMENTS,
+      'elbowL',
+      'elbowR',
+      'kneeL',
+      'kneeR',
+      'shoulderL',
+      'shoulderR',
+      'torso',
+      'chestM',
+      'hips',
+      'handL',
+      'handR',
+      'head',
+      'hair',
+      'bag',
+      'shoeL',
+      'shoeR',
+    ];
+    return Object.fromEntries(keys.map((k) => [k, (el: THREE.Object3D | null) => void (refs.current[k] = el)])) as Record<
+      string,
+      (el: THREE.Object3D | null) => void
+    >;
   }, []);
   const set = (k: string) => setters[k];
 
   return (
     <group>
       {SEGMENTS.map((k) => (
-        <mesh key={k} ref={set(k)} geometry={geo.limb} material={k.startsWith('th') || k.startsWith('sh') ? mats.pants : mats.skin} castShadow />
+        <mesh
+          key={k}
+          ref={set(k)}
+          geometry={geo.limb}
+          material={k.startsWith('th') || k.startsWith('sh') ? mats.pants : mats.skin}
+          castShadow
+        />
       ))}
       {['elbowL', 'elbowR'].map((k) => (
         <mesh key={k} ref={set(k)} geometry={geo.joint} material={mats.skin} castShadow />
@@ -382,10 +441,7 @@ function World({ onStep, onWrong, onTop, stepCmd, framing }: WorldProps) {
   const [showBottle, setShowBottle] = useState(false);
   const [shake, setShake] = useState({ i: -1, t: 0 });
   const clock = useThree((s) => s.clock);
-  const targets = useMemo<Targets>(
-    () => ({ handL: grip(0, -0.07), handR: grip(0, 0.07), footL: foot(0, 0), footR: foot(0, 1) }),
-    [],
-  );
+  const targets = useMemo<Targets>(() => ({ handL: grip(0, -0.07), handR: grip(0, 0.07), footL: foot(0, 0), footR: foot(0, 1) }), []);
   const tweens = useRef<Tween[]>([]);
   const busy = useRef(false);
   const spin = useRef(createSpin());
@@ -520,7 +576,15 @@ function World({ onStep, onWrong, onTop, stepCmd, framing }: WorldProps) {
       )}
       <group ref={bottleGroup} scale={0.0001}>
         {(showBottle || topped) && (
-          <Bottle flavor={flavor} spin={spin} quality={caps.tier} scale={3.4} labelSrc={labelSrc} logoSrc={logoSrc} fill={showBottle ? 1 : 0} />
+          <Bottle
+            flavor={flavor}
+            spin={spin}
+            quality={caps.tier}
+            scale={3.4}
+            labelSrc={labelSrc}
+            logoSrc={logoSrc}
+            fill={showBottle ? 1 : 0}
+          />
         )}
       </group>
       <BottleSpin spin={spin} active={showBottle} />
@@ -560,9 +624,11 @@ interface Props {
   onTop: () => void;
   apiRef?: { current: GameApi | null };
   framing?: 'side' | 'center';
+  /** premières images peintes : le visuel fixe peut s'effacer */
+  onReady?: () => void;
 }
 
-export default function GameScene({ className = '', onStep, onWrong, onTop, apiRef, framing = 'side' }: Props) {
+export default function GameScene({ className = '', onStep, onWrong, onTop, apiRef, framing = 'side', onReady }: Props) {
   const caps = useCapabilities();
   const wrap = useRef<HTMLDivElement>(null);
   const [onScreen, setOnScreen] = useState(true);
@@ -589,6 +655,7 @@ export default function GameScene({ className = '', onStep, onWrong, onTop, apiR
         gl={{ antialias: true, alpha: false, powerPreference: 'high-performance', toneMapping: THREE.NeutralToneMapping }}
         camera={{ fov: 36, position: [-0.9, 1.9, 4.5], near: 0.05, far: 40 }}
       >
+        <FirstFrames onReady={onReady} />
         <World onStep={onStep} onWrong={onWrong} onTop={onTop} stepCmd={stepCmd} framing={framing} />
       </Canvas>
     </div>

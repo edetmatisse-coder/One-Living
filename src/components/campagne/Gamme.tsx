@@ -11,6 +11,7 @@ import { Badge } from '@/components/ui/Badge';
 import { useCapabilities } from '@/lib/device';
 import { useInView } from '@/lib/use-in-view';
 import { playSfx } from '@/lib/sound';
+import { Still } from '@/components/three/Still';
 
 const BottleCanvas = dynamic(() => import('@/components/three/bottle/BottleCanvas'), { ssr: false });
 
@@ -26,8 +27,17 @@ export function BottleSketch({ flavor, className = '' }: { flavor: Flavor; class
           <stop offset="1" stopColor={flavor.deep} />
         </linearGradient>
       </defs>
-      <path d="M34 8h52v34c0 18 22 40 22 78v260c0 10-6 14-14 14H26c-8 0-14-4-14-14V120c0-38 22-60 22-78Z" fill="rgba(243,239,232,.06)" stroke="rgba(243,239,232,.4)" strokeWidth="2" />
-      <path d="M16 140c0-30 20-52 22-70h44c2 18 22 40 22 70v240c0 8-5 10-10 10H26c-5 0-10-2-10-10Z" fill={`url(#liq-${flavor.id})`} opacity=".92" />
+      <path
+        d="M34 8h52v34c0 18 22 40 22 78v260c0 10-6 14-14 14H26c-8 0-14-4-14-14V120c0-38 22-60 22-78Z"
+        fill="rgba(243,239,232,.06)"
+        stroke="rgba(243,239,232,.4)"
+        strokeWidth="2"
+      />
+      <path
+        d="M16 140c0-30 20-52 22-70h44c2 18 22 40 22 70v240c0 8-5 10-10 10H26c-5 0-10-2-10-10Z"
+        fill={`url(#liq-${flavor.id})`}
+        opacity=".92"
+      />
       <rect x="12" y="200" width="96" height="120" fill="#F3EFE8" />
       <rect x="12" y="200" width="8" height="120" fill={route} />
       <rect x="100" y="200" width="8" height="120" fill={route} />
@@ -90,7 +100,10 @@ export function Gamme({ meta }: { meta: SectionMeta }) {
                       }`}
                       style={{ '--route': c } as CSSProperties}
                     >
-                      <span className="h-4 w-4 shrink-0 rounded-full" style={{ background: c, boxShadow: on ? `0 0 0 3px ${c}40` : 'none' }} />
+                      <span
+                        className="h-4 w-4 shrink-0 rounded-full"
+                        style={{ background: c, boxShadow: on ? `0 0 0 3px ${c}40` : 'none' }}
+                      />
                       <span className="text-[14.5px] font-semibold leading-tight">{f.name}</span>
                     </button>
                   );
@@ -135,6 +148,7 @@ export function Gamme({ meta }: { meta: SectionMeta }) {
                 ) : (
                   <div className="plywood absolute inset-0 grid place-items-center">
                     <BottleSketch flavor={flavor} className="h-[78%]" />
+                    <Still name={`bouteille-${flavor.id}`} className="absolute inset-0 h-full w-full object-cover" />
                   </div>
                 )}
                 <p className="label-mono pointer-events-none absolute bottom-4 left-1/2 -translate-x-1/2 rounded-[3px] bg-ply-900/70 px-2.5 py-1.5 text-[9.5px] text-dust">
@@ -159,7 +173,16 @@ export function Gamme({ meta }: { meta: SectionMeta }) {
                     <span className="mt-3 font-display text-[16px] leading-none text-chalk/70" style={{ fontWeight: 800 }}>
                       Visuel {f.short.toLowerCase()}
                     </span>
-                    <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-dust/70">brand/{f.bottleAsset === 'bouteilleGingembre' ? 'bouteille-gingembre-curcuma' : f.bottleAsset === 'bouteilleFramboise' ? 'bouteille-framboise-grenade' : f.bottleAsset === 'bouteillePassion' ? 'bouteille-passion-goji' : 'bouteille-mangue-citron-vert'}</span>
+                    <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-dust/70">
+                      brand/
+                      {f.bottleAsset === 'bouteilleGingembre'
+                        ? 'bouteille-gingembre-curcuma'
+                        : f.bottleAsset === 'bouteilleFramboise'
+                          ? 'bouteille-framboise-grenade'
+                          : f.bottleAsset === 'bouteillePassion'
+                            ? 'bouteille-passion-goji'
+                            : 'bouteille-mangue-citron-vert'}
+                    </span>
                   </>
                 }
               />
@@ -183,7 +206,12 @@ export function Gamme({ meta }: { meta: SectionMeta }) {
                   <li key={s.id} className="flex flex-col items-center rounded-[6px] border border-chalk/10 bg-ply-900/40 px-3 pb-5 pt-7">
                     <svg viewBox="0 0 60 120" className="h-28 w-auto" aria-hidden>
                       <rect x="20" y="2" width="20" height="12" rx="2" fill={s.color} />
-                      <path d="M22 14h16v8c0 6 10 10 10 20v68c0 4-3 6-6 6H18c-3 0-6-2-6-6V42c0-10 10-14 10-20Z" fill="rgba(243,239,232,.08)" stroke="rgba(243,239,232,.45)" strokeWidth="1.5" />
+                      <path
+                        d="M22 14h16v8c0 6 10 10 10 20v68c0 4-3 6-6 6H18c-3 0-6-2-6-6V42c0-10 10-14 10-20Z"
+                        fill="rgba(243,239,232,.08)"
+                        stroke="rgba(243,239,232,.45)"
+                        strokeWidth="1.5"
+                      />
                       <path d="M14 56h32v52c0 3-2 4-4 4H18c-2 0-4-1-4-4Z" fill="#c98a2a" opacity=".55" />
                       <rect x="12" y="62" width="36" height="26" fill="#F3EFE8" />
                       <rect x="12" y="62" width="4" height="26" fill={s.color} />

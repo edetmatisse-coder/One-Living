@@ -52,10 +52,26 @@ function Stage({ flavor }: { flavor: Flavor }) {
   );
 }
 
+/**
+ * Angle figé pour le rendu des visuels fixes (scripts/render-fallbacks.mjs) :
+ * le script pose `window.__olStill` avant le chargement de la page.
+ */
+function stillAngle(): number | undefined {
+  if (typeof window === 'undefined') return undefined;
+  return (window as Window & { __olStill?: { bottleRot?: number } }).__olStill?.bottleRot;
+}
+
 /** Rotation au glisser, avec inertie, et retour au calme. */
 function Spinner({ spin, dragging, idle }: { spin: { current: SpinState }; dragging: { current: boolean }; idle: number }) {
+  const still = useMemo(() => stillAngle(), []);
   useFrame((_, dt) => {
     const s = spin.current;
+    if (still !== undefined) {
+      s.vel = 0;
+      s.rot = still;
+      s.tilt = 0;
+      return;
+    }
     if (!dragging.current) s.vel = THREE.MathUtils.damp(s.vel, idle, 0.9, dt);
     s.rot += s.vel * dt;
     s.tilt = THREE.MathUtils.damp(s.tilt, THREE.MathUtils.clamp(-s.vel * 0.035, -0.2, 0.2), 4, dt);
@@ -115,7 +131,7 @@ export default function BottleCanvas({ flavor, className = '', idle = 0.35, onRe
     const now = performance.now();
     const dx = e.clientX - last.current.x;
     const dt = Math.max(8, now - last.current.t) / 1000;
-    spin.current.vel = THREE.MathUtils.clamp((dx / Math.max(200, wrap.current?.clientWidth ?? 600)) * 9 / dt, -14, 14);
+    spin.current.vel = THREE.MathUtils.clamp(((dx / Math.max(200, wrap.current?.clientWidth ?? 600)) * 9) / dt, -14, 14);
     last.current = { x: e.clientX, t: now };
   };
   const onUp = () => {
