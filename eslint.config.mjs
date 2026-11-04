@@ -13,6 +13,14 @@ const config = [
       'react/no-unknown-property': 'off',
     },
   },
+  {
+    // Dans une boucle useFrame, on modifie volontairement les objets three.js
+    // (uniformes, matériaux) créés une fois : c'est le modèle de R3F.
+    files: ['src/components/three/**/*.{ts,tsx}'],
+    rules: {
+      'react-hooks/immutability': 'off',
+    },
+  },
 ];
 
 export default config;

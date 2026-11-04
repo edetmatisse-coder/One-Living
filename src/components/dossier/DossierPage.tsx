@@ -1,13 +1,23 @@
 'use client';
 
+import dynamic from 'next/dynamic';
+import { useState } from 'react';
 import { DOSSIER_SECTIONS } from '@/data/sections';
+import { ROUTE_COLORS } from '@/data/routes';
+import { useCapabilities } from '@/lib/device';
 import { DossierHeader } from '@/components/layout/DossierHeader';
 import { SideRoute } from '@/components/layout/SideRoute';
 import { Footer } from '@/components/layout/Footer';
 import { Section, SectionInner } from '@/components/layout/Section';
 import { useSectionTracking } from '@/lib/use-section-tracking';
 import { Hero } from './Hero';
+import { Probleme } from './Probleme';
+import { Marque } from './Marque';
+import { Marche } from './Marche';
 import { WallFallback } from '@/components/three/WallFallback';
+
+const WallCanvas = dynamic(() => import('@/components/three/wall/WallScene'), { ssr: false });
+const COLORS = DOSSIER_SECTIONS.map((s) => ROUTE_COLORS[s.route]);
 
 const S = Object.fromEntries(DOSSIER_SECTIONS.map((s) => [s.id, s]));
 
@@ -26,14 +36,23 @@ const TITLES: Record<string, string[]> = {
 
 export function DossierPage() {
   useSectionTracking();
+  const caps = useCapabilities();
+  const show3D = caps.ready && caps.webgl && !caps.reducedMotion;
+  const [wallReady, setWallReady] = useState(false);
   return (
     <>
-      <WallFallback className="fixed inset-0 z-0" />
+      {show3D && <WallCanvas colors={COLORS} onReady={() => setWallReady(true)} />}
+      <WallFallback
+        className={`fixed inset-0 z-0 transition-opacity duration-1000 ${show3D && wallReady ? 'opacity-0' : 'opacity-100'}`}
+      />
       <DossierHeader />
       <SideRoute sections={DOSSIER_SECTIONS} />
       <main id="dossier" className="relative z-10">
         <Hero meta={S.depart} />
-        {DOSSIER_SECTIONS.slice(1).map((meta) => (
+        <Probleme meta={S.probleme} />
+        <Marque meta={S.marque} />
+        <Marche meta={S.marche} />
+        {DOSSIER_SECTIONS.slice(4).map((meta) => (
           <Section key={meta.id} meta={meta} title={TITLES[meta.id]}>
             <SectionInner>
               <p className="max-w-[60ch] text-dust">Contenu de la section « {meta.title} » : en construction.</p>

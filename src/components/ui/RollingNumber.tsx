@@ -34,9 +34,11 @@ export function RollingNumber({ value, className = '', play, durationMs = 1700, 
       {chars.map((ch, i) => {
         const fromRight = chars.length - 1 - i;
         if (!DIGITS.includes(ch)) {
+          // les espaces seuls disparaîtraient dans un conteneur flex : espace insécable
+          const glyph = /\s/.test(ch) ? '\u00A0' : ch;
           return (
-            <span key={`s${fromRight}`} aria-hidden="true">
-              {ch}
+            <span key={`s${fromRight}`} aria-hidden="true" className={/\s/.test(ch) ? 'inline-block w-[0.18em]' : undefined}>
+              {glyph}
             </span>
           );
         }

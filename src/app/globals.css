@@ -65,55 +65,57 @@
   }
 }
 
-/* ---------------------------- Base ---------------------------- */
+@layer base {
+  /* ---------------------------- Base ---------------------------- */
 
-html {
-  background: var(--color-ply-800);
-  -webkit-text-size-adjust: 100%;
-  text-rendering: optimizeLegibility;
-}
-
-body {
-  background: var(--color-ply-800);
-  color: var(--color-chalk);
-  font-family: var(--font-sans);
-  font-size: 17px;
-  line-height: 1.55;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  overflow-x: clip;
-}
-
-@media (max-width: 767px) {
-  body {
-    font-size: 16px;
+  html {
+    background: var(--color-ply-800);
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
   }
-}
 
-::selection {
-  background: var(--route);
-  color: var(--color-ply-900);
-}
+  body {
+    background: var(--color-ply-800);
+    color: var(--color-chalk);
+    font-family: var(--font-sans);
+    font-size: 17px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+  }
 
-:focus-visible {
-  outline: 2px solid var(--route);
-  outline-offset: 3px;
-  border-radius: 2px;
-}
+  @media (max-width: 767px) {
+    body {
+      font-size: 16px;
+    }
+  }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+  ::selection {
+    background: var(--route);
+    color: var(--color-ply-900);
+  }
 
-button {
-  cursor: pointer;
-}
+  :focus-visible {
+    outline: 2px solid var(--route);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
 
-img,
-svg,
-canvas {
-  display: block;
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  img,
+  svg,
+  canvas {
+    display: block;
+  }
 }
 
 /* Lenis (défilement fluide) */
@@ -146,227 +148,231 @@ html.lenis body {
   }
 }
 
-/* ------------------------- Matières --------------------------- */
+/* Classes maison dans la couche « components » : les utilitaires Tailwind
+   (tailles, casse, couleurs) peuvent toujours les surcharger. */
+@layer components {
+  /* ------------------------- Matières --------------------------- */
 
-/* Grille régulière des inserts de fixation (T-nuts) */
-.inserts {
-  background-image: radial-gradient(
-    circle at center,
-    rgba(8, 7, 6, 0.95) 0 1.5px,
-    rgba(96, 88, 78, 0.42) 2px 3px,
-    rgba(0, 0, 0, 0.18) 3.4px 4px,
-    transparent 4.4px
-  );
-  background-size: var(--insert-gap) var(--insert-gap);
-  background-position: calc(var(--insert-gap) / 2) calc(var(--insert-gap) / 2);
-}
-
-/* Contreplaqué : fil du bois très discret, joints de panneaux, inserts */
-.plywood {
-  --seam-x: calc(var(--insert-gap) * 12);
-  --seam-y: calc(var(--insert-gap) * 24);
-  background-color: var(--color-ply-800);
-  background-image:
-    radial-gradient(
+  /* Grille régulière des inserts de fixation (T-nuts) */
+  .inserts {
+    background-image: radial-gradient(
       circle at center,
       rgba(8, 7, 6, 0.95) 0 1.5px,
-      rgba(96, 88, 78, 0.4) 2px 3px,
-      rgba(0, 0, 0, 0.16) 3.4px 4px,
+      rgba(96, 88, 78, 0.42) 2px 3px,
+      rgba(0, 0, 0, 0.18) 3.4px 4px,
       transparent 4.4px
-    ),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.42) 0 1px, rgba(255, 240, 220, 0.04) 1px 2px, transparent 2px),
-    linear-gradient(180deg, rgba(0, 0, 0, 0.42) 0 1px, rgba(255, 240, 220, 0.04) 1px 2px, transparent 2px),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='672' height='672'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.003 0.09' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.62  0 0 0 0 0.55  0 0 0 0 0.46  0 0 0 0.09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
-  background-size:
-    var(--insert-gap) var(--insert-gap),
-    var(--seam-x) 100%,
-    100% var(--seam-y),
-    672px 672px;
-  background-position:
-    calc(var(--insert-gap) / 2) calc(var(--insert-gap) / 2),
-    0 0,
-    0 0,
-    0 0;
-}
-
-.plywood-raised {
-  background-color: var(--color-ply-700);
-}
-
-/* Joint entre deux panneaux de contreplaqué */
-.panel-seam {
-  box-shadow:
-    inset 0 1px 0 rgba(255, 245, 230, 0.05),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.45);
-}
-
-/* Grain global, très léger */
-.grain {
-  position: fixed;
-  inset: -50%;
-  width: 200%;
-  height: 200%;
-  pointer-events: none;
-  z-index: 90;
-  opacity: 0.07;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 0.97  0 0 0 0 0.92  0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 220px 220px;
-  animation: grain 0.9s steps(5) infinite;
-  will-change: transform;
-}
-
-@keyframes grain {
-  0% {
-    transform: translate3d(0, 0, 0);
+    );
+    background-size: var(--insert-gap) var(--insert-gap);
+    background-position: calc(var(--insert-gap) / 2) calc(var(--insert-gap) / 2);
   }
-  20% {
-    transform: translate3d(-3%, 2%, 0);
+
+  /* Contreplaqué : fil du bois très discret, joints de panneaux, inserts */
+  .plywood {
+    --seam-x: calc(var(--insert-gap) * 12);
+    --seam-y: calc(var(--insert-gap) * 24);
+    background-color: var(--color-ply-800);
+    background-image:
+      radial-gradient(
+        circle at center,
+        rgba(8, 7, 6, 0.95) 0 1.5px,
+        rgba(96, 88, 78, 0.4) 2px 3px,
+        rgba(0, 0, 0, 0.16) 3.4px 4px,
+        transparent 4.4px
+      ),
+      linear-gradient(90deg, rgba(0, 0, 0, 0.42) 0 1px, rgba(255, 240, 220, 0.04) 1px 2px, transparent 2px),
+      linear-gradient(180deg, rgba(0, 0, 0, 0.42) 0 1px, rgba(255, 240, 220, 0.04) 1px 2px, transparent 2px),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='672' height='672'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.003 0.09' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.62  0 0 0 0 0.55  0 0 0 0 0.46  0 0 0 0.09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+    background-size:
+      var(--insert-gap) var(--insert-gap),
+      var(--seam-x) 100%,
+      100% var(--seam-y),
+      672px 672px;
+    background-position:
+      calc(var(--insert-gap) / 2) calc(var(--insert-gap) / 2),
+      0 0,
+      0 0,
+      0 0;
   }
-  40% {
-    transform: translate3d(2%, -4%, 0);
+
+  .plywood-raised {
+    background-color: var(--color-ply-700);
   }
-  60% {
-    transform: translate3d(-4%, -1%, 0);
+
+  /* Joint entre deux panneaux de contreplaqué */
+  .panel-seam {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 245, 230, 0.05),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.45);
   }
-  80% {
-    transform: translate3d(3%, 3%, 0);
+
+  /* Grain global, très léger */
+  .grain {
+    position: fixed;
+    inset: -50%;
+    width: 200%;
+    height: 200%;
+    pointer-events: none;
+    z-index: 90;
+    opacity: 0.07;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 0.97  0 0 0 0 0.92  0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 220px 220px;
+    animation: grain 0.9s steps(5) infinite;
+    will-change: transform;
   }
-  100% {
-    transform: translate3d(0, 0, 0);
+
+  @keyframes grain {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    20% {
+      transform: translate3d(-3%, 2%, 0);
+    }
+    40% {
+      transform: translate3d(2%, -4%, 0);
+    }
+    60% {
+      transform: translate3d(-4%, -1%, 0);
+    }
+    80% {
+      transform: translate3d(3%, 3%, 0);
+    }
+    100% {
+      transform: translate3d(0, 0, 0);
+    }
   }
-}
 
-/* ------------------------ Typographie ------------------------- */
+  /* ------------------------ Typographie ------------------------- */
 
-.font-display {
-  font-family: var(--font-display);
-  font-weight: 900;
-  letter-spacing: -0.005em;
-  text-transform: uppercase;
-  line-height: 0.86;
-}
+  .font-display {
+    font-family: var(--font-display);
+    font-weight: 900;
+    letter-spacing: -0.005em;
+    text-transform: uppercase;
+    line-height: 0.86;
+  }
 
-.label-mono {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  line-height: 1.3;
-}
+  .label-mono {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    line-height: 1.3;
+  }
 
-.text-outline {
-  color: transparent;
-  -webkit-text-stroke: 1.5px currentColor;
-}
+  .text-outline {
+    color: transparent;
+    -webkit-text-stroke: 1.5px currentColor;
+  }
 
-/* Titres cinétiques : lettres qui montent ligne par ligne */
-.kt-line {
-  display: block;
-  overflow: clip;
-  overflow-clip-margin: 0.08em;
-  padding-block: 0.04em;
-  margin-block: -0.04em;
-}
-.kt-word {
-  display: inline-block;
-  white-space: nowrap;
-}
-.kt-char {
-  display: inline-block;
-  transform: translate3d(0, 112%, 0) rotate(4deg);
-  transform-origin: 0% 100%;
-  transition: transform 1s var(--ease-climb);
-  transition-delay: calc(var(--l, 0) * 110ms + var(--i, 0) * 16ms + var(--kt-delay, 0ms));
-  will-change: transform;
-}
-[data-kt-in='true'] .kt-char {
-  transform: translate3d(0, 0, 0) rotate(0deg);
-}
+  /* Titres cinétiques : lettres qui montent ligne par ligne */
+  .kt-line {
+    display: block;
+    overflow: clip;
+    overflow-clip-margin: 0.08em;
+    padding-block: 0.04em;
+    margin-block: -0.04em;
+  }
+  .kt-word {
+    display: inline-block;
+    white-space: nowrap;
+  }
+  .kt-char {
+    display: inline-block;
+    transform: translate3d(0, 112%, 0) rotate(4deg);
+    transform-origin: 0% 100%;
+    transition: transform 1s var(--ease-climb);
+    transition-delay: calc(var(--l, 0) * 110ms + var(--i, 0) * 16ms + var(--kt-delay, 0ms));
+    will-change: transform;
+  }
+  [data-kt-in='true'] .kt-char {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
 
-/* Compteurs mécaniques */
-.roll {
-  display: inline-flex;
-  align-items: baseline;
-  font-variant-numeric: tabular-nums;
-}
-.roll-digit {
-  --h: 1.04em;
-  display: inline-block;
-  position: relative;
-  height: var(--h);
-  overflow: clip;
-  vertical-align: bottom;
-  min-width: 0.5ch;
-}
-.roll-strip {
-  display: flex;
-  flex-direction: column;
-  transition: transform var(--roll-dur, 1.6s) var(--ease-out-expo);
-  transition-delay: var(--roll-delay, 0ms);
-  will-change: transform;
-}
-.roll-strip > span {
-  display: block;
-  height: var(--h);
-  line-height: var(--h);
-  text-align: center;
-}
+  /* Compteurs mécaniques */
+  .roll {
+    display: inline-flex;
+    align-items: baseline;
+    font-variant-numeric: tabular-nums;
+  }
+  .roll-digit {
+    --h: 1.04em;
+    display: inline-block;
+    position: relative;
+    height: var(--h);
+    overflow: clip;
+    vertical-align: bottom;
+    min-width: 0.5ch;
+  }
+  .roll-strip {
+    display: flex;
+    flex-direction: column;
+    transition: transform var(--roll-dur, 1.6s) var(--ease-out-expo);
+    transition-delay: var(--roll-delay, 0ms);
+    will-change: transform;
+  }
+  .roll-strip > span {
+    display: block;
+    height: var(--h);
+    line-height: var(--h);
+    text-align: center;
+  }
 
-/* ------------------- Cartes de départ (tape) ------------------- */
+  /* ------------------- Cartes de départ (tape) ------------------- */
 
-.tape {
-  position: absolute;
-  width: 46px;
-  height: 16px;
-  background: rgba(229, 220, 196, 0.55);
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
-  clip-path: polygon(
-    3% 8%,
-    12% 0,
-    24% 10%,
-    38% 2%,
-    52% 9%,
-    66% 0,
-    80% 8%,
-    92% 1%,
-    100% 12%,
-    97% 90%,
-    86% 100%,
-    72% 92%,
-    58% 100%,
-    44% 91%,
-    30% 100%,
-    16% 92%,
-    4% 100%,
-    0 86%
-  );
-  backdrop-filter: none;
-}
+  .tape {
+    position: absolute;
+    width: 46px;
+    height: 16px;
+    background: rgba(229, 220, 196, 0.55);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+    clip-path: polygon(
+      3% 8%,
+      12% 0,
+      24% 10%,
+      38% 2%,
+      52% 9%,
+      66% 0,
+      80% 8%,
+      92% 1%,
+      100% 12%,
+      97% 90%,
+      86% 100%,
+      72% 92%,
+      58% 100%,
+      44% 91%,
+      30% 100%,
+      16% 92%,
+      4% 100%,
+      0 86%
+    );
+    backdrop-filter: none;
+  }
 
-/* ------------------------- Divers UI --------------------------- */
+  /* ------------------------- Divers UI --------------------------- */
 
-.hairline {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(243, 239, 232, 0.18) 12%, rgba(243, 239, 232, 0.18) 88%, transparent);
-}
+  .hairline {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(243, 239, 232, 0.18) 12%, rgba(243, 239, 232, 0.18) 88%, transparent);
+  }
 
-.scrim-top {
-  background: linear-gradient(180deg, rgba(20, 18, 16, 0.92) 0%, rgba(20, 18, 16, 0.55) 55%, rgba(20, 18, 16, 0) 100%);
-}
+  .scrim-top {
+    background: linear-gradient(180deg, rgba(20, 18, 16, 0.92) 0%, rgba(20, 18, 16, 0.55) 55%, rgba(20, 18, 16, 0) 100%);
+  }
 
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.no-scrollbar {
-  scrollbar-width: none;
-}
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
 
-/* Curseurs (input range) : base, le style fin est dans le composant */
-input[type='range'] {
-  -webkit-appearance: none;
-  appearance: none;
-  background: transparent;
+  /* Curseurs (input range) : base, le style fin est dans le composant */
+  input[type='range'] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+  }
 }
 
 /* Mouvement réduit : on coupe tout ce qui bouge */
@@ -425,5 +431,37 @@ html[data-motion='reduce'] .grain {
   }
   100% {
     background-color: transparent;
+  }
+}
+
+/* Éprouvettes du marché : surface du liquide et bulles */
+@keyframes waveSlide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes bubbleRise {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.6);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate3d(var(--dx, 4px), calc(-1 * var(--rise, 200px)), 0) scale(1);
+    opacity: 0;
+  }
+}
+@layer components {
+  .liquid-wave {
+    animation: waveSlide var(--wave-dur, 6s) linear infinite;
+  }
+  .liquid-bubble {
+    animation: bubbleRise var(--dur, 4s) cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    animation-delay: var(--delay, 0s);
   }
 }
