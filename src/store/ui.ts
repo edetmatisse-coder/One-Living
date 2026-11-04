@@ -23,6 +23,7 @@ interface UIState {
   videoActive: boolean;
   videoPlaying: boolean;
   videoTime: number;
+  videoEnded: boolean;
 
   transition: { phase: TransitionPhase; to: string | null; label: string; sub: string; color: string };
 
@@ -33,7 +34,7 @@ interface UIState {
   setPresentation: (on: boolean) => void;
   toggleNotes: () => void;
   setSlide: (i: number) => void;
-  setVideo: (patch: Partial<Pick<UIState, 'videoActive' | 'videoPlaying' | 'videoTime'>>) => void;
+  setVideo: (patch: Partial<Pick<UIState, 'videoActive' | 'videoPlaying' | 'videoTime' | 'videoEnded'>>) => void;
   setTransition: (patch: Partial<UIState['transition']>) => void;
 }
 
@@ -53,6 +54,7 @@ export const useUI = create<UIState>((set) => ({
   videoActive: false,
   videoPlaying: false,
   videoTime: 0,
+  videoEnded: false,
 
   transition: { phase: 'idle', to: null, label: '', sub: '', color: '#F2B705' },
 
@@ -66,9 +68,10 @@ export const useUI = create<UIState>((set) => ({
   setClimb: (v) => set({ climb: v }),
   resetClimb: () => set({ climb: 0, reachedIndex: -1, activeIndex: 0, activeId: null }),
   toggleSound: () => set((s) => ({ soundOn: !s.soundOn })),
-  setPresentation: (on) => set({ presentation: on, notesOpen: on ? false : false }),
+  setPresentation: (on) => set({ presentation: on, notesOpen: false }),
   toggleNotes: () => set((s) => ({ notesOpen: !s.notesOpen })),
   setSlide: (i) => set({ slideIndex: i }),
-  setVideo: (patch) => set(patch),
+  // relancer le mode vidéo remet l'état « terminé » à zéro
+  setVideo: (patch) => set(patch.videoActive ? { videoEnded: false, ...patch } : patch),
   setTransition: (patch) => set((s) => ({ transition: { ...s.transition, ...patch } })),
 }));

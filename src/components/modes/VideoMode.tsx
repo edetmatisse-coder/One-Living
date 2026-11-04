@@ -114,7 +114,7 @@ export function VideoMode() {
   const tlRef = useRef<gsap.core.Timeline | null>(null);
   const barRef = useRef<HTMLDivElement>(null);
   const [time, setTime] = useState(0);
-  const [ended, setEnded] = useState(false);
+  const ended = useUI((s) => s.videoEnded);
   const [chrome, setChrome] = useState(true);
 
   // lancement et arrêt
@@ -131,15 +131,11 @@ export function VideoMode() {
     useSim.getState().applyPreset('salle-type', 0);
     useEco.getState().setSetId('nos-poids');
     setScroll(0);
-    setEnded(false);
     let tl: gsap.core.Timeline | null = null;
     const t = window.setTimeout(() => {
       ScrollTrigger.refresh();
       lenis?.stop();
-      tl = buildTimeline(() => {
-        setEnded(true);
-        useUI.getState().setVideo({ videoPlaying: false });
-      });
+      tl = buildTimeline(() => useUI.getState().setVideo({ videoPlaying: false, videoEnded: true }));
       tlRef.current = tl;
       // accroche de test : vitesse de lecture réglable (scripts de contrôle)
       (window as unknown as { __olVideo?: gsap.core.Timeline }).__olVideo = tl;
