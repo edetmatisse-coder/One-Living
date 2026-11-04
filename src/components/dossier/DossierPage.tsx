@@ -14,6 +14,8 @@ import { Hero } from './Hero';
 import { Probleme } from './Probleme';
 import { Marque } from './Marque';
 import { Marche } from './Marche';
+import { Matrice } from './Matrice';
+import { Simulateur } from './Simulateur';
 import { WallFallback } from '@/components/three/WallFallback';
 
 const WallCanvas = dynamic(() => import('@/components/three/wall/WallScene'), { ssr: false });
@@ -52,7 +54,16 @@ export function DossierPage() {
         <Probleme meta={S.probleme} />
         <Marque meta={S.marque} />
         <Marche meta={S.marche} />
-        {DOSSIER_SECTIONS.slice(4).map((meta) => (
+        <Matrice meta={S.matrice} />
+        {DOSSIER_SECTIONS.slice(5, 6).map((meta) => (
+          <Section key={meta.id} meta={meta} title={TITLES[meta.id]}>
+            <SectionInner>
+              <p className="max-w-[60ch] text-dust">Contenu de la section « {meta.title} » : en construction.</p>
+            </SectionInner>
+          </Section>
+        ))}
+        <Simulateur meta={S.simulateur} />
+        {DOSSIER_SECTIONS.slice(7).map((meta) => (
           <Section key={meta.id} meta={meta} title={TITLES[meta.id]}>
             <SectionInner>
               <p className="max-w-[60ch] text-dust">Contenu de la section « {meta.title} » : en construction.</p>

@@ -465,3 +465,69 @@ html[data-motion='reduce'] .grain {
     animation-delay: var(--delay, 0s);
   }
 }
+
+/* Curseurs des outils : rail ponctué d'inserts, poignée en forme de prise */
+@layer components {
+  .range {
+    --pct: 50%;
+    height: 30px;
+    cursor: pointer;
+    background: transparent;
+  }
+  .range:focus-visible {
+    outline: none;
+  }
+  .range::-webkit-slider-runnable-track {
+    height: 6px;
+    border-radius: 3px;
+    background:
+      radial-gradient(circle, rgba(10, 9, 8, 0.85) 0 1px, transparent 1.4px) 0 50% / 12px 6px repeat-x,
+      linear-gradient(90deg, var(--route) 0 var(--pct), rgba(243, 239, 232, 0.12) var(--pct) 100%);
+  }
+  .range::-moz-range-track {
+    height: 6px;
+    border-radius: 3px;
+    background: rgba(243, 239, 232, 0.12);
+  }
+  .range::-moz-range-progress {
+    height: 6px;
+    border-radius: 3px;
+    background: var(--route);
+  }
+  .range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 26px;
+    height: 26px;
+    margin-top: -10px;
+    border: 0;
+    background: url('data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 40 40%27%3E%3Cpath d=%27M7.5 24.2C5.6 16.1 11.6 7.6 20.8 7.6c9.1 0 14.6 6.1 13.6 13.4-.5 3.8-3 6-6 6-3.1 0-4.2-2.7-8-2.7-3.9 0-5.1 4.6-9 4.6-2.2 0-3.4-1.6-3.9-4.7z%27 fill=%27%23F3EFE8%27 stroke=%27%23141210%27 stroke-opacity=%27.6%27 stroke-width=%271.4%27/%3E%3Ccircle cx=%2720%27 cy=%2716.5%27 r=%272.8%27 fill=%27%23141210%27/%3E%3C/svg%3E')
+      center / contain no-repeat;
+    filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.55));
+    transition: transform 0.25s var(--ease-climb);
+  }
+  .range::-moz-range-thumb {
+    width: 26px;
+    height: 26px;
+    border: 0;
+    background: url('data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 40 40%27%3E%3Cpath d=%27M7.5 24.2C5.6 16.1 11.6 7.6 20.8 7.6c9.1 0 14.6 6.1 13.6 13.4-.5 3.8-3 6-6 6-3.1 0-4.2-2.7-8-2.7-3.9 0-5.1 4.6-9 4.6-2.2 0-3.4-1.6-3.9-4.7z%27 fill=%27%23F3EFE8%27 stroke=%27%23141210%27 stroke-opacity=%27.6%27 stroke-width=%271.4%27/%3E%3Ccircle cx=%2720%27 cy=%2716.5%27 r=%272.8%27 fill=%27%23141210%27/%3E%3C/svg%3E')
+      center / contain no-repeat;
+    transition: transform 0.25s var(--ease-climb);
+  }
+  .range:hover::-webkit-slider-thumb,
+  .range:focus-visible::-webkit-slider-thumb {
+    transform: scale(1.18) rotate(-8deg);
+  }
+  .range:active::-webkit-slider-thumb {
+    transform: scale(1.28) rotate(-14deg);
+  }
+  .range:hover::-moz-range-thumb,
+  .range:focus-visible::-moz-range-thumb {
+    transform: scale(1.18) rotate(-8deg);
+  }
+  .range:focus-visible::-webkit-slider-runnable-track {
+    box-shadow:
+      0 0 0 2px var(--color-ply-800),
+      0 0 0 4px var(--route);
+  }
+}

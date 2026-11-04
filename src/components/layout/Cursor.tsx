@@ -195,12 +195,12 @@ export function Cursor() {
           <svg width="26" height="26" viewBox="0 0 40 40" style={{ overflow: 'visible' }}>
             <path
               d="M7.5 24.2C5.6 16.1 11.6 7.6 20.8 7.6c9.1 0 14.6 6.1 13.6 13.4-.5 3.8-3 6-6 6-3.1 0-4.2-2.7-8-2.7-3.9 0-5.1 4.6-9 4.6-2.2 0-3.4-1.6-3.9-4.7z"
-              fill={hover ? color : '#F3EFE8'}
-              stroke="rgba(15,14,12,.55)"
-              strokeWidth={1.2}
-              style={{ transition: 'fill .3s' }}
+              fill={hover ? 'rgba(20,18,16,0.08)' : '#F3EFE8'}
+              stroke={hover ? color : 'rgba(15,14,12,.55)'}
+              strokeWidth={hover ? 1.6 : 1.2}
+              style={{ transition: 'fill .3s, stroke .3s' }}
             />
-            <circle cx="20" cy="17" r="2.6" fill="#141210" />
+            <circle cx="20" cy="17" r={hover ? 1.4 : 2.6} fill={hover ? color : '#141210'} style={{ transition: 'r .3s' }} />
           </svg>
         </div>
         {label && (
