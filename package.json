@@ -2,7 +2,7 @@
   "name": "one-living-escalade",
   "version": "1.0.0",
   "private": true,
-  "description": "One Living × Escalade : dossier interactif et maquette de campagne (projet étudiant WIN Sport School, présentation locale).",
+  "description": "One Living × Escalade : maquette du site de la campagne « Après la voie » (projet étudiant WIN Sport School, présentation locale).",
   "engines": {
     "node": ">=20.9.0"
   },
@@ -11,26 +11,18 @@
     "build": "next build",
     "start": "node scripts/serve.mjs",
     "present": "next build && node scripts/serve.mjs --open",
-    "export": "next build",
     "serve:out": "node scripts/serve.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "screens": "node scripts/screenshots.mjs",
-    "fallbacks": "node scripts/render-fallbacks.mjs"
+    "screens": "node scripts/screenshots.mjs"
   },
   "dependencies": {
-    "@gsap/react": "2.1.2",
     "@react-three/drei": "10.7.9",
     "@react-three/fiber": "9.8.2",
-    "@react-three/postprocessing": "3.2.2",
-    "@react-three/rapier": "2.2.0",
-    "framer-motion": "14.9.1",
-    "gsap": "3.15.1",
     "lenis": "1.3.27",
     "next": "16.4.5",
-    "postprocessing": "6.39.6",
     "react": "19.3.1",
     "react-dom": "19.3.1",
     "three": "0.182.0",

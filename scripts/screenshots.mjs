@@ -3,7 +3,7 @@
  * Captures de contrôle (Playwright) à 1440 px et 390 px de large.
  *
  *   node scripts/screenshots.mjs [--url http://localhost:3000] [--out screenshots/run]
- *                                [--pages /,/campagne/] [--steps 14] [--full] [--motion reduce]
+ *                                [--pages /] [--steps 14] [--full] [--motion reduce]
  *
  * Pour chaque page et chaque largeur : on fait défiler la page par paliers
  * (molette, comme un visiteur) et on capture la fenêtre à chaque palier.
@@ -23,7 +23,7 @@ const opt = (name, def) => {
 
 const base = opt('url', 'http://localhost:3000');
 const out = opt('out', `screenshots/${new Date().toISOString().replace(/[:.]/g, '-')}`);
-const pages = String(opt('pages', '/,/campagne/')).split(',');
+const pages = String(opt('pages', '/')).split(',');
 const steps = Number(opt('steps', 14));
 const full = !!opt('full', false);
 const motion = opt('motion', 'full');

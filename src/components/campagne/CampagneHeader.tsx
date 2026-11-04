@@ -1,8 +1,7 @@
 'use client';
 
-import { TransitionLink } from '@/components/layout/PageTransition';
-import { ModeControls } from '@/components/layout/ModeControls';
-import { OneLivingMark } from '@/components/layout/DossierHeader';
+import { OneLivingMark } from '@/components/ui/OneLivingMark';
+import { IconSound } from '@/components/ui/Icons';
 import { useUI } from '@/store/ui';
 import { scrollToElement } from '@/lib/scroll';
 
@@ -10,42 +9,39 @@ const NAV = [
   { id: 'concept', label: 'Le moment' },
   { id: 'gamme', label: 'La gamme' },
   { id: 'salles', label: 'Les salles' },
-  { id: 'one-giving', label: 'One Giving' },
+  { id: 'pour-les-salles', label: 'Pour les salles' },
   { id: 'faq', label: 'FAQ' },
 ];
 
 /**
- * En-tête de la maquette publique « Après la voie ». Un bandeau discret
- * rappelle qu'il s'agit d'une maquette et permet de revenir au Dossier.
+ * En-tête du site « Après la voie ». Un bandeau discret rappelle qu'il
+ * s'agit d'une maquette étudiante.
  */
 export function CampagneHeader() {
-  const presentation = useUI((s) => s.presentation);
-  if (presentation) return null;
+  const soundOn = useUI((s) => s.soundOn);
+  const toggleSound = useUI((s) => s.toggleSound);
   return (
     <header className="fixed inset-x-0 top-0 z-50">
       <div className="relative flex h-8 items-center justify-between gap-4 bg-chalk px-[var(--gutter)] text-ply-900">
         <span className="label-mono text-[10px]">
           Maquette<span className="hidden sm:inline"> · aucune donnée réelle n’est collectée</span>
         </span>
-        <TransitionLink
-          href="/"
-          label="Le dossier"
-          sub="One Living × Escalade · Dossier interactif"
-          color="#F2B705"
-          className="label-mono inline-flex items-center gap-2 text-[10px] underline-offset-4 hover:underline"
-        >
-          Retour au Dossier
-        </TransitionLink>
+        <span className="label-mono hidden text-[10px] sm:inline">Projet étudiant WIN Sport School</span>
       </div>
       <div className="relative flex h-[var(--header-h)] items-center justify-between gap-6 px-[var(--gutter)]">
         <div aria-hidden className="scrim-top pointer-events-none absolute inset-0 h-[140%]" />
-        <div className="relative flex items-center gap-4">
+        <button
+          type="button"
+          onClick={() => scrollToElement('apres-la-voie', { duration: 1.6 })}
+          className="relative flex items-center gap-4"
+          aria-label="Revenir en haut de la page"
+        >
           <OneLivingMark />
           <span className="hidden h-5 w-px bg-chalk/20 sm:block" />
           <span className="font-display hidden text-[20px] leading-none text-chalk sm:block" style={{ fontWeight: 800 }}>
             Après la voie
           </span>
-        </div>
+        </button>
         <nav aria-label="Rubriques" className="relative hidden lg:block">
           <ul className="flex items-center gap-7">
             {NAV.map((n) => (
@@ -61,9 +57,17 @@ export function CampagneHeader() {
             ))}
           </ul>
         </nav>
-        <div className="relative">
-          <ModeControls video={false} compact />
-        </div>
+        <button
+          type="button"
+          onClick={toggleSound}
+          aria-pressed={soundOn}
+          aria-label={soundOn ? 'Couper le son' : 'Activer le son'}
+          data-cursor-label={soundOn ? 'Couper le son' : 'Activer le son'}
+          className="relative inline-flex h-9 items-center gap-2 rounded-[4px] border border-chalk/15 bg-ply-900/50 px-3 text-[13px] font-medium text-chalk-dim transition-colors hover:border-chalk/50 hover:text-chalk"
+        >
+          <IconSound on={soundOn} />
+          <span className="hidden xl:inline">{soundOn ? 'Son' : 'Son coupé'}</span>
+        </button>
       </div>
     </header>
   );

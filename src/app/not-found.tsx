@@ -4,7 +4,7 @@ import { Hold } from '@/components/ui/Hold';
 import { Arrow } from '@/components/ui/Button';
 
 export const metadata: Metadata = {
-  title: 'Hors voie · One Living × Escalade',
+  title: 'Hors voie · Après la voie',
 };
 
 /** Page 404 : la voie s'arrête ici, on redescend au départ. */
@@ -25,16 +25,10 @@ export default function NotFound() {
             href="/"
             className="group inline-flex items-center gap-3 rounded-[4px] bg-yellow px-5 py-3.5 text-[15px] font-semibold text-ply-900"
           >
-            Le Dossier
+            Revenir à l’accueil
             <span className="transition-transform duration-300 group-hover:translate-x-1">
               <Arrow />
             </span>
-          </Link>
-          <Link
-            href="/campagne/"
-            className="group inline-flex items-center gap-3 rounded-[4px] border border-chalk/25 px-5 py-3.5 text-[15px] font-semibold text-chalk hover:border-chalk/70"
-          >
-            La campagne « Après la voie »
           </Link>
         </div>
         <p className="label-mono mt-16 text-[10.5px] text-dust">Projet étudiant WIN Sport School, non affilié à One Living, présentation locale</p>

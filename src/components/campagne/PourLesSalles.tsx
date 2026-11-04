@@ -2,15 +2,13 @@
 
 import { useState, type FormEvent } from 'react';
 import type { SectionMeta } from '@/data/sections';
-import { SIM_PRESETS } from '@/data/economics';
-import { margeSalle, margeSalleUnitaire } from '@/lib/economics';
+import { SALLE_TYPE as SALLE } from '@/data/campagne';
+import { margeAnnuelle, margeUnitaire } from '@/lib/salle';
 import { fmtEuro, fmtNumber } from '@/lib/format';
 import { Section, SectionInner } from '@/components/layout/Section';
 import { Badge } from '@/components/ui/Badge';
 import { Hold } from '@/components/ui/Hold';
 import { Button } from '@/components/ui/Button';
-
-const SALLE = SIM_PRESETS[0].inputs;
 
 const BENEFITS = [
   { kind: 'jug' as const, title: 'Frigo prêté', text: 'Prêté par One Living et installé au bar, aux couleurs de la campagne.' },
@@ -27,8 +25,8 @@ const FIELDS = [
 /** Le discours aux salles : la recette du bar, et un formulaire de démo. */
 export function PourLesSalles({ meta }: { meta: SectionMeta }) {
   const [sent, setSent] = useState(false);
-  const unit = margeSalleUnitaire(SALLE);
-  const year = margeSalle(SALLE);
+  const unit = margeUnitaire(SALLE);
+  const year = margeAnnuelle(SALLE);
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault(); // démo : rien ne part

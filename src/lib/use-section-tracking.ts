@@ -34,7 +34,6 @@ export function useSectionTracking(enabled = true) {
     let lastIndex = -1;
     const update = () => {
       raf = 0;
-      if (useUI.getState().presentation) return;
       const probe = currentScroll() + window.innerHeight / 2;
       let climb = 0;
       const n = anchors.length;

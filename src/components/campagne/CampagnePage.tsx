@@ -10,7 +10,6 @@ import { Gamme } from './Gamme';
 import { Histoire } from './Histoire';
 import { Salles } from './Salles';
 import { VoieDuMois } from './VoieDuMois';
-import { OneGiving } from './OneGiving';
 import { Grimpeurs } from './Grimpeurs';
 import { PourLesSalles } from './PourLesSalles';
 import { Faq } from './Faq';
@@ -30,12 +29,11 @@ export function CampagnePage() {
         <Histoire meta={S.histoire} />
         <Salles meta={S.salles} />
         <VoieDuMois meta={S['voie-du-mois']} />
-        <OneGiving meta={S['one-giving']} />
         <Grimpeurs meta={S.grimpeurs} />
         <PourLesSalles meta={S['pour-les-salles']} />
         <Faq meta={S.faq} />
       </main>
-      <Footer variant="campagne" />
+      <Footer />
     </>
   );
 }

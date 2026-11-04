@@ -3,13 +3,12 @@
 import { useState, type CSSProperties } from 'react';
 import type { SectionMeta } from '@/data/sections';
 import { ROUTE_COLORS } from '@/data/routes';
-import { FLAVORS, GYMS } from '@/data/campagne';
+import { GYMS, PRODUCT_BY_ID } from '@/data/campagne';
 import { Section, SectionInner } from '@/components/layout/Section';
 import { WestMap, type MapPoint } from '@/components/ui/WestMap';
 import { Badge } from '@/components/ui/Badge';
 import { Hold } from '@/components/ui/Hold';
 
-const FLAVOR_BY_ID = Object.fromEntries(FLAVORS.map((f) => [f.id, f]));
 
 /** Trouver une salle : carte stylisée de l'Ouest, fiches fictives au clic. */
 export function Salles({ meta }: { meta: SectionMeta }) {
@@ -76,12 +75,12 @@ export function Salles({ meta }: { meta: SectionMeta }) {
                   <dd className="font-medium">Frigo One Living, bouteilles à 3,50 €</dd>
                 </div>
                 <div className="grid grid-cols-[120px_1fr] gap-3">
-                  <dt className="text-ply-500">Parfums</dt>
+                  <dt className="text-ply-500">Au frigo</dt>
                   <dd className="flex flex-wrap gap-1.5">
                     {gym.flavors.map((id) => (
                       <span key={id} className="inline-flex items-center gap-1.5 rounded-full bg-ply-900/[0.06] px-2.5 py-1 text-[13px] font-medium">
-                        <span className="h-2.5 w-2.5 rounded-full" style={{ background: ROUTE_COLORS[FLAVOR_BY_ID[id].route] }} />
-                        {FLAVOR_BY_ID[id].short}
+                        <span className="h-2.5 w-2.5 rounded-full" style={{ background: ROUTE_COLORS[PRODUCT_BY_ID[id].route] }} />
+                        {PRODUCT_BY_ID[id].short}
                       </span>
                     ))}
                   </dd>

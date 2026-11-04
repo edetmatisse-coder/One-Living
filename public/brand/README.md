@@ -1,21 +1,13 @@
-# Visuels de marque attendus
+# Visuels
 
-Déposez ici les fichiers fournis par la marque et par l'école. Le site les détecte
-au démarrage (`npm run dev`) et au build (`npm run build`). Tant qu'un fichier
-manque, un emplacement propre s'affiche à sa place.
+| Fichier | Contenu | État |
+| --- | --- | --- |
+| `logo-one-living.png` | Logo One Living | Repris de oneliving.com |
+| `produits/` | Photos et étiquettes déroulées des 10 boissons | Repris de oneliving.com (voir `scripts/extract-products.py`) |
+| `photo-salle.jpg` | Photo de la bouteille dans une salle d'escalade, pour le haut de page | À fournir |
+| `logo-win.png` | Logo WIN Sport School, pour le pied de page | À fournir |
 
-Formats acceptés pour chaque nom : `.svg`, `.png`, `.webp`, `.jpg`, `.jpeg`.
+Formats acceptés pour `photo-salle` et `logo-win` : `.svg`, `.png`, `.webp`, `.jpg`, `.jpeg`.
+Après un ajout, relancer `npm run build` puis `npm run start`.
 
-| Fichier (sans extension)          | Contenu                                  | Utilisé dans |
-| --------------------------------- | ---------------------------------------- | ------------ |
-| `logo-one-living`                 | Logo One Living (fond transparent)       | En-têtes, étiquette de la bouteille 3D |
-| `logo-win`                        | Logo WIN Sport School                    | Pieds de page |
-| `bouteille-gingembre-curcuma`     | Visuel produit, détouré                  | Campagne, gamme |
-| `bouteille-framboise-grenade`     | Visuel produit, détouré                  | Campagne, gamme |
-| `bouteille-passion-goji`          | Visuel produit, détouré                  | Campagne, gamme |
-| `bouteille-mangue-citron-vert`    | Visuel produit, détouré                  | Campagne, gamme |
-| `etiquette-gingembre-curcuma`     | Étiquette à plat (environ 3:1)           | Texture de la bouteille 3D |
-| `etiquette-framboise-grenade`     | Étiquette à plat (environ 3:1)           | Texture de la bouteille 3D |
-| `etiquette-passion-goji`          | Étiquette à plat (environ 3:1)           | Texture de la bouteille 3D |
-| `etiquette-mangue-citron-vert`    | Étiquette à plat (environ 3:1)           | Texture de la bouteille 3D |
-| `shots`                           | Visuel des 3 shots                       | Campagne, bloc « Les shots » |
+Les visuels de One Living appartiennent à la marque et ne servent qu'à cette présentation locale.

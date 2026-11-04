@@ -1,5 +1,5 @@
-import { DossierPage } from '@/components/dossier/DossierPage';
+import { CampagnePage } from '@/components/campagne/CampagnePage';
 
 export default function Page() {
-  return <DossierPage />;
+  return <CampagnePage />;
 }

@@ -5,9 +5,9 @@ import { Providers } from '@/components/layout/Providers';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'One Living × Escalade · Dossier interactif',
+  title: 'Après la voie · One Living × Escalade',
   description:
-    'Projet étudiant WIN Sport School : développer One Living dans le sport amateur hors rugby. Dossier interactif et maquette de la campagne « Après la voie ».',
+    'Maquette du site de la campagne « Après la voie » : One Living dans les salles d’escalade. Projet étudiant WIN Sport School, non affilié à One Living.',
   robots: { index: false, follow: false },
 };
 

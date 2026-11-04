@@ -3,12 +3,11 @@
 import type { CSSProperties } from 'react';
 import type { SectionMeta } from '@/data/sections';
 import { ROUTE_COLORS } from '@/data/routes';
-import { CLIMBERS, FLAVORS } from '@/data/campagne';
+import { CLIMBERS, FORMAT_BY_ID, PRODUCT_BY_ID } from '@/data/campagne';
 import { Section, SectionInner } from '@/components/layout/Section';
 import { Badge } from '@/components/ui/Badge';
 import { Hold, type HoldKind } from '@/components/ui/Hold';
 
-const FLAVOR_BY_ID = Object.fromEntries(FLAVORS.map((f) => [f.id, f]));
 const KINDS: HoldKind[] = ['sloper', 'jug', 'pinch'];
 
 /** Portrait abstrait : des prises qui dessinent une silhouette, sans photo. */
@@ -34,7 +33,7 @@ export function Grimpeurs({ meta }: { meta: SectionMeta }) {
       <SectionInner>
         <div className="grid gap-6 md:grid-cols-3 md:items-start">
           {CLIMBERS.map((c, i) => {
-            const f = FLAVOR_BY_ID[c.flavor];
+            const f = PRODUCT_BY_ID[c.flavor];
             const color = ROUTE_COLORS[f.route];
             return (
               <article
@@ -58,10 +57,11 @@ export function Grimpeurs({ meta }: { meta: SectionMeta }) {
                 <p className={`mt-5 text-[16px] leading-relaxed ${i === 1 ? 'text-ply-800' : 'text-chalk-dim'}`}>{c.text}</p>
                 <dl className={`mt-6 grid gap-3 border-t pt-5 text-[14px] ${i === 1 ? 'border-ply-900/10' : 'border-chalk/10'}`}>
                   <div className="flex items-center justify-between gap-3">
-                    <dt className={i === 1 ? 'text-ply-500' : 'text-dust'}>Parfum préféré</dt>
+                    <dt className={i === 1 ? 'text-ply-500' : 'text-dust'}>Sa boisson</dt>
                     <dd className="flex items-center gap-2 font-semibold">
                       <span className="h-3 w-3 rounded-full" style={{ background: color }} />
                       {f.name}
+                      <span className="font-normal opacity-60">· {FORMAT_BY_ID[f.format].label.toLowerCase()}</span>
                     </dd>
                   </div>
                   <div className="flex items-center justify-between gap-3">

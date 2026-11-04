@@ -11,8 +11,8 @@ interface Props {
 }
 
 /**
- * Renvoi vers la liste des sources du Dossier. Au clic, on descend jusqu'à
- * la source et elle s'allume un instant.
+ * Renvoi vers une source, ouverte dans un nouvel onglet. Si la page contient
+ * une liste de sources, on descend jusqu'à elle et elle s'allume un instant.
  */
 export function SourceChip({ id, withLabel = false, className = '' }: Props) {
   const s = SOURCE_BY_ID[id];
