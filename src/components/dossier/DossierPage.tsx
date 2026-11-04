@@ -8,7 +8,6 @@ import { useCapabilities } from '@/lib/device';
 import { DossierHeader } from '@/components/layout/DossierHeader';
 import { SideRoute } from '@/components/layout/SideRoute';
 import { Footer } from '@/components/layout/Footer';
-import { Section, SectionInner } from '@/components/layout/Section';
 import { useSectionTracking } from '@/lib/use-section-tracking';
 import { Hero } from './Hero';
 import { Probleme } from './Probleme';
@@ -16,25 +15,17 @@ import { Marque } from './Marque';
 import { Marche } from './Marche';
 import { Matrice } from './Matrice';
 import { Simulateur } from './Simulateur';
+import { Escalade } from './Escalade';
+import { Moments } from './Moments';
+import { Poc } from './Poc';
+import { Indicateurs } from './Indicateurs';
+import { Sources } from './Sources';
 import { WallFallback } from '@/components/three/WallFallback';
 
 const WallCanvas = dynamic(() => import('@/components/three/wall/WallScene'), { ssr: false });
 const COLORS = DOSSIER_SECTIONS.map((s) => ROUTE_COLORS[s.route]);
 
 const S = Object.fromEntries(DOSSIER_SECTIONS.map((s) => [s.id, s]));
-
-const TITLES: Record<string, string[]> = {
-  probleme: ['Hors du rugby,', 'trois prises', 'à tenir'],
-  marque: ['De No.1', 'à One'],
-  marche: ['Un marché', 'en fermentation'],
-  matrice: ['16 sports,', '4 gagnants'],
-  escalade: ['Un seul sport :', 'l’escalade'],
-  simulateur: ['Combien rapporte', 'une salle ?'],
-  moments: ['Trois moments', 'déjà là'],
-  poc: ['Le POC', 'en R2 Ouest'],
-  indicateurs: ['Quatre chiffres', 'pour décider'],
-  sources: ['Sources', 'et hypothèses'],
-};
 
 export function DossierPage() {
   useSectionTracking();
@@ -55,21 +46,12 @@ export function DossierPage() {
         <Marque meta={S.marque} />
         <Marche meta={S.marche} />
         <Matrice meta={S.matrice} />
-        {DOSSIER_SECTIONS.slice(5, 6).map((meta) => (
-          <Section key={meta.id} meta={meta} title={TITLES[meta.id]}>
-            <SectionInner>
-              <p className="max-w-[60ch] text-dust">Contenu de la section « {meta.title} » : en construction.</p>
-            </SectionInner>
-          </Section>
-        ))}
+        <Escalade meta={S.escalade} />
         <Simulateur meta={S.simulateur} />
-        {DOSSIER_SECTIONS.slice(7).map((meta) => (
-          <Section key={meta.id} meta={meta} title={TITLES[meta.id]}>
-            <SectionInner>
-              <p className="max-w-[60ch] text-dust">Contenu de la section « {meta.title} » : en construction.</p>
-            </SectionInner>
-          </Section>
-        ))}
+        <Moments meta={S.moments} />
+        <Poc meta={S.poc} />
+        <Indicateurs meta={S.indicateurs} />
+        <Sources meta={S.sources} />
       </main>
       <Footer variant="dossier" />
     </>

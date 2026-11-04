@@ -5,7 +5,7 @@ import { useSyncExternalStore } from 'react';
 /**
  * Capacités de l'appareil, lues côté client uniquement.
  * `?motion=reduce` force le mode mouvement réduit (captures, tests),
- * `?quality=low` force la 3D allégée.
+ * `?quality=low` force la 3D allégée, `?3d=off` coupe la 3D (fonds fixes).
  */
 export interface Capabilities {
   ready: boolean;
@@ -47,7 +47,7 @@ function compute(): Capabilities {
     (forcedMotion !== 'full' && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   const touch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
   const mobile = window.innerWidth < 768;
-  const webgl = detectWebGL();
+  const webgl = params.get('3d') !== 'off' && detectWebGL();
   const lowMemory = typeof navigator !== 'undefined' && 'deviceMemory' in navigator && (navigator as Navigator & { deviceMemory?: number }).deviceMemory! < 4;
   const tier: Capabilities['tier'] =
     forcedQuality === 'low' ? 'low' : forcedQuality === 'high' ? 'high' : mobile || touch || lowMemory ? 'low' : 'high';
