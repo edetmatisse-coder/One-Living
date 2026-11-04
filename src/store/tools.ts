@@ -2,7 +2,7 @@
 
 import { create } from 'zustand';
 import { SCENARIOS } from '@/data/sports';
-import { SIM_PRESETS, type PosInputs } from '@/data/economics';
+import { SIM_FIELDS, SIM_PRESETS, type PosInputs } from '@/data/economics';
 
 /**
  * État des deux outils, partagé avec le mode vidéo (qui les manipule tout
@@ -87,6 +87,8 @@ interface SimState {
   inputs: PosInputs;
   preset: string | null;
   setField: (key: keyof PosInputs, v: number) => void;
+  /** fait glisser un curseur jusqu'à une valeur (mode vidéo) */
+  animateField: (key: keyof PosInputs, v: number, ms?: number) => void;
   applyPreset: (id: string, animateMs?: number) => void;
 }
 
@@ -101,6 +103,21 @@ export const useSim = create<SimState>((set, get) => ({
     const inputs = { ...get().inputs, [key]: v };
     const match = SIM_PRESETS.find((p) => KEYS.every((k) => Math.abs(p.inputs[k] - inputs[k]) < 1e-6));
     set({ inputs, preset: match?.id ?? null });
+  },
+  animateField: (key, v, ms = 1500) => {
+    cancelSim?.();
+    const from = get().inputs[key];
+    cancelSim = tween(
+      [from],
+      [v],
+      ms,
+      ([x]) => {
+        const field = SIM_FIELDS.find((f) => f.key === key);
+        const step = field?.step ?? 1;
+        set({ inputs: { ...get().inputs, [key]: Math.round(x / step) * step }, preset: null });
+      },
+      () => get().setField(key, v),
+    );
   },
   applyPreset: (id, animateMs = 800) => {
     const p = SIM_PRESETS.find((x) => x.id === id);
@@ -133,4 +150,16 @@ export const useSim = create<SimState>((set, get) => ({
       () => set({ inputs: { ...p.inputs } }),
     );
   },
+}));
+
+/* ------------------------ Note économique ------------------------ */
+
+interface EcoState {
+  setId: string;
+  setSetId: (id: string) => void;
+}
+
+export const useEco = create<EcoState>((set) => ({
+  setId: 'nos-poids',
+  setSetId: (id) => set({ setId: id }),
 }));

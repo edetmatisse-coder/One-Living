@@ -36,18 +36,18 @@ function NoToOne({ on }: { on: boolean }) {
   );
 }
 
-function Panel({ m, index, active }: { m: Milestone; index: number; active: boolean }) {
+function Panel({ m, index, active, compact = false }: { m: Milestone; index: number; active: boolean; compact?: boolean }) {
   return (
     <article
       data-panel
-      className="relative flex min-h-[64vh] w-full shrink-0 flex-col justify-between md:w-[min(64vw,880px)] md:pr-16"
+      className={`relative flex w-full shrink-0 flex-col justify-between ${compact ? '' : 'min-h-[64vh] md:w-[min(64vw,880px)] md:pr-16'}`}
       aria-label={`${m.year} : ${m.title}`}
     >
       <div
         aria-hidden
-        className={`font-display pointer-events-none select-none text-[clamp(120px,19vw,300px)] leading-[0.8] transition-colors duration-700 ${
-          active ? 'text-route' : 'text-outline text-chalk/25'
-        }`}
+        className={`font-display pointer-events-none select-none leading-[0.8] transition-colors duration-700 ${
+          compact ? 'text-[clamp(72px,7vw,120px)]' : 'text-[clamp(120px,19vw,300px)]'
+        } ${active ? 'text-route' : 'text-outline text-chalk/25'}`}
       >
         {m.year}
       </div>
@@ -147,9 +147,15 @@ export function Marque({ meta }: { meta: SectionMeta }) {
         <div className={`flex h-full flex-col ${horizontal ? 'justify-center' : ''}`}>
           <div
             ref={trackRef}
-            className={`flex gap-16 px-[var(--gutter)] ${horizontal ? 'flex-row items-end will-change-transform' : 'flex-col py-20'}`}
+            className={`px-[var(--gutter)] ${
+              horizontal
+                ? 'flex flex-row items-end gap-16 will-change-transform'
+                : presentation
+                  ? 'grid grid-cols-4 gap-10 py-14'
+                  : 'flex flex-col gap-16 py-20'
+            }`}
           >
-            <div className={`shrink-0 ${horizontal ? 'w-[min(34vw,460px)] self-center' : ''}`}>
+            <div className={`shrink-0 ${horizontal ? 'w-[min(34vw,460px)] self-center' : presentation ? 'hidden' : ''}`}>
               <p className="label-mono mb-5 text-route">La marque en quatre relais</p>
               <p className="max-w-[34ch] text-[20px] leading-relaxed text-chalk-dim">
                 Un kombucha déjà installé au Royaume-Uni, un nom qui change de sens, puis une arrivée en France par la grande surface
@@ -157,7 +163,7 @@ export function Marque({ meta }: { meta: SectionMeta }) {
               </p>
             </div>
             {BRAND_TIMELINE.map((m, i) => (
-              <Panel key={m.id} m={m} index={i} active={horizontal ? i <= active : true} />
+              <Panel key={m.id} m={m} index={i} active={horizontal ? i <= active : true} compact={presentation} />
             ))}
           </div>
         </div>

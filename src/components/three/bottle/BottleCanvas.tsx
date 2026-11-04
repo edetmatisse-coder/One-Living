@@ -136,6 +136,7 @@ export default function BottleCanvas({ flavor, className = '', idle = 0.35, onRe
       aria-label={`Bouteille ${flavor.name}, 33 cl. Glisser pour la faire tourner.`}
     >
       <Canvas
+        resize={{ offsetSize: true }}
         frameloop={onScreen ? 'always' : 'never'}
         dpr={[1, quality === 'high' ? 1.75 : 1.25]}
         gl={{ antialias: true, alpha: false, powerPreference: 'high-performance', toneMapping: THREE.NeutralToneMapping }}

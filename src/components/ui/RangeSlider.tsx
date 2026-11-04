@@ -36,7 +36,11 @@ export function RangeSlider({ label, value, min, max, step, onChange, display, h
           {display}
         </output>
       </div>
-      {hint && <p className="mt-0.5 text-[12.5px] leading-snug text-dust">{hint}</p>}
+      {hint && (
+        <p data-hide-in-slides className="mt-0.5 text-[12.5px] leading-snug text-dust">
+          {hint}
+        </p>
+      )}
       <input
         id={id}
         type="range"

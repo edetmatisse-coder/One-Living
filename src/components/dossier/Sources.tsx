@@ -24,10 +24,10 @@ export function Sources({ meta }: { meta: SectionMeta }) {
       }
     >
       <SectionInner>
-        <div className="grid gap-14 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:gap-16">
-          <div>
+        <div data-pres-stack className="grid gap-14 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:gap-16">
+          <div data-part data-part-title="Les sources">
             <p className="label-mono mb-6 text-route">Sources citées</p>
-            <ol className="divide-y divide-chalk/[0.08] border-y border-chalk/[0.08]">
+            <ol data-pres-cols className="divide-y divide-chalk/[0.08] border-y border-chalk/[0.08]">
               {SOURCES.map((s) => (
                 <li key={s.id} id={`source-${s.id}`} className="scroll-mt-40 rounded-[4px] transition-colors">
                   <a
@@ -55,9 +55,9 @@ export function Sources({ meta }: { meta: SectionMeta }) {
             </ol>
           </div>
 
-          <div>
+          <div data-part data-part-title="Les hypothèses">
             <p className="label-mono mb-6 text-route">Ce qui relève de l’hypothèse</p>
-            <ul className="space-y-5">
+            <ul data-pres-cols className="space-y-5">
               {HYPOTHESES.map((h) => (
                 <li key={h.label} className="rounded-[6px] border border-dashed border-yellow/35 p-5">
                   <div className="flex flex-wrap items-center gap-3">

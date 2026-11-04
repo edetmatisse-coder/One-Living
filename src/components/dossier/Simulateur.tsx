@@ -222,7 +222,7 @@ export function Simulateur({ meta }: { meta: SectionMeta }) {
                 />
               ))}
             </div>
-            <p className="mt-6 text-[13px] leading-relaxed text-dust">
+            <p data-hide-in-slides className="mt-6 text-[13px] leading-relaxed text-dust">
               Activation : frigo prêté, PLV et dotation de lancement, sur l’année. Le prix de revente fixe la marge de la salle, pas
               la contribution de One Living.
             </p>

@@ -546,6 +546,7 @@ export default function WallCanvas({ colors, onReady }: { colors: string[]; onRe
 
   return (
     <Canvas
+        resize={{ offsetSize: true }}
       className="!pointer-events-none"
       style={{ position: 'fixed', inset: 0, zIndex: 0 }}
       frameloop={visible || presentation ? 'always' : 'never'}

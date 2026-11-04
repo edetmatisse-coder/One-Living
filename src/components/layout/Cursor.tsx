@@ -186,10 +186,11 @@ export function Cursor() {
 
   return (
     <>
-      <canvas ref={canvasRef} aria-hidden className="pointer-events-none fixed inset-0 z-[95]" />
+      <canvas ref={canvasRef} aria-hidden data-hide-in-video className="pointer-events-none fixed inset-0 z-[95]" />
       <div
         ref={posRef}
         aria-hidden
+        data-hide-in-video
         className="pointer-events-none fixed left-0 top-0 z-[96]"
         style={{ opacity: hidden ? 0 : 1, transition: 'opacity .25s' }}
       >

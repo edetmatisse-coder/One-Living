@@ -582,6 +582,7 @@ export default function GameScene({ className = '', onStep, onWrong, onTop, apiR
   return (
     <div ref={wrap} className={className}>
       <Canvas
+        resize={{ offsetSize: true }}
         frameloop={onScreen ? 'always' : 'never'}
         dpr={[1, caps.tier === 'high' ? 1.6 : 1.25]}
         shadows={caps.tier === 'high' ? 'percentage' : false}

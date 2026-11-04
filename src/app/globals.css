@@ -550,3 +550,81 @@ html[data-motion='reduce'] .grain {
     offset-distance: 100%;
   }
 }
+
+/* ------------------------------------------------------------------
+   Mode présentation : une diapositive à la fois
+------------------------------------------------------------------- */
+html[data-mode='presentation'],
+html[data-mode='presentation'] body {
+  overflow: hidden;
+}
+html[data-mode='presentation'] [data-section]:not([data-current='true']) {
+  visibility: hidden;
+}
+html[data-mode='presentation'] [data-section][data-current='true'] [data-part]:not([data-part-active='true']) {
+  visibility: hidden;
+}
+html[data-mode='presentation'] [data-section][data-current='true'][data-first-part='false'] [data-section-head] {
+  visibility: hidden;
+}
+html[data-mode='presentation'] footer {
+  visibility: hidden;
+}
+html[data-mode='presentation'] [data-section-head] {
+  min-height: 0 !important;
+  padding-top: 88px !important;
+  padding-bottom: 8px !important;
+}
+html[data-mode='presentation'] [data-section-head] h2 {
+  font-size: clamp(40px, 4.4vw, 76px) !important;
+}
+html[data-mode='presentation'] [data-section-head] [data-start-card],
+html[data-mode='presentation'] [data-section-head] [data-lead],
+html[data-mode='presentation'] [data-hide-in-slides] {
+  display: none !important;
+}
+html[data-mode='presentation'] [data-section-head] > div[aria-hidden] {
+  display: none;
+}
+html[data-mode='presentation'] [data-inner] {
+  padding-top: 28px !important;
+  padding-bottom: 36px !important;
+}
+html[data-mode='presentation'] [data-part] {
+  margin-top: 0 !important;
+}
+html[data-mode='presentation'] [data-pres-stack] {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+html[data-mode='presentation'] [data-pres-cols] {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 40px;
+  row-gap: 16px;
+  border: 0 !important;
+}
+html[data-mode='presentation'] [data-pres-cols] > * {
+  margin: 0 !important;
+}
+html[data-mode='presentation'] [data-section][data-current='true'] {
+  animation: slideIn 0.7s var(--ease-out-expo);
+}
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Mode vidéo : pas de curseur, pas d'en-tête */
+html[data-mode='video'] [data-hide-in-video] {
+  display: none !important;
+}
+html[data-mode='video'],
+html[data-mode='video'] * {
+  cursor: none !important;
+}

@@ -7,6 +7,9 @@ import { SmoothScroll } from './SmoothScroll';
 import { Cursor } from './Cursor';
 import { PageTransition } from './PageTransition';
 import { SoundEngine } from './SoundEngine';
+import { Presentation } from '@/components/modes/Presentation';
+import { VideoMode } from '@/components/modes/VideoMode';
+import { ModeKeys } from '@/components/modes/ModeKeys';
 
 /** Couches globales, communes au Dossier et à la Campagne. */
 export function Providers({ manifest, children }: { manifest: BrandManifest; children: ReactNode }) {
@@ -16,6 +19,9 @@ export function Providers({ manifest, children }: { manifest: BrandManifest; chi
       {children}
       <PageTransition />
       <SoundEngine />
+      <ModeKeys />
+      <Presentation />
+      <VideoMode />
       <Cursor />
       <div className="grain" aria-hidden />
     </BrandProvider>

@@ -70,13 +70,19 @@ export function Section({
         )}
         <div className="relative grid gap-10 md:grid-cols-[minmax(0,1fr)_auto] md:items-end lg:pr-20">
           <div>
-            <StartCard num={meta.num} name={meta.short} grade={meta.grade} color={hex} foot={cardFoot} className="mb-8 md:mb-10" />
+            <div data-start-card>
+              <StartCard num={meta.num} name={meta.short} grade={meta.grade} color={hex} foot={cardFoot} className="mb-8 md:mb-10" />
+            </div>
             <KineticTitle
               id={`${meta.id}-title`}
               lines={title}
               className="font-display max-w-[16ch] text-[clamp(52px,9.4vw,164px)] text-chalk"
             />
-            {lead && <div className="mt-7 max-w-[58ch] text-[17px] leading-relaxed text-chalk-dim md:text-[19px]">{lead}</div>}
+            {lead && (
+              <div data-lead className="mt-7 max-w-[58ch] text-[17px] leading-relaxed text-chalk-dim md:text-[19px]">
+                {lead}
+              </div>
+            )}
           </div>
           {aside && <div className="relative">{aside}</div>}
         </div>
@@ -93,5 +99,9 @@ export function Section({
 
 /** Conteneur standard du corps de section. */
 export function SectionInner({ children, className = '' }: { children: ReactNode; className?: string }) {
-  return <div className={`relative mx-auto w-full max-w-[1320px] px-[var(--gutter)] py-20 md:py-28 lg:pr-[calc(var(--gutter)+64px)] ${className}`}>{children}</div>;
+  return (
+    <div data-inner className={`relative mx-auto w-full max-w-[1320px] px-[var(--gutter)] py-20 md:py-28 lg:pr-[calc(var(--gutter)+64px)] ${className}`}>
+      {children}
+    </div>
+  );
 }

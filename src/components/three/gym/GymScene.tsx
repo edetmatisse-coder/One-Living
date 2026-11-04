@@ -294,6 +294,7 @@ export default function GymScene({ count, className = '' }: { count: number; cla
   return (
     <div ref={wrap} className={className}>
       <Canvas
+        resize={{ offsetSize: true }}
         frameloop={onScreen ? 'always' : 'never'}
         dpr={[1, caps.tier === 'high' ? 1.75 : 1.25]}
         gl={{ antialias: true, alpha: true, powerPreference: 'high-performance', toneMapping: THREE.NeutralToneMapping }}

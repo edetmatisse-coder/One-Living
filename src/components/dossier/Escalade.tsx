@@ -1,6 +1,7 @@
 'use client';
 
-import { useMemo, useRef, useState, type CSSProperties } from 'react';
+import { useMemo, useRef, type CSSProperties } from 'react';
+import { useEco } from '@/store/tools';
 import { LayoutGroup, motion } from 'framer-motion';
 import type { SectionMeta } from '@/data/sections';
 import { ROUTE_COLORS } from '@/data/routes';
@@ -29,7 +30,7 @@ function Finalists() {
   const ref = useRef<HTMLDivElement>(null);
   const on = useInView(ref, { rootMargin: '0px 0px -20% 0px' });
   return (
-    <div ref={ref}>
+    <div ref={ref} data-part data-part-title="Les 4 finalistes">
       <div className="mb-6 flex flex-wrap items-center gap-3">
         <p className="label-mono text-route">Les 4 finalistes, un point de vente sur un an</p>
         <Badge kind="hypothese" />
@@ -126,7 +127,8 @@ function Dots({ n, color }: { n: number; color: string }) {
 }
 
 function EcoNote() {
-  const [setId, setSetId] = useState(ECO_WEIGHT_SETS[0].id);
+  const setId = useEco((s) => s.setId);
+  const setSetId = useEco((s) => s.setSetId);
   const caps = useCapabilities();
   const set = ECO_WEIGHT_SETS.find((s) => s.id === setId)!;
   const total = set.weights.reduce((a, b) => a + b, 0);
@@ -136,7 +138,7 @@ function EcoNote() {
     [set],
   );
   return (
-    <div className="mt-24">
+    <div className="mt-24" data-part data-part-title="La note économique">
       <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-16">
         <div>
           <p className="label-mono mb-4 text-route">Note économique, sur 7 critères</p>
@@ -241,7 +243,7 @@ function National() {
   const pot = nationalPotential(salleType);
   const dots = NATIONAL.sallesPrivees + NATIONAL.structuresFFME;
   return (
-    <div ref={ref} className="mt-24 grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-16">
+    <div ref={ref} data-part data-part-title="Le potentiel national" className="mt-24 grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-16">
       <div>
         <p className="label-mono mb-4 text-route">Le potentiel national</p>
         <div className="flex flex-wrap items-end gap-x-10 gap-y-6">

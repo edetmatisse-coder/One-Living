@@ -30,7 +30,7 @@ export function Moments({ meta }: { meta: SectionMeta }) {
       lead={<>On ne crée pas d’habitude : le kombucha s’installe dans des moments qui existent déjà en salle.</>}
     >
       <SectionInner>
-        <div ref={ref} className="relative">
+        <div ref={ref} className="relative" data-part data-part-title="Les 3 moments">
           <div className="mb-8 flex items-center gap-3">
             <p className="label-mono text-route">Une soirée en salle</p>
             <Badge kind="exemple">Horaires indicatifs</Badge>
@@ -89,7 +89,7 @@ export function Moments({ meta }: { meta: SectionMeta }) {
         </div>
 
         {/* On peut dire / On évite */}
-        <div className="mt-24">
+        <div className="mt-24" data-part data-part-title="On peut dire, on évite">
           <p className="label-mono mb-4 text-route">Les mots de la campagne</p>
           <h3 className="font-display max-w-[18ch] text-[clamp(40px,4.6vw,72px)] text-chalk">Moments, goût, bio. Jamais de promesse santé.</h3>
           <div className="mt-10 grid gap-6 lg:grid-cols-2">

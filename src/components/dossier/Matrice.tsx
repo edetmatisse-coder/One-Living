@@ -121,7 +121,7 @@ export function Matrice({ meta }: { meta: SectionMeta }) {
                 />
               ))}
             </div>
-            <div className="mt-5 flex flex-wrap items-center gap-2 text-[12.5px] text-dust">
+            <div data-hide-in-slides className="mt-5 flex flex-wrap items-center gap-2 text-[12.5px] text-dust">
               Volume appuyé sur les licences 2025 <SourceChip id="insee" withLabel /> et l’Observatoire de l’escalade
               <SourceChip id="obs-escalade" />
             </div>
