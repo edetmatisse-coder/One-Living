@@ -1,0 +1,16 @@
+# dépendances
+/node_modules
+
+# builds Next.js
+/.next/
+/out/
+next-env.d.ts
+*.tsbuildinfo
+
+# captures de contrôle (régénérables avec npm run screens)
+/screenshots/
+
+# divers
+.DS_Store
+*.log
+.env*.local

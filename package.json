@@ -1,0 +1,55 @@
+{
+  "name": "one-living-escalade",
+  "version": "1.0.0",
+  "private": true,
+  "description": "One Living × Escalade : dossier interactif et maquette de campagne (projet étudiant WIN Sport School, présentation locale).",
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "node scripts/serve.mjs",
+    "present": "next build && node scripts/serve.mjs --open",
+    "export": "next build",
+    "serve:out": "node scripts/serve.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "screens": "node scripts/screenshots.mjs"
+  },
+  "dependencies": {
+    "@gsap/react": "2.1.2",
+    "@react-three/drei": "10.7.9",
+    "@react-three/fiber": "9.8.2",
+    "@react-three/postprocessing": "3.2.2",
+    "@react-three/rapier": "2.2.0",
+    "framer-motion": "14.9.1",
+    "gsap": "3.15.1",
+    "lenis": "1.3.27",
+    "next": "16.4.5",
+    "postprocessing": "6.39.6",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "three": "0.186.1",
+    "zustand": "5.0.8"
+  },
+  "devDependencies": {
+    "@fontsource/big-shoulders-display": "5.3.0",
+    "@fontsource/instrument-sans": "5.3.0",
+    "@fontsource/jetbrains-mono": "5.3.0",
+    "@tailwindcss/postcss": "4.3.4",
+    "@types/node": "22.20.5",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@types/three": "0.186.0",
+    "eslint": "9.39.1",
+    "eslint-config-next": "16.4.5",
+    "playwright": "1.63.0",
+    "postcss": "8.5.32",
+    "tailwindcss": "4.3.4",
+    "typescript": "5.9.3",
+    "vitest": "5.1.0"
+  }
+}
