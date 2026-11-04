@@ -123,7 +123,15 @@ export function Cursor() {
       }
     };
 
+    let gameHover = false;
     const loop = () => {
+      // survol d'une prise du mini-jeu (dans le canvas 3D)
+      const gh = document.body.dataset.gameHover === '1';
+      if (gh !== gameHover) {
+        gameHover = gh;
+        setHover(gh);
+        setLabel(gh ? 'Attraper' : null);
+      }
       pos.x += (target.x - pos.x) * 0.28;
       pos.y += (target.y - pos.y) * 0.28;
       if (posRef.current) {

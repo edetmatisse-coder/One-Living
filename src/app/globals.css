@@ -531,3 +531,22 @@ html[data-motion='reduce'] .grain {
       0 0 0 4px var(--route);
   }
 }
+
+/* Voie du mois : lecture du QR code, grimpeur sur la voie */
+@keyframes qrScan {
+  0%,
+  100% {
+    top: 8%;
+  }
+  50% {
+    top: 90%;
+  }
+}
+@keyframes routeClimb {
+  from {
+    offset-distance: 0%;
+  }
+  to {
+    offset-distance: 100%;
+  }
+}

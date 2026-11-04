@@ -56,8 +56,10 @@ export function Section({
     >
       <header
         data-section-head
-        className={`relative flex min-h-[64vh] flex-col justify-end px-[var(--gutter)] pb-14 pt-[calc(var(--header-h)+56px)] md:min-h-[72vh] md:pb-20 ${
-          solid ? 'plywood' : ''
+        className={`relative flex flex-col justify-end px-[var(--gutter)] ${
+          solid
+            ? 'plywood pb-4 pt-[calc(var(--header-h)+48px)] md:pb-6 md:pt-[calc(var(--header-h)+64px)]'
+            : 'min-h-[64vh] pb-14 pt-[calc(var(--header-h)+56px)] md:min-h-[72vh] md:pb-20'
         } ${headClassName}`}
       >
         {!solid && (
@@ -79,11 +81,10 @@ export function Section({
           {aside && <div className="relative">{aside}</div>}
         </div>
       </header>
-      <div data-section-body className={`plywood relative border-t border-chalk/[0.06] ${bodyClassName}`}>
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 -top-24 h-24 bg-gradient-to-b from-transparent to-black/35"
-        />
+      <div data-section-body className={`plywood relative ${solid ? '' : 'border-t border-chalk/[0.06]'} ${bodyClassName}`}>
+        {!solid && (
+          <div aria-hidden className="pointer-events-none absolute inset-x-0 -top-24 h-24 bg-gradient-to-b from-transparent to-black/35" />
+        )}
         {children}
       </div>
     </section>

@@ -24,7 +24,9 @@ export function CampagneHeader() {
   return (
     <header className="fixed inset-x-0 top-0 z-50">
       <div className="relative flex h-8 items-center justify-between gap-4 bg-chalk px-[var(--gutter)] text-ply-900">
-        <span className="label-mono text-[10px]">Maquette · aucune donnée réelle n’est collectée</span>
+        <span className="label-mono text-[10px]">
+          Maquette<span className="hidden sm:inline"> · aucune donnée réelle n’est collectée</span>
+        </span>
         <TransitionLink
           href="/"
           label="Le dossier"

@@ -19,6 +19,8 @@ const config = [
     files: ['src/components/three/**/*.{ts,tsx}'],
     rules: {
       'react-hooks/immutability': 'off',
+      // les refs de callback (ref={setter}) servent à piloter les maillages image par image
+      'react-hooks/refs': 'off',
     },
   },
 ];

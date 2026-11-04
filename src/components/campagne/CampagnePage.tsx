@@ -2,34 +2,38 @@
 
 import { CAMPAGNE_SECTIONS } from '@/data/sections';
 import { Footer } from '@/components/layout/Footer';
-import { Section, SectionInner } from '@/components/layout/Section';
+import { useSectionTracking } from '@/lib/use-section-tracking';
 import { CampagneHeader } from './CampagneHeader';
+import { CampagneHero } from './CampagneHero';
+import { Concept } from './Concept';
+import { Gamme } from './Gamme';
+import { Histoire } from './Histoire';
+import { Salles } from './Salles';
+import { VoieDuMois } from './VoieDuMois';
+import { OneGiving } from './OneGiving';
+import { Grimpeurs } from './Grimpeurs';
+import { PourLesSalles } from './PourLesSalles';
+import { Faq } from './Faq';
 
-const TITLES: Record<string, string[]> = {
-  'apres-la-voie': ['Après', 'la voie.'],
-  concept: ['Trois temps,', 'un rituel'],
-  gamme: ['La gamme'],
-  histoire: ['De No.1', 'à One'],
-  salles: ['Trouver', 'une salle'],
-  'voie-du-mois': ['La voie', 'du mois'],
-  'one-giving': ['One Giving'],
-  grimpeurs: ['Les grimpeurs'],
-  'pour-les-salles': ['Votre bar,', 'une recette en plus.'],
-  faq: ['Questions', 'fréquentes'],
-};
+const S = Object.fromEntries(CAMPAGNE_SECTIONS.map((s) => [s.id, s]));
 
+/** La maquette du site public de la campagne « Après la voie ». */
 export function CampagnePage() {
+  useSectionTracking();
   return (
     <>
       <CampagneHeader />
       <main id="campagne" className="relative z-10">
-        {CAMPAGNE_SECTIONS.map((meta) => (
-          <Section key={meta.id} meta={meta} title={TITLES[meta.id]} solid>
-            <SectionInner>
-              <p className="max-w-[60ch] text-dust">Bloc « {meta.title} » : en construction.</p>
-            </SectionInner>
-          </Section>
-        ))}
+        <CampagneHero meta={S['apres-la-voie']} />
+        <Concept meta={S.concept} />
+        <Gamme meta={S.gamme} />
+        <Histoire meta={S.histoire} />
+        <Salles meta={S.salles} />
+        <VoieDuMois meta={S['voie-du-mois']} />
+        <OneGiving meta={S['one-giving']} />
+        <Grimpeurs meta={S.grimpeurs} />
+        <PourLesSalles meta={S['pour-les-salles']} />
+        <Faq meta={S.faq} />
       </main>
       <Footer variant="campagne" />
     </>

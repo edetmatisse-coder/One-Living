@@ -6,6 +6,7 @@ import { BrandProvider } from '@/components/ui/Brand';
 import { SmoothScroll } from './SmoothScroll';
 import { Cursor } from './Cursor';
 import { PageTransition } from './PageTransition';
+import { SoundEngine } from './SoundEngine';
 
 /** Couches globales, communes au Dossier et à la Campagne. */
 export function Providers({ manifest, children }: { manifest: BrandManifest; children: ReactNode }) {
@@ -14,6 +15,7 @@ export function Providers({ manifest, children }: { manifest: BrandManifest; chi
       <SmoothScroll />
       {children}
       <PageTransition />
+      <SoundEngine />
       <Cursor />
       <div className="grain" aria-hidden />
     </BrandProvider>

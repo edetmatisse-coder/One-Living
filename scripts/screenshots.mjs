@@ -68,7 +68,7 @@ for (const width of widths) {
           else window.scrollTo(0, y);
         }, target);
         await page.waitForTimeout(wait);
-        await page.screenshot({ path: path.join(out, `${tag}-${String(i).padStart(2, '0')}.png`) });
+        await page.screenshot({ path: path.join(out, `${tag}-${String(i).padStart(2, '0')}.png`), timeout: 90000 });
       }
       if (target >= total - height) break;
     }
