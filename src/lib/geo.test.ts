@@ -20,7 +20,7 @@ describe('carte du sud de la Bretagne', () => {
     expect(inside([-3.16, 47.34])).toBe(true); // Belle-Île
   });
 
-  it('respecte l’ordre géographique : Quimper, Lanester, Vannes d’ouest en est', () => {
+  it('respecte l’ordre géographique : Quimper, Lorient (Lanester), Vannes d’ouest en est', () => {
     const w = 600;
     const [quimper, lanester, vannes] = ['quimper', 'lanester', 'vannes'].map((id) => project(GYMS.find((g) => g.id === id)!.lonlat, w));
     expect(quimper.x).toBeLessThan(lanester.x);

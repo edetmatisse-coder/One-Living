@@ -6,6 +6,11 @@
 ------------------------------------------------------------------- */
 
 @theme {
+  /* B'Wall, partenaire de la campagne (couleurs relevées sur son logo) */
+  --color-bwall: #149ca4;
+  --color-bwall-deep: #0c5c64;
+  --color-bwall-sun: #fcd46c;
+
   /* Matières */
   --color-ply-950: #0f0e0c;
   --color-ply-900: #141210;

@@ -4,6 +4,7 @@ import { BrandImage } from '@/components/ui/Brand';
 import { Hold } from '@/components/ui/Hold';
 import { Arrow } from '@/components/ui/Button';
 import { scrollToY } from '@/lib/scroll';
+import { CoBrand } from '@/components/ui/CoBrand';
 
 /**
  * Pied de page. La mention légale du projet est obligatoire :
@@ -20,6 +21,10 @@ export function Footer() {
               Fin de la séance
             </div>
             <p className="font-display text-[clamp(64px,12vw,200px)] text-chalk">Souffle.</p>
+            <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3">
+              <CoBrand size="md" />
+              <span className="label-mono text-[10px] text-dust">Une campagne imaginée · maquette</span>
+            </div>
           </div>
           <button
             type="button"

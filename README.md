@@ -1,6 +1,6 @@
-# Après la voie · One Living × Escalade
+# Après la voie · One Living × B'Wall
 
-Maquette du site de la campagne « Après la voie » : les boissons One Living dans les salles d'escalade.
+Maquette du site de la campagne « Après la voie » : les boissons One Living au bar des salles d'escalade B'Wall (Quimper, Lorient, Vannes). Cobranding One Living × B'Wall, partenariat imaginé pour le projet.
 Challenge Bachelor 3, WIN Sport School, problématique 2 : développer One Living dans le sport amateur, hors rugby.
 
 **Projet étudiant WIN Sport School, non affilié à One Living, présentation locale.** Le site n'est pas fait pour être mis en ligne.
@@ -55,9 +55,10 @@ Conseils : une photo en largeur (paysage), d'au moins 2000 pixels de large. Le t
 | `public/brand/produits/` | Photos et étiquettes des 10 boissons | Repris de oneliving.com |
 | `public/brand/photo-salle.jpg` | Photo du haut de page | **À fournir** |
 | `public/brand/logo-win.png` | Logo WIN Sport School (pied de page) | **À fournir**, un emplacement propre s'affiche en attendant |
-| `public/brand/logo-bwall.png` | Logo B'Wall (section « Trouver une salle ») | **À fournir**, le nom B'Wall s'affiche en attendant |
+| `public/brand/logo-bwall.png` | Logo B'Wall blanc, sans signature (en-tête, pied de page, salles) | Repris de b-wall.fr |
+| `public/brand/bwall/` | Logo B'Wall couleur, pictogramme, photos des trois salles | Repris de b-wall.fr |
 
-Les photos et les étiquettes appartiennent à One Living ; elles ne servent qu'à cette présentation locale.
+Les photos et les étiquettes appartiennent à One Living, les logos et les photos de salles à B'Wall ; ils ne servent qu'à cette présentation locale.
 
 ### La gamme en 3D
 
@@ -71,7 +72,7 @@ Chaque modèle 3D est construit à partir des photos produits du site : la silho
 
 ## Ce qui est hypothétique ou fictif
 
-- **Salles B'Wall** : ce sont de vraies salles (Quimper, Lanester, Vannes), présentées comme « partenaire envisagé » : B'Wall n'est pas engagé, et chaque fiche le dit. Le frigo, les boissons proposées et la voie du mois sont des exemples. Les adresses viennent de la presse locale et d'annuaires, à vérifier sur b-wall.fr : Lanester ([Cylex](https://www.cylex-locale.fr/entreprises/b%27wall-lorient-34369688.html)), Vannes ([Vertige Media](https://www.vertigemedia.fr/bwall-ouverture-salles-escalade-vannes-quimper-2025)), Quimper ([France City](https://www.francecity.com/actu9435/quimper-nouvelle-salle-escalade-bwall-keradennec.html)).
+- **Salles B'Wall** : ce sont de vraies salles. Adresses, horaires, chiffres clés et photos viennent du site officiel [b-wall.fr](https://www.b-wall.fr/contact/). Le partenariat est imaginé (B'Wall n'est pas engagé, chaque fiche et le bandeau du haut le disent) ; le frigo, les boissons proposées et la voie du mois sont des exemples.
 - **Trois buveurs de kombucha** (Claire, Malik, Inès) : profils inventés, marqués « Exemple de profil ».
 - **Marge de la salle**, environ 1,70 € par bouteille (revente à 3,50 € moins cession à 1,80 €), et la salle type de 150 passages par jour : hypothèses de travail, marquées « Hypothèse », à confirmer avec One Living.
 - **Formulaire** « Devenir salle partenaire » : démo, rien n'est envoyé. Au clic : « Démo : aucune donnée n'est envoyée. »
@@ -79,7 +80,7 @@ Chaque modèle 3D est construit à partir des photos produits du site : la silho
 
 ## À savoir avant la soutenance
 
-1. **B'Wall est une vraie enseigne** : c'est un partenaire visé, pas un accord signé. Le site le précise sur chaque fiche ; le dire aussi à l'oral.
+1. **B'Wall est une vraie enseigne, et le site est cobrandé One Living × B'Wall** (logos, couleurs, photos des salles) : c'est un partenaire visé, pas un accord signé. Le bandeau du haut et chaque fiche de salle le précisent ; le dire aussi à l'oral.
 2. **Aucune promesse santé dans les textes du site.** Les shots sont présentés par leur parfum (tropical, fraise-citron, agrumes-gingembre), jamais par leur nom commercial.
 3. **Les vraies étiquettes, elles, restent lisibles sur les modèles 3D et les photos.** Sur les shots, on lit « Energy », « Gut », « Immunity », « 1BN live cultures », « Gut health & wellbeing » ; sur les canettes, « Sugar free ». Ce sont les mentions de la marque, pas les nôtres, mais un jury attentif peut le relever.
 4. **« L'alternative sans alcool » est devenue « l'alternative à la bière »** : la fermentation laisse des traces d'alcool, la FAQ l'explique.

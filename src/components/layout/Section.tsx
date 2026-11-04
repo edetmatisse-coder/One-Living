@@ -23,6 +23,8 @@ interface Props {
   cardFoot?: string;
   /** Section sans paroi derrière (Campagne) : en-tête sur fond plein. */
   solid?: boolean;
+  /** couleur d'accent imposée (sinon la couleur de voie de la section) */
+  color?: string;
 }
 
 /**
@@ -41,8 +43,9 @@ export function Section({
   headClassName = '',
   cardFoot,
   solid = false,
+  color,
 }: Props) {
-  const hex = ROUTE_COLORS[meta.route];
+  const hex = color ?? ROUTE_COLORS[meta.route];
   return (
     <section
       id={meta.id}

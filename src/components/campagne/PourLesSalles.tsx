@@ -39,7 +39,7 @@ export function PourLesSalles({ meta }: { meta: SectionMeta }) {
       solid
       title={['Votre bar,', 'une recette en plus.']}
       cardFoot="Pour les salles"
-      lead={<>Vos grimpeurs boivent déjà un verre après la séance. Donnez-leur un kombucha vivant, bio, bien frais.</>}
+      lead={<>Vos grimpeurs boivent déjà un verre après la séance. Comme les salles B’Wall, donnez-leur un kombucha vivant, bio, bien frais.</>}
     >
       <SectionInner>
         <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.95fr)] lg:gap-16">

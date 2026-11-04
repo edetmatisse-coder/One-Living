@@ -8,7 +8,7 @@ export function OneLivingMark({ className = '' }: { className?: string }) {
     <BrandImage
       id="logoOneLiving"
       alt="One Living"
-      className={`h-10 w-auto ${className}`}
+      className={className || 'h-10 w-auto'}
       placeholderClassName="!border-0 !inline-flex !flex-row !gap-0"
       placeholder={
         <span className="font-display text-[22px] leading-none tracking-[0.01em] text-chalk" style={{ fontWeight: 900 }}>

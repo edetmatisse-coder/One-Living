@@ -1,6 +1,6 @@
 'use client';
 
-import { OneLivingMark } from '@/components/ui/OneLivingMark';
+import { CoBrand } from '@/components/ui/CoBrand';
 import { IconSound } from '@/components/ui/Icons';
 import { useUI } from '@/store/ui';
 import { scrollToElement } from '@/lib/scroll';
@@ -14,8 +14,8 @@ const NAV = [
 ];
 
 /**
- * En-tête du site « Après la voie ». Un bandeau discret rappelle qu'il
- * s'agit d'une maquette étudiante.
+ * En-tête du site « Après la voie », signé One Living × B'Wall. Un bandeau
+ * discret rappelle qu'il s'agit d'une maquette et d'un partenariat imaginé.
  */
 export function CampagneHeader() {
   const soundOn = useUI((s) => s.soundOn);
@@ -24,9 +24,9 @@ export function CampagneHeader() {
     <header className="fixed inset-x-0 top-0 z-50">
       <div className="relative flex h-8 items-center justify-between gap-4 bg-chalk px-[var(--gutter)] text-ply-900">
         <span className="label-mono text-[10px]">
-          Maquette<span className="hidden sm:inline"> · aucune donnée réelle n’est collectée</span>
+          Maquette<span className="hidden sm:inline"> · partenariat One Living × B’Wall imaginé pour un projet étudiant</span>
         </span>
-        <span className="label-mono hidden text-[10px] sm:inline">Projet étudiant WIN Sport School</span>
+        <span className="label-mono hidden text-[10px] md:inline">Aucune donnée réelle n’est collectée</span>
       </div>
       <div className="relative flex h-[var(--header-h)] items-center justify-between gap-6 px-[var(--gutter)]">
         <div aria-hidden className="scrim-top pointer-events-none absolute inset-0 h-[140%]" />
@@ -36,9 +36,9 @@ export function CampagneHeader() {
           className="relative flex items-center gap-4"
           aria-label="Revenir en haut de la page"
         >
-          <OneLivingMark />
-          <span className="hidden h-5 w-px bg-chalk/20 sm:block" />
-          <span className="font-display hidden text-[20px] leading-none text-chalk sm:block" style={{ fontWeight: 800 }}>
+          <CoBrand size="sm" />
+          <span className="hidden h-5 w-px bg-chalk/20 xl:block" />
+          <span className="font-display hidden text-[20px] leading-none text-chalk xl:block" style={{ fontWeight: 800 }}>
             Après la voie
           </span>
         </button>

@@ -78,7 +78,7 @@ export const TEMPS = [
     id: 'apres',
     label: 'Après la voie',
     title: 'Tu souffles. Tu trinques.',
-    text: 'La voie est finie, les avant-bras brûlent encore. Une bouteille bien fraîche au bar, et tu refais la voie dans ta tête.',
+    text: 'La voie est finie, les avant-bras brûlent encore. Une bouteille bien fraîche au bar B’Wall, et tu refais la voie dans ta tête.',
   },
   {
     id: 'entre',
@@ -89,10 +89,10 @@ export const TEMPS = [
 ];
 
 /**
- * Les salles B'Wall (Bretagne sud), partenaire envisagé pour la campagne :
- * proposition étudiante, B'Wall n'est pas engagé. Adresses relevées dans la
- * presse locale et les annuaires (voir README), à vérifier sur b-wall.fr.
- * Le frigo, les boissons proposées et la voie du mois sont des exemples.
+ * Les salles B'Wall (Bretagne sud), partenaire de la campagne : partenariat
+ * imaginé pour le projet, B'Wall n'est pas engagé. Adresses, horaires et
+ * chiffres repris de b-wall.fr. Le frigo, les boissons proposées et la voie
+ * du mois sont des exemples.
  */
 export interface Gym {
   id: 'quimper' | 'lanester' | 'vannes';
@@ -100,31 +100,45 @@ export interface Gym {
   city: string;
   address: string;
   lonlat: [number, number];
-  route: RouteColor;
+  /** photo de b-wall.fr */
+  photo: string;
+  photoLabel: string;
+  /** chiffres clés de la salle (b-wall.fr) */
+  facts: string[];
+  url: string;
   /** boissons proposées au frigo (identifiants de PRODUCTS), exemple */
   flavors: string[];
   /** exemple */
   voieDuMois: string;
 }
 
+/** Horaires communs aux trois salles (b-wall.fr, page contact). */
+export const GYM_HOURS = 'Du lundi au vendredi 10 h-23 h, le week-end et les jours fériés 9 h-20 h';
+
 export const GYMS: Gym[] = [
   {
     id: 'lanester',
-    name: 'B’Wall Lanester',
+    name: 'B’Wall Lorient',
     city: 'Lanester, près de Lorient',
-    address: '482 route de Kerviec',
+    address: '482 route de Kerviec, 56600 Lanester',
     lonlat: [-3.32, 47.775],
-    route: 'yellow',
+    photo: '/brand/bwall/lorient.jpg',
+    photoLabel: 'L’espace détente de B’Wall Lorient',
+    facts: ['2 300 m² au sol', '175 m de bloc', '41 lignes de corde', '130 voies jusqu’à 9 m'],
+    url: 'https://www.b-wall.fr/salle-escalade/lorient/',
     flavors: ['bouteille-gingembre', 'bouteille-framboise', 'canette-passion', 'shot-agrumes-gingembre'],
     voieDuMois: 'Jaune · 6a+',
   },
   {
     id: 'vannes',
     name: 'B’Wall Vannes',
-    city: 'Vannes',
-    address: 'Parc du Golfe, face au Chorus',
-    lonlat: [-2.745, 47.645],
-    route: 'pink',
+    city: 'Vannes, face au golfe du Morbihan',
+    address: '15 rue Daniel Gilard, 56000 Vannes',
+    lonlat: [-2.75, 47.643],
+    photo: '/brand/bwall/vannes.jpg',
+    photoLabel: 'Le bar de B’Wall Vannes',
+    facts: ['1 900 m² sur 3 niveaux', '170 m de bloc', '42 lignes de corde', 'Voies jusqu’à 15 m'],
+    url: 'https://www.b-wall.fr/salle-escalade/vannes/',
     flavors: ['bouteille-mangue', 'canette-framboise', 'canette-gingembre', 'shot-tropical'],
     voieDuMois: 'Rose · 6b',
   },
@@ -132,9 +146,12 @@ export const GYMS: Gym[] = [
     id: 'quimper',
     name: 'B’Wall Quimper',
     city: 'Quimper',
-    address: '52 avenue de Kéradennec',
+    address: '52 avenue de Kéradennec, 29000 Quimper',
     lonlat: [-4.12, 48.01],
-    route: 'blue',
+    photo: '/brand/bwall/quimper.jpg',
+    photoLabel: 'Ouverture de B’Wall Quimper, le 3 octobre 2026',
+    facts: ['1 700 m² au sol', '130 m de bloc', '40 lignes de corde', 'Voies jusqu’à 13 m'],
+    url: 'https://www.b-wall.fr/salle-escalade/quimper/',
     flavors: ['bouteille-passion', 'bouteille-gingembre', 'canette-framboise', 'shot-fraise-citron'],
     voieDuMois: 'Bleue · 5c',
   },
@@ -168,7 +185,7 @@ export const DRINKERS = [
     since: 'Kombucha depuis 2022',
     drink: 'bouteille-gingembre',
     moment: 'Après la voie',
-    text: 'Le mercredi, il accompagne ses deux enfants au cours d’escalade. Une heure au bar à les regarder grimper, une bouteille gingembre bien fraîche à la main.',
+    text: 'Le mercredi, il accompagne ses deux enfants au cours d’escalade. L’entrée est gratuite pour les accompagnants : une heure au bar à les regarder grimper, une bouteille gingembre bien fraîche à la main.',
   },
   {
     id: 'ines',

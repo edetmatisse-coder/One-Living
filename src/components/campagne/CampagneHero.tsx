@@ -74,7 +74,7 @@ export function CampagneHero({ meta }: { meta: SectionMeta }) {
             name="Après la voie"
             grade={meta.grade}
             color={hex}
-            foot="One Living · salles de l’Ouest"
+            foot="One Living × B’Wall · Bretagne sud"
             size="sm"
             className="mb-8 hidden md:block"
           />
@@ -89,12 +89,16 @@ export function CampagneHero({ meta }: { meta: SectionMeta }) {
           <p className="mt-6 max-w-[30ch] text-[20px] leading-snug text-chalk-dim md:text-[24px]">
             Le moment pour souffler, juste après ta séance.
           </p>
+          <p className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-[15px] text-dust">
+            <span className="label-mono text-[10px] text-route">Au bar</span>
+            Le kombucha One Living, dans les salles B’Wall de Quimper, Lorient et Vannes.
+          </p>
           <div className="mt-10 flex flex-wrap gap-3">
             <Button onClick={() => scrollToElement('gamme', { duration: 1.8 })}>
               Découvrir la gamme <Arrow dir="down" />
             </Button>
             <Button variant="ghost" onClick={() => scrollToElement('salles', { duration: 2 })}>
-              Trouver une salle
+              Trouver une salle B’Wall
             </Button>
           </div>
         </div>

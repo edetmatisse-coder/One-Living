@@ -5,7 +5,7 @@ import { Providers } from '@/components/layout/Providers';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Après la voie · One Living × Escalade',
+  title: 'Après la voie · One Living × B’Wall',
   description:
     'Maquette du site de la campagne « Après la voie » : One Living dans les salles d’escalade. Projet étudiant WIN Sport School, non affilié à One Living.',
   robots: { index: false, follow: false },
