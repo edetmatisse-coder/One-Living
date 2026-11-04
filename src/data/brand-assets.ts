@@ -10,6 +10,7 @@ export const BRAND_ASSETS = [
   { id: 'logoOneLiving', file: 'logo-one-living', label: 'Logo One Living', usage: 'En-tête' },
   { id: 'logoWin', file: 'logo-win', label: 'Logo WIN Sport School', usage: 'Pied de page' },
   { id: 'photoSalle', file: 'photo-salle', label: 'Photo de la bouteille dans une salle d’escalade', usage: 'Haut de page' },
+  { id: 'logoBwall', file: 'logo-bwall', label: 'Logo B’Wall', usage: 'Trouver une salle' },
 ] as const;
 
 export type BrandAssetId = (typeof BRAND_ASSETS)[number]['id'];

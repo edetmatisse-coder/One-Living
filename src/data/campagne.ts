@@ -88,63 +88,98 @@ export const TEMPS = [
   },
 ];
 
-/** Salles partenaires fictives (exemples) sur la carte de l'Ouest. */
+/**
+ * Les salles B'Wall (Bretagne sud), partenaire envisagé pour la campagne :
+ * proposition étudiante, B'Wall n'est pas engagé. Adresses relevées dans la
+ * presse locale et les annuaires (voir README), à vérifier sur b-wall.fr.
+ * Le frigo, les boissons proposées et la voie du mois sont des exemples.
+ */
 export interface Gym {
-  id: string;
+  id: 'quimper' | 'lanester' | 'vannes';
   name: string;
   city: string;
+  address: string;
   lonlat: [number, number];
   route: RouteColor;
-  hours: string;
-  /** produits du frigo (identifiants de PRODUCTS) */
+  /** boissons proposées au frigo (identifiants de PRODUCTS), exemple */
   flavors: string[];
+  /** exemple */
   voieDuMois: string;
 }
 
 export const GYMS: Gym[] = [
-  { id: 'g1', name: 'Bloc Mansarde', city: 'Rennes', lonlat: [-1.66, 48.12], route: 'yellow', hours: 'Lun-dim · 10 h-23 h', flavors: ['bouteille-gingembre', 'bouteille-framboise', 'bouteille-mangue'], voieDuMois: 'Jaune · 6a+' },
-  { id: 'g2', name: 'La Réglette du Port', city: 'Vannes', lonlat: [-2.74, 47.66], route: 'blue', hours: 'Lun-sam · 12 h-22 h', flavors: ['bouteille-passion', 'bouteille-gingembre'], voieDuMois: 'Bleue · 5c' },
-  { id: 'g3', name: 'Dièdre Mayenne', city: 'Laval', lonlat: [-0.76, 48.08], route: 'pink', hours: 'Mar-dim · 11 h-22 h', flavors: ['bouteille-framboise', 'bouteille-passion'], voieDuMois: 'Rose · 6b' },
-  { id: 'g4', name: 'Halle aux Arêtes', city: 'Tours', lonlat: [0.7, 47.39], route: 'orange', hours: 'Lun-dim · 9 h-23 h', flavors: ['bouteille-mangue', 'bouteille-gingembre', 'bouteille-framboise'], voieDuMois: 'Orange · 6a' },
-  { id: 'g5', name: 'Le Pan Normand', city: 'Caen', lonlat: [-0.36, 49.18], route: 'yellow', hours: 'Lun-ven · 12 h-23 h', flavors: ['bouteille-gingembre', 'bouteille-passion', 'bouteille-mangue'], voieDuMois: 'Jaune · 6c' },
-  { id: 'g6', name: 'Bloc des Remparts', city: 'Saint-Malo', lonlat: [-2.0, 48.64], route: 'pink', hours: 'Lun-dim · 10 h-21 h', flavors: ['bouteille-framboise', 'bouteille-mangue'], voieDuMois: 'Rose · 5b' },
-  { id: 'g7', name: 'Prise Atlantique', city: 'Nantes', lonlat: [-1.55, 47.22], route: 'blue', hours: 'Lun-dim · 10 h-23 h', flavors: ['bouteille-passion', 'bouteille-gingembre', 'bouteille-framboise', 'bouteille-mangue'], voieDuMois: 'Bleue · 6b+' },
+  {
+    id: 'lanester',
+    name: 'B’Wall Lanester',
+    city: 'Lanester, près de Lorient',
+    address: '482 route de Kerviec',
+    lonlat: [-3.32, 47.775],
+    route: 'yellow',
+    flavors: ['bouteille-gingembre', 'bouteille-framboise', 'canette-passion', 'shot-agrumes-gingembre'],
+    voieDuMois: 'Jaune · 6a+',
+  },
+  {
+    id: 'vannes',
+    name: 'B’Wall Vannes',
+    city: 'Vannes',
+    address: 'Parc du Golfe, face au Chorus',
+    lonlat: [-2.745, 47.645],
+    route: 'pink',
+    flavors: ['bouteille-mangue', 'canette-framboise', 'canette-gingembre', 'shot-tropical'],
+    voieDuMois: 'Rose · 6b',
+  },
+  {
+    id: 'quimper',
+    name: 'B’Wall Quimper',
+    city: 'Quimper',
+    address: '52 avenue de Kéradennec',
+    lonlat: [-4.12, 48.01],
+    route: 'blue',
+    flavors: ['bouteille-passion', 'bouteille-gingembre', 'canette-framboise', 'shot-fraise-citron'],
+    voieDuMois: 'Bleue · 5c',
+  },
 ];
 
-/** Profils fictifs (exemples), tous dans la cible des 35 ans et plus. */
-export const CLIMBERS = [
+export const GYM_BY_ID = Object.fromEntries(GYMS.map((g) => [g.id, g])) as Record<Gym['id'], Gym>;
+
+/**
+ * Trois buveurs de kombucha, profils fictifs (exemples), tous dans la cible
+ * des 35 ans et plus. Pas forcément grimpeurs : la salle est aussi un lieu
+ * où l'on accompagne, où l'on attend, où l'on se retrouve.
+ */
+export const DRINKERS = [
   {
     id: 'claire',
     name: 'Claire',
     age: 52,
-    city: 'Caen',
-    level: '5c',
-    since: 'Reprise il y a deux ans',
-    flavor: 'bouteille-mangue',
+    gym: 'vannes' as const,
+    profile: 'Grimpe en bloc le mardi soir',
+    since: 'Kombucha depuis 2019',
+    drink: 'canette-framboise',
     moment: 'Entre grimpeurs',
-    text: 'Elle grimpe le mardi soir avec sa fille et garde la fin de séance pour le bar.',
+    text: 'Elle grimpe avec sa fille, puis elles partagent une canette au bar. Sans sucres, avec du goût : c’est devenu leur rituel de fin de séance.',
   },
   {
     id: 'malik',
     name: 'Malik',
-    age: 41,
-    city: 'Rennes',
-    level: '6c+',
-    since: 'Grimpe depuis 15 ans',
-    flavor: 'bouteille-gingembre',
+    age: 44,
+    gym: 'lanester' as const,
+    profile: 'Ne grimpe pas',
+    since: 'Kombucha depuis 2022',
+    drink: 'bouteille-gingembre',
     moment: 'Après la voie',
-    text: 'Trois séances par semaine, en voie. Il refait le mouvement clé une bouteille à la main.',
+    text: 'Le mercredi, il accompagne ses deux enfants au cours d’escalade. Une heure au bar à les regarder grimper, une bouteille gingembre bien fraîche à la main.',
   },
   {
     id: 'ines',
     name: 'Inès',
-    age: 36,
-    city: 'Nantes',
-    level: '6b',
-    since: 'Bloc à la pause déjeuner',
-    flavor: 'shot-fraise-citron',
+    age: 37,
+    gym: 'quimper' as const,
+    profile: 'Bloc à la pause déjeuner',
+    since: 'Kombucha depuis 2021',
+    drink: 'shot-agrumes-gingembre',
     moment: 'Avant de grimper',
-    text: 'Elle passe entre midi et deux : un shot à l’accueil, quarante minutes de bloc, retour au bureau.',
+    text: 'Elle passe entre midi et deux : un shot agrumes-gingembre à l’accueil, quarante minutes de bloc, retour au bureau.',
   },
 ];
 
@@ -167,6 +202,6 @@ export const FAQ = [
   },
   {
     q: 'Où le trouver ?',
-    a: 'Au bar des salles partenaires, et en France chez Carrefour, Leclerc et Decathlon Pro.',
+    a: 'Dans l’idée de la campagne, au bar des salles B’Wall. En France, One Living est vendu chez Carrefour, Leclerc et Decathlon Pro.',
   },
 ];

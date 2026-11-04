@@ -5,7 +5,7 @@ Challenge Bachelor 3, WIN Sport School, problématique 2 : développer One Livin
 
 **Projet étudiant WIN Sport School, non affilié à One Living, présentation locale.** Le site n'est pas fait pour être mis en ligne.
 
-Une seule page, de haut en bas : le haut de page, le concept en 3 temps, la gamme en 3D, l'histoire de la marque, la carte des salles, la voie du mois, les grimpeurs, l'offre aux salles et la FAQ.
+Une seule page, de haut en bas : le haut de page, le concept en 3 temps, la gamme en 3D, l'histoire de la marque, les salles B'Wall, la voie du mois, trois buveurs de kombucha, l'offre aux salles et la FAQ.
 
 ## Lancer le site
 
@@ -55,6 +55,7 @@ Conseils : une photo en largeur (paysage), d'au moins 2000 pixels de large. Le t
 | `public/brand/produits/` | Photos et étiquettes des 10 boissons | Repris de oneliving.com |
 | `public/brand/photo-salle.jpg` | Photo du haut de page | **À fournir** |
 | `public/brand/logo-win.png` | Logo WIN Sport School (pied de page) | **À fournir**, un emplacement propre s'affiche en attendant |
+| `public/brand/logo-bwall.png` | Logo B'Wall (section « Trouver une salle ») | **À fournir**, le nom B'Wall s'affiche en attendant |
 
 Les photos et les étiquettes appartiennent à One Living ; elles ne servent qu'à cette présentation locale.
 
@@ -70,19 +71,20 @@ Chaque modèle 3D est construit à partir des photos produits du site : la silho
 
 ## Ce qui est hypothétique ou fictif
 
-- **Salles partenaires** de la carte et leur fiche : exemples inventés (noms, adresses, horaires), marqués « Salle partenaire (exemple) ».
-- **Profils de grimpeurs** : exemples inventés, marqués « Exemple de profil ».
+- **Salles B'Wall** : ce sont de vraies salles (Quimper, Lanester, Vannes), présentées comme « partenaire envisagé » : B'Wall n'est pas engagé, et chaque fiche le dit. Le frigo, les boissons proposées et la voie du mois sont des exemples. Les adresses viennent de la presse locale et d'annuaires, à vérifier sur b-wall.fr : Lanester ([Cylex](https://www.cylex-locale.fr/entreprises/b%27wall-lorient-34369688.html)), Vannes ([Vertige Media](https://www.vertigemedia.fr/bwall-ouverture-salles-escalade-vannes-quimper-2025)), Quimper ([France City](https://www.francecity.com/actu9435/quimper-nouvelle-salle-escalade-bwall-keradennec.html)).
+- **Trois buveurs de kombucha** (Claire, Malik, Inès) : profils inventés, marqués « Exemple de profil ».
 - **Marge de la salle**, environ 1,70 € par bouteille (revente à 3,50 € moins cession à 1,80 €), et la salle type de 150 passages par jour : hypothèses de travail, marquées « Hypothèse », à confirmer avec One Living.
 - **Formulaire** « Devenir salle partenaire » : démo, rien n'est envoyé. Au clic : « Démo : aucune donnée n'est envoyée. »
 - **QR code** et vidéo de la voie du mois : démo.
 
 ## À savoir avant la soutenance
 
-1. **Aucune promesse santé dans les textes du site.** Les shots sont présentés par leur parfum (tropical, fraise-citron, agrumes-gingembre), jamais par leur nom commercial.
-2. **Les vraies étiquettes, elles, restent lisibles sur les modèles 3D et les photos.** Sur les shots, on lit « Energy », « Gut », « Immunity », « 1BN live cultures », « Gut health & wellbeing » ; sur les canettes, « Sugar free ». Ce sont les mentions de la marque, pas les nôtres, mais un jury attentif peut le relever.
-3. **« L'alternative sans alcool » est devenue « l'alternative à la bière »** : la fermentation laisse des traces d'alcool, la FAQ l'explique.
-4. **Jonny Wilkinson** est présenté de façon factuelle (champion du monde 2003, a parlé ouvertement de son anxiété), sans aucune citation, ni de lui ni de la marque.
-5. Le Dossier interactif (matrice des 16 sports, simulateur), le mini-jeu, One Giving et les modes présentation et vidéo ont été retirés. Ils restent dans l'historique Git (commit `9450b59`) si besoin.
+1. **B'Wall est une vraie enseigne** : c'est un partenaire visé, pas un accord signé. Le site le précise sur chaque fiche ; le dire aussi à l'oral.
+2. **Aucune promesse santé dans les textes du site.** Les shots sont présentés par leur parfum (tropical, fraise-citron, agrumes-gingembre), jamais par leur nom commercial.
+3. **Les vraies étiquettes, elles, restent lisibles sur les modèles 3D et les photos.** Sur les shots, on lit « Energy », « Gut », « Immunity », « 1BN live cultures », « Gut health & wellbeing » ; sur les canettes, « Sugar free ». Ce sont les mentions de la marque, pas les nôtres, mais un jury attentif peut le relever.
+4. **« L'alternative sans alcool » est devenue « l'alternative à la bière »** : la fermentation laisse des traces d'alcool, la FAQ l'explique.
+5. **Jonny Wilkinson** est présenté de façon factuelle (champion du monde 2003, a parlé ouvertement de son anxiété), sans aucune citation, ni de lui ni de la marque.
+6. Le Dossier interactif (matrice des 16 sports, simulateur), le mini-jeu, One Giving et les modes présentation et vidéo ont été retirés. Ils restent dans l'historique Git (commit `9450b59`) si besoin.
 
 ## Mouvement réduit et mobile
 

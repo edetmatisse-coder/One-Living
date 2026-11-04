@@ -3,7 +3,7 @@
 import type { CSSProperties } from 'react';
 import type { SectionMeta } from '@/data/sections';
 import { ROUTE_COLORS } from '@/data/routes';
-import { CLIMBERS, FORMAT_BY_ID, PRODUCT_BY_ID } from '@/data/campagne';
+import { DRINKERS, FORMAT_BY_ID, GYM_BY_ID, PRODUCT_BY_ID } from '@/data/campagne';
 import { Section, SectionInner } from '@/components/layout/Section';
 import { Badge } from '@/components/ui/Badge';
 import { Hold, type HoldKind } from '@/components/ui/Hold';
@@ -20,20 +20,20 @@ function Avatar({ color, seed }: { color: string; seed: number }) {
   );
 }
 
-/** Trois profils fictifs, tous dans la cible des 35 ans et plus. */
+/** Trois buveurs de kombucha, profils fictifs, tous dans la cible des 35 ans et plus. */
 export function Grimpeurs({ meta }: { meta: SectionMeta }) {
   return (
     <Section
       meta={meta}
       solid
-      title={['Les grimpeurs']}
+      title={['Ils en boivent']}
       cardFoot="Profils · exemples"
-      lead={<>Trois grimpeurs, trois façons de vivre l’après-séance.</>}
+      lead={<>Trois habitués des salles B’Wall, grimpeurs ou non, trois façons de boire leur kombucha.</>}
     >
       <SectionInner>
         <div className="grid gap-6 md:grid-cols-3 md:items-start">
-          {CLIMBERS.map((c, i) => {
-            const f = PRODUCT_BY_ID[c.flavor];
+          {DRINKERS.map((c, i) => {
+            const f = PRODUCT_BY_ID[c.drink];
             const color = ROUTE_COLORS[f.route];
             return (
               <article
@@ -52,7 +52,7 @@ export function Grimpeurs({ meta }: { meta: SectionMeta }) {
                   {c.name}, {c.age} ans
                 </h3>
                 <p className={`mt-1 text-[14px] font-medium ${i === 1 ? 'text-ply-500' : 'text-dust'}`}>
-                  {c.city} · {c.since} · niveau {c.level}
+                  {GYM_BY_ID[c.gym].name} · {c.profile} · {c.since}
                 </p>
                 <p className={`mt-5 text-[16px] leading-relaxed ${i === 1 ? 'text-ply-800' : 'text-chalk-dim'}`}>{c.text}</p>
                 <dl className={`mt-6 grid gap-3 border-t pt-5 text-[14px] ${i === 1 ? 'border-ply-900/10' : 'border-chalk/10'}`}>

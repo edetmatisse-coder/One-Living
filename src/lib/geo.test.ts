@@ -1,26 +1,34 @@
 import { describe, expect, it } from 'vitest';
-import { dotGrid, inside, project, WIN_CITIES } from './geo';
+import { GYMS } from '@/data/campagne';
+import { BOUNDS, dotGrid, inside, project } from './geo';
 
-describe('carte de l’Ouest', () => {
-  it('place les 5 villes WIN sur la terre', () => {
-    for (const c of WIN_CITIES) expect(inside(c.lonlat), c.name).toBe(true);
+describe('carte du sud de la Bretagne', () => {
+  it('place les 3 salles B’Wall sur la terre, dans le cadre', () => {
+    for (const g of GYMS) {
+      expect(inside(g.lonlat), g.name).toBe(true);
+      expect(g.lonlat[0]).toBeGreaterThan(BOUNDS.minLon);
+      expect(g.lonlat[0]).toBeLessThan(BOUNDS.maxLon);
+      expect(g.lonlat[1]).toBeGreaterThan(BOUNDS.minLat);
+      expect(g.lonlat[1]).toBeLessThan(BOUNDS.maxLat);
+    }
   });
 
-  it('laisse la mer en dehors (Atlantique, Manche)', () => {
-    expect(inside([-5.5, 47.5])).toBe(false);
-    expect(inside([-2.5, 49.6])).toBe(false);
+  it('laisse la mer en dehors, mais garde Groix et Belle-Île', () => {
+    expect(inside([-4.0, 47.6])).toBe(false); // au large de Concarneau
+    expect(inside([-3.6, 47.5])).toBe(false); // entre Groix et Belle-Île
+    expect(inside([-3.47, 47.64])).toBe(true); // Groix
+    expect(inside([-3.16, 47.34])).toBe(true); // Belle-Île
   });
 
-  it('respecte l’ordre géographique', () => {
+  it('respecte l’ordre géographique : Quimper, Lanester, Vannes d’ouest en est', () => {
     const w = 600;
-    const caen = project([-0.37, 49.18], w);
-    const tours = project([0.69, 47.39], w);
-    const vannes = project([-2.76, 47.66], w);
-    expect(caen.y).toBeLessThan(tours.y); // Caen au nord de Tours
-    expect(vannes.x).toBeLessThan(tours.x); // Vannes à l'ouest de Tours
+    const [quimper, lanester, vannes] = ['quimper', 'lanester', 'vannes'].map((id) => project(GYMS.find((g) => g.id === id)!.lonlat, w));
+    expect(quimper.x).toBeLessThan(lanester.x);
+    expect(lanester.x).toBeLessThan(vannes.x);
+    expect(quimper.y).toBeLessThan(vannes.y); // Quimper plus au nord que Vannes
   });
 
   it('produit une trame de points non vide', () => {
-    expect(dotGrid(600, 14).length).toBeGreaterThan(300);
+    expect(dotGrid(600, 10).length).toBeGreaterThan(400);
   });
 });

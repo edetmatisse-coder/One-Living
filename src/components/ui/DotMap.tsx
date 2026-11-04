@@ -1,7 +1,7 @@
 'use client';
 
 import { useId, useMemo, useRef, type ReactNode } from 'react';
-import { COAST_END, dotGrid, mapHeight, project, WEST_OUTLINE, type LonLat } from '@/lib/geo';
+import { COAST, dotGrid, ISLANDS, mapHeight, project, type LonLat } from '@/lib/geo';
 import { HOLD_PATHS, type HoldKind } from './Hold';
 import { useInView } from '@/lib/use-in-view';
 
@@ -50,10 +50,10 @@ function smoothPath(pts: { x: number; y: number }[]) {
 }
 
 /**
- * Carte de l'Ouest en trame de points : la terre est une grille d'inserts,
- * les lieux sont des prises.
+ * Carte du sud de la Bretagne en trame de points : la terre est une grille
+ * d'inserts, les lieux sont des prises.
  */
-export function WestMap({ points, route, activeId, onSelect, width = 640, step = 12, className = '', litCount, children, ariaLabel }: Props) {
+export function DotMap({ points, route, activeId, onSelect, width = 640, step = 12, className = '', litCount, children, ariaLabel }: Props) {
   const ref = useRef<SVGSVGElement>(null);
   const maskId = `route-${useId().replace(/:/g, '')}`;
   const seen = useInView(ref, { rootMargin: '0px 0px -15% 0px' });
@@ -64,10 +64,16 @@ export function WestMap({ points, route, activeId, onSelect, width = 640, step =
     [points, width],
   );
   const coast = useMemo(() => {
-    const pts = WEST_OUTLINE.slice(0, COAST_END + 1).map((ll) => project(ll, width));
-    return pts.map((p, i) => `${i ? 'L' : 'M'} ${r1(p.x)} ${r1(p.y)}`).join(' ');
+    const line = (pts: LonLat[], close = false) =>
+      pts
+        .map((ll, i) => {
+          const p = project(ll, width);
+          return `${i ? 'L' : 'M'} ${r1(p.x)} ${r1(p.y)}`;
+        })
+        .join(' ') + (close ? ' Z' : '');
+    return [line(COAST), ...ISLANDS.map((isl) => line(isl, true))].join(' ');
   }, [width]);
-  const sea = useMemo(() => ({ manche: project([-3.4, 49.55], width), atl: project([-4.4, 46.9], width) }), [width]);
+  const sea = useMemo(() => project([-4.62, 47.47], width), [width]);
   const routePts = route ? route.map((id) => placed.find((p) => p.id === id)!).filter(Boolean) : [];
   const d = smoothPath(routePts);
   const lit = litCount ?? (seen ? placed.length : 0);
@@ -82,11 +88,8 @@ export function WestMap({ points, route, activeId, onSelect, width = 640, step =
       </defs>
       {/* littoral */}
       <path d={coast} fill="none" stroke="#A9A39A" strokeOpacity="0.38" strokeWidth="1" strokeLinejoin="round" aria-hidden />
-      <text x={r1(sea.manche.x)} y={r1(sea.manche.y)} aria-hidden style={{ fontSize: 10, fill: '#7D776F', fontFamily: 'var(--font-mono)', letterSpacing: '0.3em', textTransform: 'uppercase' }}>
-        Manche
-      </text>
-      <text x={r1(sea.atl.x)} y={r1(sea.atl.y)} aria-hidden style={{ fontSize: 10, fill: '#7D776F', fontFamily: 'var(--font-mono)', letterSpacing: '0.3em', textTransform: 'uppercase' }}>
-        Atlantique
+      <text x={r1(sea.x)} y={r1(sea.y)} aria-hidden style={{ fontSize: 10, fill: '#7D776F', fontFamily: 'var(--font-mono)', letterSpacing: '0.3em', textTransform: 'uppercase' }}>
+        Océan Atlantique
       </text>
       {/* terre : trame d'inserts */}
       <g aria-hidden>

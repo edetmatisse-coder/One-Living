@@ -68,8 +68,8 @@ export const CAMPAGNE_SECTIONS: SectionMeta[] = [
   {
     id: 'grimpeurs',
     num: 6,
-    title: 'Les grimpeurs',
-    short: 'Grimpeurs',
+    title: 'Ils en boivent',
+    short: 'Ils en boivent',
     route: 'blue',
     grade: '6b',
   },
