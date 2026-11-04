@@ -72,8 +72,8 @@ export function Matrice({ meta }: { meta: SectionMeta }) {
       cardFoot="Outil 1 · à manipuler"
       lead={
         <>
-          Seize sports, quatre pôles, six critères notés de 1 à 5 par l’équipe. Bougez les curseurs : les poids restent normalisés
-          à 100 % et les barres se réordonnent en direct.
+          Seize sports, quatre pôles, six critères notés de 1 à 5 par l’équipe. Bougez les curseurs : les poids restent normalisés
+          à 100 % et les barres se réordonnent en direct.
         </>
       }
     >
@@ -103,7 +103,7 @@ export function Matrice({ meta }: { meta: SectionMeta }) {
 
             <div className="mt-9 flex items-baseline justify-between">
               <p className="label-mono text-dust">Pondérations</p>
-              <p className="label-mono text-dust">Total 100 %</p>
+              <p className="label-mono text-dust">Total 100 %</p>
             </div>
             <div className="mt-4 space-y-5">
               {CRITERIA.map((c, i) => (
@@ -188,7 +188,7 @@ export function Matrice({ meta }: { meta: SectionMeta }) {
             </LayoutGroup>
             <p className="label-mono mt-5 flex justify-between text-[10px] text-dust/70">
               <span>Score pondéré sur 5</span>
-              <span>Notes : notation de l’équipe</span>
+              <span>Notes : notation de l’équipe</span>
             </p>
           </div>
         </div>

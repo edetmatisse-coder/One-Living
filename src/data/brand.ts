@@ -28,7 +28,7 @@ export const BRAND_TIMELINE: Milestone[] = [
     id: 'rebranding',
     year: '2024',
     title: 'One Living',
-    text: 'Rebranding : No.1 Living devient One Living.',
+    text: 'Rebranding : No.1 Living devient One Living.',
     idea: 'De battre les autres à se sentir aligné.',
     sources: ['grocer'],
   },
@@ -39,7 +39,7 @@ export const BRAND_TIMELINE: Milestone[] = [
     text: 'Une marque déjà installée en grande distribution.',
     stats: [
       { value: '2', suffix: 'e', label: 'kombucha en GMS' },
-      { value: '3,4 M£', label: 'de ventes' },
+      { value: '3,4 M£', label: 'de ventes' },
       { value: '+38,4 %', label: 'de croissance' },
     ],
     sources: ['grocer'],

@@ -19,7 +19,7 @@ const STATEMENT: { t: string; k?: 1 | 2 | 3 }[] = [
   { t: 'où ses produits ont' },
   { t: 'un vrai moment de consommation,', k: 2 },
   { t: 'et où' },
-  { t: 'une gamme fraîche à environ 3 € peut être distribuée.', k: 3 },
+  { t: 'une gamme fraîche à environ 3 € peut être distribuée.', k: 3 },
 ];
 
 const APPUIS = [
@@ -38,7 +38,7 @@ const APPUIS = [
   {
     n: 3,
     name: 'La distribution',
-    text: 'Un lieu qui garde une gamme fraîche au froid et la vend autour de 3 €.',
+    text: 'Un lieu qui garde une gamme fraîche au froid et la vend autour de 3 €.',
     kind: 'crimp' as const,
   },
 ];
@@ -151,7 +151,7 @@ export function Probleme({ meta }: { meta: SectionMeta }) {
               </ol>
             </div>
             <p className="mt-12 max-w-[44ch] border-t border-chalk/10 pt-6 text-[15px] leading-relaxed text-dust">
-              En escalade, on garde trois appuis pour ne pas tomber. Notre grille fait pareil : un sport qui n’en tient que deux ne
+              En escalade, on garde trois appuis pour ne pas tomber. Notre grille fait pareil : un sport qui n’en tient que deux ne
               passe pas.
             </p>
           </div>

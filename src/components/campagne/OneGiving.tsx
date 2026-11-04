@@ -62,7 +62,7 @@ export function OneGiving({ meta }: { meta: SectionMeta }) {
             </div>
           </div>
           <p className="mt-12 max-w-[64ch] border-t border-chalk/10 pt-6 text-[14.5px] leading-relaxed text-dust">
-            Les montants affichés sont fictifs : ils montrent ce que verrait un grimpeur sur le site de la campagne. Les
+            Les montants affichés sont fictifs : ils montrent ce que verrait un grimpeur sur le site de la campagne. Les
             associations soutenues et le mode de calcul sont à confirmer avec One Living.
           </p>
         </div>

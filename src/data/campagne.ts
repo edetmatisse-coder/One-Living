@@ -158,29 +158,29 @@ export const CLIMBERS = [
     since: 'Bloc à la pause déjeuner',
     flavor: 'framboise-grenade' as const,
     moment: 'Avant de grimper',
-    text: 'Elle passe entre midi et deux : un shot à l’accueil, quarante minutes de bloc, retour au bureau.',
+    text: 'Elle passe entre midi et deux : un shot à l’accueil, quarante minutes de bloc, retour au bureau.',
   },
 ];
 
 export const FAQ = [
   {
-    q: 'C’est quoi, le kombucha ?',
+    q: 'C’est quoi, le kombucha ?',
     a: 'Une boisson fermentée à base de thé infusé et sucré. Une culture de levures et de bactéries transforme le sucre pendant la fermentation, ce qui donne une boisson légèrement pétillante et acidulée.',
   },
   {
-    q: 'Il y a de l’alcool dedans ?',
-    a: 'La fermentation produit naturellement des traces d’alcool, en très faible quantité. C’est pour ça qu’on parle d’alternative à la bière plutôt que de boisson « sans alcool ».',
+    q: 'Il y a de l’alcool dedans ?',
+    a: 'La fermentation produit naturellement des traces d’alcool, en très faible quantité. C’est pour ça qu’on parle d’alternative à la bière plutôt que de boisson « sans alcool ».',
   },
   {
-    q: 'Et de la caféine ?',
-    a: 'Oui. Le kombucha est fait à partir de thé : il en garde un peu de caféine, en quantité variable selon le thé utilisé et la fermentation.',
+    q: 'Et de la caféine ?',
+    a: 'Oui. Le kombucha est fait à partir de thé : il en garde un peu de caféine, en quantité variable selon le thé utilisé et la fermentation.',
   },
   {
-    q: 'Pourquoi le garder au frais ?',
+    q: 'Pourquoi le garder au frais ?',
     a: 'C’est un produit vivant et non pasteurisé. Le froid ralentit la fermentation et garde le goût stable jusqu’à l’ouverture.',
   },
   {
-    q: 'Où le trouver ?',
+    q: 'Où le trouver ?',
     a: 'Au bar des salles partenaires, et en France chez Carrefour, Leclerc et Decathlon Pro.',
   },
 ];

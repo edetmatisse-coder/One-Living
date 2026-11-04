@@ -29,12 +29,12 @@ export interface Criterion {
 
 /** Ordre des notes : [volume, affinité, moments, accès, 35+, fraîche]. */
 export const CRITERIA: Criterion[] = [
-  { id: 'volume', label: 'Volume', question: 'Combien de pratiquants et de licenciés ? (licences Insee 2025)' },
-  { id: 'affinite', label: 'Affinité', question: 'Le récit de la marque, le mental et l’équilibre, y est-il légitime ?' },
-  { id: 'moments', label: 'Moments', question: 'Existe-t-il un vrai moment de consommation ?' },
-  { id: 'acces', label: 'Accès terrain', question: 'Peut-on installer un point de vente là où l’on pratique ?' },
-  { id: 'cible', label: 'Cible 35+', question: 'Les 35 ans et plus y sont-ils nombreux ?' },
-  { id: 'fraiche', label: 'Gamme fraîche', question: 'Peut-on y garder et vendre un produit frais ?' },
+  { id: 'volume', label: 'Volume', question: 'Combien de pratiquants et de licenciés ? (licences Insee 2025)' },
+  { id: 'affinite', label: 'Affinité', question: 'Le récit de la marque, le mental et l’équilibre, y est-il légitime ?' },
+  { id: 'moments', label: 'Moments', question: 'Existe-t-il un vrai moment de consommation ?' },
+  { id: 'acces', label: 'Accès terrain', question: 'Peut-on installer un point de vente là où l’on pratique ?' },
+  { id: 'cible', label: 'Cible 35+', question: 'Les 35 ans et plus y sont-ils nombreux ?' },
+  { id: 'fraiche', label: 'Gamme fraîche', question: 'Peut-on y garder et vendre un produit frais ?' },
 ];
 
 export interface Sport {

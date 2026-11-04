@@ -45,7 +45,7 @@ export function Poc({ meta }: { meta: SectionMeta }) {
               <WestMap
                 points={points}
                 route={points.map((p) => p.id)}
-                ariaLabel="Carte de l’Ouest : Vannes, Tours, Laval, Rennes et Caen reliées comme les prises d’une voie"
+                ariaLabel="Carte de l’Ouest : Vannes, Tours, Laval, Rennes et Caen reliées comme les prises d’une voie"
                 className="w-full"
                 width={620}
                 step={8}

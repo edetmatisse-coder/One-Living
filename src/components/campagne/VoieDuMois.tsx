@@ -98,7 +98,7 @@ export function VoieDuMois({ meta }: { meta: SectionMeta }) {
       solid
       title={['La voie', 'du mois']}
       cardFoot="QR code sur la bouteille"
-      lead={<>Scanne le QR code de ta bouteille : la vidéo de la voie du mois et trois conseils de concentration s’ouvrent.</>}
+      lead={<>Scanne le QR code de ta bouteille : la vidéo de la voie du mois et trois conseils de concentration s’ouvrent.</>}
     >
       <SectionInner>
         <div ref={ref} className="grid items-center gap-12 md:grid-cols-[minmax(0,0.8fr)_minmax(0,1fr)] lg:gap-20">

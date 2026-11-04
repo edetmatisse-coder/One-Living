@@ -73,7 +73,7 @@ export function Salles({ meta }: { meta: SectionMeta }) {
                 </div>
                 <div className="grid grid-cols-[120px_1fr] gap-3">
                   <dt className="text-ply-500">Au bar</dt>
-                  <dd className="font-medium">Frigo One Living, bouteilles à 3,50 €</dd>
+                  <dd className="font-medium">Frigo One Living, bouteilles à 3,50 €</dd>
                 </div>
                 <div className="grid grid-cols-[120px_1fr] gap-3">
                   <dt className="text-ply-500">Parfums</dt>
@@ -92,7 +92,7 @@ export function Salles({ meta }: { meta: SectionMeta }) {
                 </div>
               </dl>
               <p className="mt-6 border-t border-ply-900/10 pt-4 text-[12.5px] text-ply-500">
-                Fiche fictive pour la maquette : nom, adresse et horaires sont inventés.
+                Fiche fictive pour la maquette : nom, adresse et horaires sont inventés.
               </p>
             </article>
 

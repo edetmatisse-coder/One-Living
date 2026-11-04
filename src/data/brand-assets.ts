@@ -16,7 +16,7 @@ export const BRAND_ASSETS = [
   { id: 'etiquetteFramboise', file: 'etiquette-framboise-grenade', label: 'Étiquette à plat framboise-grenade', usage: 'Texture de l’étiquette de la bouteille 3D' },
   { id: 'etiquettePassion', file: 'etiquette-passion-goji', label: 'Étiquette à plat passion-goji', usage: 'Texture de l’étiquette de la bouteille 3D' },
   { id: 'etiquetteMangue', file: 'etiquette-mangue-citron-vert', label: 'Étiquette à plat mangue-citron vert', usage: 'Texture de l’étiquette de la bouteille 3D' },
-  { id: 'shots', file: 'shots', label: 'Visuel des 3 shots', usage: 'Bloc « Les shots » de la Campagne' },
+  { id: 'shots', file: 'shots', label: 'Visuel des 3 shots', usage: 'Bloc « Les shots » de la Campagne' },
 ] as const;
 
 export type BrandAssetId = (typeof BRAND_ASSETS)[number]['id'];

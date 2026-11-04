@@ -139,7 +139,7 @@ export function CampagneHero({ meta }: { meta: SectionMeta }) {
               </>
             ) : (
               <div aria-live="polite">
-                <p className="font-display text-[44px] leading-none text-route">Top !</p>
+                <p className="font-display text-[44px] leading-none text-route">Top !</p>
                 <p className="mt-2 text-[16px] text-chalk-dim">Tu as fini la voie. Le moment est à toi.</p>
                 <div className="mt-5 flex flex-wrap gap-3">
                   <Button onClick={() => scrollToElement('gamme', { duration: 1.8 })}>

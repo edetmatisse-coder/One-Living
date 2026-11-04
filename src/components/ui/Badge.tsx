@@ -12,7 +12,7 @@ const LABEL: Record<Kind, string> = {
 const TITLE: Record<Kind, string> = {
   hypothese: 'Valeur à confirmer avec One Living et notre sondage terrain',
   exemple: 'Contenu fictif, pour illustrer la campagne',
-  demo: 'Démonstration : aucune donnée réelle',
+  demo: 'Démonstration : aucune donnée réelle',
   neutral: '',
 };
 

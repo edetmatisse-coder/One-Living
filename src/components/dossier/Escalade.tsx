@@ -103,7 +103,7 @@ function Finalists() {
         })}
       </div>
       <p className="mt-6 max-w-[70ch] text-[15px] leading-relaxed text-dust">
-        Le running a le volume, 13,2 millions de pratiquants <SourceChip id="obs-running" />, mais pas de point de vente régulier :
+        Le running a le volume, 13,2 millions de pratiquants <SourceChip id="obs-running" />, mais pas de point de vente régulier :
         dans notre modèle, un événement ne couvre pas son coût d’activation. Seules l’escalade et le yoga sont rentables dès la
         première année.
       </p>
@@ -320,12 +320,12 @@ export function Escalade({ meta }: { meta: SectionMeta }) {
   return (
     <Section
       meta={meta}
-      title={['Un seul sport :', 'l’escalade']}
+      title={['Un seul sport :', 'l’escalade']}
       cardFoot="Modèle par point de vente"
       lead={
         <>
-          Les quatre gagnants de pôle passent au modèle économique : un point de vente type, sur un an, avec un coût de revient de
-          1,00 € par bouteille.
+          Les quatre gagnants de pôle passent au modèle économique : un point de vente type, sur un an, avec un coût de revient de
+          1,00 € par bouteille.
         </>
       }
     >

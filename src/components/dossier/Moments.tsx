@@ -27,7 +27,7 @@ export function Moments({ meta }: { meta: SectionMeta }) {
       meta={meta}
       title={['Trois moments', 'déjà là']}
       cardFoot="Une séance type"
-      lead={<>On ne crée pas d’habitude : le kombucha s’installe dans des moments qui existent déjà en salle.</>}
+      lead={<>On ne crée pas d’habitude : le kombucha s’installe dans des moments qui existent déjà en salle.</>}
     >
       <SectionInner>
         <div ref={ref} className="relative" data-part data-part-title="Les 3 moments">

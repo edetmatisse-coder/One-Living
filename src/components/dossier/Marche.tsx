@@ -117,7 +117,7 @@ export function Marche({ meta }: { meta: SectionMeta }) {
           <div className="lg:pt-8">
             <p className="label-mono mb-5 text-route">Trois chiffres, trois périmètres</p>
             <p className="max-w-[40ch] text-[20px] leading-relaxed text-chalk-dim">
-              On les pose côte à côte pour donner l’ordre de grandeur. Ils ne mesurent pas la même chose : ni les mêmes produits, ni
+              On les pose côte à côte pour donner l’ordre de grandeur. Ils ne mesurent pas la même chose : ni les mêmes produits, ni
               les mêmes canaux, ni la même année. Ils ne s’additionnent donc pas.
             </p>
             {growth && (

@@ -56,14 +56,14 @@ export function Histoire({ meta }: { meta: SectionMeta }) {
             </p>
             <p className="mt-7">
               En 2018, sa marque de boissons naît sous le nom No.1 Living. En 2024, elle devient One Living. Le chiffre devient un
-              mot : on ne cherche plus à battre les autres, on cherche à se sentir aligné.
+              mot : on ne cherche plus à battre les autres, on cherche à se sentir aligné.
             </p>
             <p className="mt-7">
               Les grimpeurs connaissent cette idée. Sur une voie, personne ne gagne contre personne. On lit, on respire, on avance
               prise après prise, et on redescend content d’avoir trouvé le bon geste. Après la voie, il reste le moment de souffler.
             </p>
             <div className="mt-10 flex flex-wrap items-center gap-3 border-t border-chalk/10 pt-6 text-[13px] text-dust">
-              Faits sur la marque : <SourceChip id="grocer" withLabel />
+              Faits sur la marque : <SourceChip id="grocer" withLabel />
             </div>
           </article>
         </div>

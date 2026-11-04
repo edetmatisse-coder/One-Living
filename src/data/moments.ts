@@ -26,7 +26,7 @@ export const MOMENTS: Moment[] = [
     when: 'Après la voie',
     title: 'Le kombucha au bar',
     product: 'Kombucha 33 cl',
-    text: 'Le moment clé : 69 % des grimpeurs boivent déjà un verre après leur séance.',
+    text: 'Le moment clé : 69 % des grimpeurs boivent déjà un verre après leur séance.',
     clock: '20 h 40',
     source: 'obs-escalade',
   },
@@ -35,7 +35,7 @@ export const MOMENTS: Moment[] = [
     when: 'Entre grimpeurs',
     title: 'L’alternative à la bière',
     product: 'Kombucha 33 cl',
-    text: 'Le verre qu’on partage en refaisant la voie : une alternative à la bière, avec du goût.',
+    text: 'Le verre qu’on partage en refaisant la voie : une alternative à la bière, avec du goût.',
     clock: '21 h 05',
   },
 ];
@@ -55,9 +55,9 @@ export const CAN_SAY: Claim[] = [
 ];
 
 export const AVOID: Claim[] = [
-  { say: '« Probiotique »', why: 'Allégation non autorisée en Europe.', source: 'foodinnov' },
-  { say: '« Favorise la récupération »', why: 'Promesse santé, interdite sans allégation autorisée.' },
-  { say: '« Bon pour le microbiote »', why: 'Promesse santé, interdite sans allégation autorisée.' },
-  { say: '« Améliore le mental »', why: 'Le mental est le récit de la marque, pas un effet du produit.' },
-  { say: '« Sans alcool », sans nuance', why: 'La fermentation laisse des traces d’alcool : on dit « alternative ».' },
+  { say: '« Probiotique »', why: 'Allégation non autorisée en Europe.', source: 'foodinnov' },
+  { say: '« Favorise la récupération »', why: 'Promesse santé, interdite sans allégation autorisée.' },
+  { say: '« Bon pour le microbiote »', why: 'Promesse santé, interdite sans allégation autorisée.' },
+  { say: '« Améliore le mental »', why: 'Le mental est le récit de la marque, pas un effet du produit.' },
+  { say: '« Sans alcool », sans nuance', why: 'La fermentation laisse des traces d’alcool : on dit « alternative ».' },
 ];

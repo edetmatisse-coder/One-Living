@@ -7,7 +7,7 @@ import './globals.css';
 export const metadata: Metadata = {
   title: 'One Living × Escalade · Dossier interactif',
   description:
-    'Projet étudiant WIN Sport School : développer One Living dans le sport amateur hors rugby. Dossier interactif et maquette de la campagne « Après la voie ».',
+    'Projet étudiant WIN Sport School : développer One Living dans le sport amateur hors rugby. Dossier interactif et maquette de la campagne « Après la voie ».',
   robots: { index: false, follow: false },
 };
 

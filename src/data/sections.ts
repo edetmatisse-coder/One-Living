@@ -26,7 +26,7 @@ export const DOSSIER_SECTIONS: SectionMeta[] = [
     route: 'yellow',
     grade: '3c',
     notes:
-      "On ouvre sur la paroi. Le chiffre qui lance tout : 69 % des grimpeurs boivent un verre après leur séance (Observatoire de l'escalade 2026). Notre thèse tient en une phrase : le kombucha a trouvé sa paroi. Annoncer les deux outils qu'on va manipuler devant vous.",
+      "On ouvre sur la paroi. Le chiffre qui lance tout : 69 % des grimpeurs boivent un verre après leur séance (Observatoire de l'escalade 2026). Notre thèse tient en une phrase : le kombucha a trouvé sa paroi. Annoncer les deux outils qu'on va manipuler devant vous.",
   },
   {
     id: 'probleme',
@@ -36,7 +36,7 @@ export const DOSSIER_SECTIONS: SectionMeta[] = [
     route: 'pink',
     grade: '4a',
     notes:
-      'Problématique 2 : développer One Living dans le sport amateur, hors rugby. Trois conditions à réunir en même temps : un récit légitime (le mental, l’équilibre), un vrai moment de consommation, et une gamme fraîche à environ 3 € que l’on peut distribuer.',
+      'Problématique 2 : développer One Living dans le sport amateur, hors rugby. Trois conditions à réunir en même temps : un récit légitime (le mental, l’équilibre), un vrai moment de consommation, et une gamme fraîche à environ 3 € que l’on peut distribuer.',
   },
   {
     id: 'marque',
@@ -46,7 +46,7 @@ export const DOSSIER_SECTIONS: SectionMeta[] = [
     route: 'blue',
     grade: '4c',
     notes:
-      '2018 : No.1 Living. 2024 : One Living, on passe de battre les autres à se sentir aligné. Au Royaume-Uni : 2e kombucha en GMS, 3,4 M£, +38,4 %. 2026 : lancement national en France, avec Decathlon Pro, le canal des clubs.',
+      '2018 : No.1 Living. 2024 : One Living, on passe de battre les autres à se sentir aligné. Au Royaume-Uni : 2e kombucha en GMS, 3,4 M£, +38,4 %. 2026 : lancement national en France, avec Decathlon Pro, le canal des clubs.',
   },
   {
     id: 'marche',
@@ -56,7 +56,7 @@ export const DOSSIER_SECTIONS: SectionMeta[] = [
     route: 'orange',
     grade: '5a',
     notes:
-      'Trois chiffres, trois périmètres : on ne les additionne pas. Le kombucha seul en France pèse 6 M€ (2024). Les boissons fermentées en GMS, 21,4 M€ (2025), près de +160 %. Ciao Kombucha, 23 M€ : une marque peut décoller vite.',
+      'Trois chiffres, trois périmètres : on ne les additionne pas. Le kombucha seul en France pèse 6 M€ (2024). Les boissons fermentées en GMS, 21,4 M€ (2025), près de +160 %. Ciao Kombucha, 23 M€ : une marque peut décoller vite.',
   },
   {
     id: 'matrice',
@@ -66,27 +66,27 @@ export const DOSSIER_SECTIONS: SectionMeta[] = [
     route: 'yellow',
     grade: '5c',
     notes:
-      'Seize sports, quatre pôles, six critères. Montrer nos poids, puis bouger un curseur devant le jury. Les barres se réordonnent, mais les quatre gagnants de pôle restent les mêmes dans les cinq scénarios : football, running, escalade, yoga.',
+      'Seize sports, quatre pôles, six critères. Montrer nos poids, puis bouger un curseur devant le jury. Les barres se réordonnent, mais les quatre gagnants de pôle restent les mêmes dans les cinq scénarios : football, running, escalade, yoga.',
   },
   {
     id: 'escalade',
     num: 5,
-    title: 'Un seul sport : l’escalade',
+    title: 'Un seul sport : l’escalade',
     short: 'L’escalade',
     route: 'pink',
     grade: '6a',
     notes:
-      'Les quatre finalistes passent au modèle économique par point de vente. Seuls l’escalade et le yoga sont rentables la première année. Note économique : escalade 4,90, yoga 3,50, football 2,45, running 2,30. L’escalade reste première dans les cinq jeux de pondérations.',
+      'Les quatre finalistes passent au modèle économique par point de vente. Seuls l’escalade et le yoga sont rentables la première année. Note économique : escalade 4,90, yoga 3,50, football 2,45, running 2,30. L’escalade reste première dans les cinq jeux de pondérations.',
   },
   {
     id: 'simulateur',
     num: 6,
-    title: 'Le simulateur « Ma salle »',
+    title: 'Le simulateur « Ma salle »',
     short: 'Outil 2 · Ma salle',
     route: 'blue',
     grade: '6b',
     notes:
-      'Salle type : 330 jours, 150 passages, 3 % de prise. 1 485 bouteilles par an, +1 038 € de contribution, rentable dès 188 bouteilles. Passer au scénario prudent : avec un taux divisé par deux, la contribution reste positive.',
+      'Salle type : 330 jours, 150 passages, 3 % de prise. 1 485 bouteilles par an, +1 038 € de contribution, rentable dès 188 bouteilles. Passer au scénario prudent : avec un taux divisé par deux, la contribution reste positive.',
   },
   {
     id: 'moments',
@@ -96,7 +96,7 @@ export const DOSSIER_SECTIONS: SectionMeta[] = [
     route: 'orange',
     grade: '6b+',
     notes:
-      'Trois moments qui existent déjà en salle : avant la séance (le shot), après la voie (le kombucha au bar), entre grimpeurs (l’alternative à la bière). Puis ce qu’on peut dire et ce qu’on évite : aucune allégation santé.',
+      'Trois moments qui existent déjà en salle : avant la séance (le shot), après la voie (le kombucha au bar), entre grimpeurs (l’alternative à la bière). Puis ce qu’on peut dire et ce qu’on évite : aucune allégation santé.',
   },
   {
     id: 'poc',
@@ -106,7 +106,7 @@ export const DOSSIER_SECTIONS: SectionMeta[] = [
     route: 'yellow',
     grade: '6c',
     notes:
-      'Un test grandeur nature autour des villes WIN : Laval, Rennes, Vannes, Tours, Caen. Trois salles test, frigo et dotation, trois mois, un bilan, puis l’extension aux structures FFME.',
+      'Un test grandeur nature autour des villes WIN : Laval, Rennes, Vannes, Tours, Caen. Trois salles test, frigo et dotation, trois mois, un bilan, puis l’extension aux structures FFME.',
   },
   {
     id: 'indicateurs',
@@ -116,7 +116,7 @@ export const DOSSIER_SECTIONS: SectionMeta[] = [
     route: 'pink',
     grade: '7a',
     notes:
-      'Quatre indicateurs pour décider de la suite : salles activées, bouteilles par salle, taux de réachat, coût par pratiquant touché. Le seuil de 188 bouteilles par salle sert de ligne de flottaison.',
+      'Quatre indicateurs pour décider de la suite : salles activées, bouteilles par salle, taux de réachat, coût par pratiquant touché. Le seuil de 188 bouteilles par salle sert de ligne de flottaison.',
   },
   {
     id: 'sources',
@@ -126,7 +126,7 @@ export const DOSSIER_SECTIONS: SectionMeta[] = [
     route: 'blue',
     grade: '7a+',
     notes:
-      'Toutes les sources sont cliquables. Les valeurs marquées Hypothèse sont à confirmer avec One Living et notre sondage terrain. Fin du Dossier : ouvrir la maquette de la campagne « Après la voie ».',
+      'Toutes les sources sont cliquables. Les valeurs marquées Hypothèse sont à confirmer avec One Living et notre sondage terrain. Fin du Dossier : ouvrir la maquette de la campagne « Après la voie ».',
   },
 ];
 
@@ -139,7 +139,7 @@ export const CAMPAGNE_SECTIONS: SectionMeta[] = [
     route: 'yellow',
     grade: '3c',
     notes:
-      'La maquette du site public, telle qu’un grimpeur la verrait. Faire le mini-jeu en direct : cinq prises dans l’ordre, la dernière libère les bulles et révèle la bouteille.',
+      'La maquette du site public, telle qu’un grimpeur la verrait. Faire le mini-jeu en direct : cinq prises dans l’ordre, la dernière libère les bulles et révèle la bouteille.',
   },
   {
     id: 'concept',
@@ -157,7 +157,7 @@ export const CAMPAGNE_SECTIONS: SectionMeta[] = [
     short: 'La gamme',
     route: 'blue',
     grade: '5a',
-    notes: 'Faire tourner la bouteille, changer de parfum : la couleur de voie suit le parfum. Bio, vivant, non pasteurisé, 33 cl. Les shots sont présentés par leurs parfums uniquement.',
+    notes: 'Faire tourner la bouteille, changer de parfum : la couleur de voie suit le parfum. Bio, vivant, non pasteurisé, 33 cl. Les shots sont présentés par leurs parfums uniquement.',
   },
   {
     id: 'histoire',
@@ -166,7 +166,7 @@ export const CAMPAGNE_SECTIONS: SectionMeta[] = [
     short: 'L’histoire',
     route: 'orange',
     grade: '5c',
-    notes: 'Un champion de rugby qui a fait de l’équilibre mental son combat. Le nom raconte le virage : de No.1 à One, d’être numéro un à se sentir aligné.',
+    notes: 'Un champion de rugby qui a fait de l’équilibre mental son combat. Le nom raconte le virage : de No.1 à One, d’être numéro un à se sentir aligné.',
   },
   {
     id: 'salles',
@@ -175,7 +175,7 @@ export const CAMPAGNE_SECTIONS: SectionMeta[] = [
     short: 'Les salles',
     route: 'yellow',
     grade: '6a',
-    notes: 'Carte de l’Ouest avec des salles partenaires. Ce sont des exemples : aucune salle réelle n’est engagée à ce stade.',
+    notes: 'Carte de l’Ouest avec des salles partenaires. Ce sont des exemples : aucune salle réelle n’est engagée à ce stade.',
   },
   {
     id: 'voie-du-mois',
@@ -211,7 +211,7 @@ export const CAMPAGNE_SECTIONS: SectionMeta[] = [
     short: 'Pour les salles',
     route: 'yellow',
     grade: '6c',
-    notes: 'Le discours B2B : frigo prêté, dotation de lancement, environ 1,70 € de marge par bouteille (hypothèse). Le formulaire est une démo.',
+    notes: 'Le discours B2B : frigo prêté, dotation de lancement, environ 1,70 € de marge par bouteille (hypothèse). Le formulaire est une démo.',
   },
   {
     id: 'faq',
@@ -220,6 +220,6 @@ export const CAMPAGNE_SECTIONS: SectionMeta[] = [
     short: 'FAQ',
     route: 'pink',
     grade: '7a',
-    notes: 'Réponses factuelles : ce qu’est le kombucha, les traces d’alcool, la caféine du thé, pourquoi le garder au frais.',
+    notes: 'Réponses factuelles : ce qu’est le kombucha, les traces d’alcool, la caféine du thé, pourquoi le garder au frais.',
   },
 ];

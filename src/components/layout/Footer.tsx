@@ -12,7 +12,7 @@ import { TransitionLink } from './PageTransition';
 export function Footer({ variant }: { variant: 'dossier' | 'campagne' }) {
   const other =
     variant === 'dossier'
-      ? { href: '/campagne/', label: 'Après la voie', sub: 'Maquette du site public · Campagne', color: '#E64980', text: 'Voir la campagne « Après la voie »' }
+      ? { href: '/campagne/', label: 'Après la voie', sub: 'Maquette du site public · Campagne', color: '#E64980', text: 'Voir la campagne « Après la voie »' }
       : { href: '/', label: 'Le dossier', sub: 'One Living × Escalade · Dossier interactif', color: '#F2B705', text: 'Revenir au Dossier interactif' };
 
   return (
@@ -51,7 +51,7 @@ export function Footer({ variant }: { variant: 'dossier' | 'campagne' }) {
             <BrandImage id="logoWin" alt="WIN Sport School" className="h-10 w-auto" placeholderClassName="h-12 w-36 px-3" />
             <div className="text-[14px] leading-snug text-dust">
               <p className="font-semibold text-chalk-dim">Challenge Bachelor 3 · WIN Sport School</p>
-              <p>Problématique 2 : développer One Living dans le sport amateur, hors rugby.</p>
+              <p>Problématique 2 : développer One Living dans le sport amateur, hors rugby.</p>
             </div>
           </div>
           <p className="label-mono max-w-[46ch] text-[10.5px] text-dust md:text-right">

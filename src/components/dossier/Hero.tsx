@@ -37,7 +37,7 @@ export function Hero({ meta }: { meta: SectionMeta }) {
             name="Départ"
             grade={meta.grade}
             color={hex}
-            foot="Ouvreur : équipe WIN · Nov. 2026"
+            foot="Ouvreur : équipe WIN · Nov. 2026"
             className="mb-8"
             size="sm"
             rotate={-3}

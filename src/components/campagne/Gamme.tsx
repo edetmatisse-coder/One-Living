@@ -118,7 +118,7 @@ export function Gamme({ meta }: { meta: SectionMeta }) {
                   ))}
                 </p>
                 <p className="mt-4 max-w-[46ch] text-[15px] leading-relaxed text-dust">
-                  Un produit vivant : il se garde au frais, et se boit bien frais, juste après la séance.
+                  Un produit vivant : il se garde au frais, et se boit bien frais, juste après la séance.
                 </p>
               </div>
             </div>

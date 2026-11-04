@@ -51,9 +51,9 @@ export function Indicateurs({ meta }: { meta: SectionMeta }) {
               </div>
             </div>
             <p className="mt-6 text-[16px] leading-relaxed text-chalk-dim">
-              Objectif du POC : les 3 salles test, frigo installé, approvisionné et visible au bar.
+              Objectif du POC : les 3 salles test, frigo installé, approvisionné et visible au bar.
             </p>
-            <p className="mt-2 text-[13.5px] text-dust">Mesure : relevé à l’installation puis chaque semaine.</p>
+            <p className="mt-2 text-[13.5px] text-dust">Mesure : relevé à l’installation puis chaque semaine.</p>
           </article>
 
           {/* 2. Bouteilles par salle */}
@@ -72,12 +72,12 @@ export function Indicateurs({ meta }: { meta: SectionMeta }) {
                 <div className="absolute inset-y-0 left-0 rounded-full bg-ply-900 transition-[width] duration-[1600ms]" style={{ width: on ? '100%' : '0%' }} />
                 <div className="absolute inset-y-[-4px] w-[3px] bg-chalk" style={{ left: `${(SEUIL_MONTH / PER_MONTH) * 100}%` }} />
               </div>
-              <p className="mt-2 font-mono text-[11px]">seuil : environ {SEUIL_MONTH} bouteilles par mois</p>
+              <p className="mt-2 font-mono text-[11px]">seuil : environ {SEUIL_MONTH} bouteilles par mois</p>
             </div>
             <p className="mt-5 text-[16px] leading-relaxed">
-              Salle type : {fmtInt(bottlesPerYear(SALLE))} bouteilles par an, pour un seuil de {fmtInt(breakEven(SALLE))}.
+              Salle type : {fmtInt(bottlesPerYear(SALLE))} bouteilles par an, pour un seuil de {fmtInt(breakEven(SALLE))}.
             </p>
-            <p className="mt-2 text-[13.5px] text-ply-900/75">Mesure : réassorts du frigo, ventes du bar.</p>
+            <p className="mt-2 text-[13.5px] text-ply-900/75">Mesure : réassorts du frigo, ventes du bar.</p>
           </article>
 
           {/* 3. Taux de réachat */}
@@ -88,7 +88,7 @@ export function Indicateurs({ meta }: { meta: SectionMeta }) {
               Part des acheteurs qui reprennent une bouteille lors d’une séance suivante.
             </p>
             <p className="mt-2 text-[13.5px] text-dust">
-              Mesure : scans du QR code de la voie du mois et sondage au bar. Pas d’objectif chiffré avant le test.
+              Mesure : scans du QR code de la voie du mois et sondage au bar. Pas d’objectif chiffré avant le test.
             </p>
           </article>
 
@@ -104,7 +104,7 @@ export function Indicateurs({ meta }: { meta: SectionMeta }) {
               <span className="text-[0.45em] text-dust"> centime par passage</span>
             </p>
             <p className="mt-5 text-[16px] leading-relaxed text-chalk-dim">
-              Ordre de grandeur avec la salle type : {fmtInt(SALLE.activation)} € pour {fmtInt(PASSAGES)} passages par an. Le chiffre
+              Ordre de grandeur avec la salle type : {fmtInt(SALLE.activation)} € pour {fmtInt(PASSAGES)} passages par an. Le chiffre
               par pratiquant sera plus élevé, puisqu’un grimpeur vient plusieurs fois.
             </p>
           </article>

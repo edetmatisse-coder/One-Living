@@ -81,7 +81,7 @@ export function PourLesSalles({ meta }: { meta: SectionMeta }) {
             </div>
             {sent ? (
               <div className="mt-8 rounded-[6px] border border-route/50 bg-route/10 p-6" role="status" aria-live="polite">
-                <p className="text-[18px] font-semibold text-chalk">Démo : aucune donnée n’est envoyée.</p>
+                <p className="text-[18px] font-semibold text-chalk">Démo : aucune donnée n’est envoyée.</p>
                 <p className="mt-2 text-[14.5px] text-chalk-dim">Ce formulaire illustre la campagne. Rien n’a quitté votre navigateur.</p>
                 <button type="button" onClick={() => setSent(false)} className="mt-4 text-[14px] font-semibold text-route underline underline-offset-4">
                   Revenir au formulaire
@@ -118,7 +118,7 @@ export function PourLesSalles({ meta }: { meta: SectionMeta }) {
                 <Button type="submit" className="w-full justify-center">
                   Envoyer la demande
                 </Button>
-                <p className="text-center text-[12.5px] text-dust">Démo : rien n’est envoyé, rien n’est enregistré.</p>
+                <p className="text-center text-[12.5px] text-dust">Démo : rien n’est envoyé, rien n’est enregistré.</p>
               </form>
             )}
           </div>
