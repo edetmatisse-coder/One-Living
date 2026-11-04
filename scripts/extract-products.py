@@ -12,7 +12,8 @@ photo, écrite dans src/data/product-shapes.ts.
 Usage (Python 3 avec Pillow et numpy) :
   python3 scripts/extract-products.py --src dossier/des/photos
 
-Les photos attendues dans --src portent les noms de PRODUCTS ci-dessous.
+Les photos attendues dans --src portent les noms de PRODUCTS ci-dessous ; le dos des
+bouteilles bio reprend leur fiche de dégustation (card-<parfum>.jpg).
 """
 import argparse
 import json
@@ -29,12 +30,12 @@ FORMATS = {
     # bouteille en verre 33 cl : bouchon, puis étiquette noire sur le corps
     # (le haut du « 1 » et le macaron dépassent du bord droit de l'étiquette, ligne 595 :
     # au-dessus, seul ce qui n'est pas du verre ambré reste opaque)
-    'bouteille': {'ref': 'b-ginger', 'cap': (75, 238), 'label': (540, 1290), 'diecut': 597, 'base': 1450},
+    'bouteille': {'ref': 'b-ginger', 'cap': (75, 238), 'label': (540, 1290), 'diecut': 597, 'base': 1450, 'back': 'card', 'theta': 73},
     # canette 25 cl : tout le corps est imprimé, bords en aluminium
     # (l'ombre portée tombe à droite : les rayons sont mesurés sur le bord gauche)
-    'canette': {'ref': 'c-ginger', 'top': 134, 'label': (152, 864), 'base': 888},
+    'canette': {'ref': 'c-ginger', 'top': 134, 'label': (152, 864), 'base': 888, 'back': 'duplicate', 'theta': 60},
     # shot 10 cl : bouchon blanc, flacon transparent, étiquette sur le corps
-    'shot': {'ref': 's-energy', 'cap': (152, 292), 'label': (414, 744), 'base': 816},
+    'shot': {'ref': 's-energy', 'cap': (152, 292), 'label': (414, 744), 'base': 816, 'back': 'duplicate'},
 }
 
 PRODUCTS = [
@@ -42,6 +43,7 @@ PRODUCTS = [
     ('bouteille-mangue', 'b-mango', 'bouteille'),
     ('bouteille-passion', 'b-passion', 'bouteille'),
     ('bouteille-framboise', 'b-raspberry', 'bouteille'),
+    # (dos des bouteilles : fiches de dégustation card-<parfum>.jpg, oneliving.com)
     ('canette-gingembre', 'c-ginger', 'canette'),
     ('canette-passion', 'c-passion', 'canette'),
     ('canette-framboise', 'c-raspberry', 'canette'),
@@ -89,8 +91,39 @@ def axis_of(mask, y0, y1):
     return float(np.median(mids))
 
 
-def unwrap(im, mask, y0, y1, diecut=None):
-    """Déroule la bande [y0, y1] du cylindre sur 360°, face avant au centre."""
+def key_card(card):
+    """Détoure le texte et les illustrations d'une fiche sur fond sombre (alpha)."""
+    h, w, _ = card.shape
+    # on retire les mentions verticales des bords (déjà sur la face avant)
+    card = card[int(h * 0.035): int(h * 0.965), int(w * 0.115): int(w * 0.885)]
+    v = card.max(axis=2)
+    a = np.clip((v - 112) / (175 - 112), 0, 1)
+    return card, a
+
+
+def paste_card(out, alpha, card_img, top, bottom):
+    """Pose la fiche détourée au centre du dos (phi = pi), entre les lignes top et bottom."""
+    W = out.shape[1]
+    rolled = np.roll(out, W // 2, axis=1)  # le dos passe au centre de l'image
+    card, a = key_card(card_img)
+    th = bottom - top
+    tw = int(round(card.shape[1] * th / card.shape[0]))
+    c = np.asarray(Image.fromarray(card.astype(np.uint8)).resize((tw, th), Image.LANCZOS), np.float32)
+    ca = np.asarray(Image.fromarray((a * 255).astype(np.uint8)).resize((tw, th), Image.LANCZOS), np.float32)[..., None] / 255
+    x0 = W // 2 - tw // 2
+    region = rolled[top:bottom, x0:x0 + tw]
+    rolled[top:bottom, x0:x0 + tw] = region * (1 - ca) + c * ca
+    return np.roll(rolled, -(W // 2), axis=1)
+
+
+def unwrap(im, mask, y0, y1, diecut=None, back='blend', card=None, theta=None):
+    """Déroule la bande [y0, y1] du cylindre sur 360°, face avant au centre.
+
+    back : « blend » relie les deux bords par un dégradé, « duplicate » imprime
+    le même visuel au dos (impression recto verso, courante sur les canettes),
+    « card » pose une fiche produit détourée au dos (bouteilles bio).
+    """
+    tmax = math.radians(theta) if theta else THETA_MAX
     rows = range(y0, y1)
     cx = axis_of(mask, y0, y1)
     lefts = np.array([row_extent(mask, y)[0] for y in rows])
@@ -104,7 +137,7 @@ def unwrap(im, mask, y0, y1, diecut=None):
     width = int(round(2 * math.pi * r_mean))
     width -= width % 2
     phis = (np.arange(width) + 0.5) / width * 2 * math.pi - math.pi  # 0 = face
-    front = np.abs(phis) <= THETA_MAX
+    front = np.abs(phis) <= tmax
 
     out = np.zeros((len(ext), width, 3), np.float32)
     for i, y in enumerate(rows):
@@ -133,16 +166,55 @@ def unwrap(im, mask, y0, y1, diecut=None):
     kv = 40  # lissage vertical fort : le dos reste uni, sans rayures
     sm = lambda a: np.stack([np.convolve(np.pad(a[:, c], kv, mode='edge'), np.ones(2 * kv + 1) / (2 * kv + 1), mode='same')[kv:-kv] for c in range(3)], axis=1)
     left_c, right_c = sm(left_c), sm(right_c)
-    back = ~front
+    if back == 'card':
+        # étiquette noire : le dos et les bords prennent le noir mesuré au centre de la face
+        core = out[:, np.abs(phis) < math.radians(35)].reshape(-1, 3)
+        dark = core[core.max(axis=1) < np.percentile(core.max(axis=1), 30)]
+        paper = np.median(dark, axis=0)
+        left_c = np.tile(paper, (len(left_c), 1))
+        right_c = left_c.copy()
+        # voile du reflet de la photo : on ramène le noir de chaque colonne à celui du papier
+        zone = out[(diecut - y0 if diecut is not None else 0):, :][:, front]
+        v = zone.max(axis=2)
+        dark = v < 120  # fond de l'étiquette seulement, jamais le logo ni le texte
+        level = np.full(v.shape[1], np.nan)
+        for c in range(v.shape[1]):
+            col = v[dark[:, c], c]
+            if col.size > 0.15 * v.shape[0]:
+                level[c] = np.median(col)
+        ok = ~np.isnan(level)
+        level = np.interp(np.arange(len(level)), np.where(ok)[0], level[ok])
+        glare = np.clip(level - paper.max(), 0, None)
+        glare = np.convolve(np.pad(glare, 12, mode='edge'), np.ones(25) / 25, mode='same')[12:-12]
+        out[:, front] = np.clip(out[:, front] - glare[None, :, None], 0, 255)
+    back_mask = ~front
     # parcours du bord droit (phi = +max) au bord gauche (phi = -max) par l'arrière
-    t = ((phis[back] - THETA_MAX) % (2 * math.pi)) / (2 * math.pi - 2 * THETA_MAX)
-    out[:, back] = right_c[:, None] * (1 - t[None, :, None]) + left_c[:, None] * t[None, :, None]
+    t = ((phis[back_mask] - tmax) % (2 * math.pi)) / (2 * math.pi - 2 * tmax)
+    out[:, back_mask] = right_c[:, None] * (1 - t[None, :, None]) + left_c[:, None] * t[None, :, None]
+    if back == 'duplicate':
+        # même visuel au dos : la colonne phi reprend la colonne phi - pi
+        src = np.where(phis > 0, phis - math.pi, phis + math.pi)
+        copy = back_mask & (np.abs(src) <= tmax)
+        src_cols = np.clip(np.round((src[copy] + math.pi) / (2 * math.pi) * width - 0.5).astype(int), 0, width - 1)
+        out[:, copy] = out[:, src_cols]
+        # deux interstices de (180 - 2 x max) degrés : bord droit puis bord gauche
+        gap = back_mask & ~copy
+        gstart = np.where(phis[gap] > 0, tmax, -math.pi + tmax)
+        tg = (phis[gap] - gstart) / (math.pi - 2 * tmax)
+        out[:, gap] = right_c[:, None] * (1 - tg[None, :, None]) + left_c[:, None] * tg[None, :, None]
 
     # fondu doux à la jonction
     a = np.abs(phis)
-    blend = np.clip((a - (THETA_MAX - EDGE)) / EDGE, 0, 1) * front
+    blend = np.clip((a - (tmax - EDGE)) / EDGE, 0, 1) * front
     edge_col = np.where(phis[None, :, None] > 0, right_c[:, None], left_c[:, None])
     out = out * (1 - blend[None, :, None]) + edge_col * blend[None, :, None]
+    if back == 'duplicate':
+        # bords de la copie au dos
+        src = np.where(phis > 0, phis - math.pi, phis + math.pi)
+        copy = ~front & (np.abs(src) <= tmax)
+        b2 = np.clip((np.abs(src) - (tmax - EDGE)) / EDGE, 0, 1) * copy
+        e2 = np.where(src[None, :, None] > 0, right_c[:, None], left_c[:, None])
+        out = out * (1 - b2[None, :, None]) + e2 * b2[None, :, None]
     alpha = np.full(out.shape[:2], 255, np.uint8)
     if diecut is not None:
         n = diecut - y0
@@ -156,7 +228,10 @@ def unwrap(im, mask, y0, y1, diecut=None):
         a = np.asarray(Image.fromarray(a.astype(np.uint8)).filter(ImageFilter.GaussianBlur(1.2)), np.float32)
         a = np.clip((a - 60) * 1.6, 0, 255)
         alpha[:n] = a.astype(np.uint8)
-    rgba = np.dstack([out.astype(np.uint8), alpha])
+    if back == 'card' and card is not None:
+        top = (diecut - y0 if diecut is not None else 0) + 26
+        out = paste_card(out, alpha, card, top, out.shape[0] - 26)
+    rgba = np.dstack([np.clip(out, 0, 255).astype(np.uint8), alpha])
     return rgba, r_mean
 
 
@@ -206,7 +281,10 @@ def main():
         spec = FORMATS[fmt]
         im = load(args.src, name)
         m = mask_of(im)
-        lab, _ = unwrap(im, m, *spec['label'], diecut=spec.get('diecut'))
+        card = None
+        if spec.get('back') == 'card':
+            card = load(args.src, 'card-' + name.split('-', 1)[1])
+        lab, _ = unwrap(im, m, *spec['label'], diecut=spec.get('diecut'), back=spec.get('back', 'blend'), card=card, theta=spec.get('theta'))
         img = Image.fromarray(lab, 'RGBA') if 'diecut' in spec else Image.fromarray(lab[..., :3])
         img.save(os.path.join(out_dir, pid + '-etiquette.webp'), quality=88)
         # photo recadrée sur le produit, pour les visuels fixes
