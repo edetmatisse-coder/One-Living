@@ -5,7 +5,8 @@ const config = [
   ...nextVitals,
   ...nextTs,
   {
-    ignores: ['.next/**', 'out/**', 'node_modules/**', 'next-env.d.ts', 'scripts/**'],
+    // motion/ : les séquences vidéo (projet Remotion à part, avec son propre tsconfig)
+    ignores: ['.next/**', 'out/**', 'node_modules/**', 'next-env.d.ts', 'scripts/**', 'motion/**'],
   },
   {
     rules: {

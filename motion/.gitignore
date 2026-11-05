@@ -1,0 +1,5 @@
+# dépendances (npm install dans motion/)
+node_modules/
+# caches de rendu
+.remotion/
+*.log
