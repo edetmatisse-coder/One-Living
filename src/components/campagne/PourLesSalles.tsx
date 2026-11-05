@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, type FormEvent } from 'react';
+import { useRef, useState, type FormEvent } from 'react';
+import { useInView } from '@/lib/use-in-view';
 import type { SectionMeta } from '@/data/sections';
 import { SALLE_TYPE as SALLE } from '@/data/campagne';
 import { margeAnnuelle, margeUnitaire } from '@/lib/salle';
@@ -14,6 +15,68 @@ const BENEFITS = [
   { kind: 'jug' as const, title: 'Frigo prêté', text: 'Prêté par One Living et installé au bar, aux couleurs de la campagne.' },
   { kind: 'sloper' as const, title: 'Dotation de lancement', text: 'Les premières bouteilles et la PLV de la voie du mois, pour lancer le frigo.' },
 ];
+
+/** Repères posés sur la photo du bar de B'Wall Vannes (positions en % de l'image). */
+const PINS = [
+  { x: 43, y: 31, title: 'Le frigo One Living', text: 'Prêté et installé derrière le comptoir.' },
+  { x: 71, y: 21, title: 'L’ardoise', text: 'La boisson du moment, à côté des cafés.' },
+  { x: 29, y: 55, title: 'Le comptoir', text: 'Bouteille, canette ou shot, servis bien frais.' },
+];
+
+/** Le bar de B'Wall Vannes, annoté : où se glisse One Living. */
+function AnnotatedBar() {
+  const ref = useRef<HTMLElement>(null);
+  const on = useInView(ref, { rootMargin: '0px 0px -20% 0px' });
+  return (
+    <figure ref={ref} className="relative mb-14" data-reveal>
+      <div className="relative aspect-[4/3] overflow-hidden rounded-[8px] bg-ply-800 shadow-[0_40px_80px_-40px_rgba(0,0,0,.9)] md:aspect-[16/8]">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/brand/bwall/vannes.jpg"
+          alt="Le bar de B’Wall Vannes"
+          loading="lazy"
+          decoding="async"
+          draggable={false}
+          className="h-full w-full object-cover object-[50%_40%]"
+        />
+        <div aria-hidden className="absolute inset-0 bg-[linear-gradient(180deg,rgba(16,14,12,.15),rgba(16,14,12,.05)_45%,rgba(16,14,12,.75))]" />
+        {PINS.map((p, i) => (
+          <div
+            key={p.title}
+            className="absolute -translate-x-1/2 -translate-y-1/2 transition-[opacity,transform] duration-700"
+            style={{ left: `${p.x}%`, top: `${p.y}%`, opacity: on ? 1 : 0, transitionDelay: on ? `${300 + i * 220}ms` : '0ms' }}
+          >
+            <span className="relative grid h-9 w-9 place-items-center rounded-full bg-route font-display text-[18px] text-ply-900 ring-[6px] ring-route/25">
+              {i + 1}
+              <span aria-hidden className="absolute inset-0 animate-ping rounded-full bg-route/40 [animation-duration:2.4s]" />
+            </span>
+            <span className="absolute left-12 top-1/2 hidden w-max max-w-[220px] -translate-y-1/2 rounded-[5px] bg-ply-900/90 px-3.5 py-2.5 md:block">
+              <span className="block text-[14px] font-semibold text-chalk">{p.title}</span>
+              <span className="block text-[12.5px] leading-snug text-dust">{p.text}</span>
+            </span>
+          </div>
+        ))}
+        <figcaption className="absolute inset-x-0 bottom-0 flex flex-wrap items-end justify-between gap-3 p-5 md:p-7">
+          <span>
+            <span className="label-mono block text-[10px] text-route">Exemple · B’Wall Vannes</span>
+            <span className="font-display mt-1 block text-[clamp(30px,3.6vw,52px)] leading-[0.9] text-chalk">Le bar, avec One Living</span>
+          </span>
+          <span className="label-mono text-[9px] text-chalk/60">Photo b-wall.fr</span>
+        </figcaption>
+      </div>
+      <ol className="mt-4 grid gap-2 md:hidden">
+        {PINS.map((p, i) => (
+          <li key={p.title} className="flex gap-3 text-[14px]">
+            <span className="font-display text-[20px] leading-none text-route">{i + 1}</span>
+            <span>
+              <span className="font-semibold text-chalk">{p.title}</span> <span className="text-dust">{p.text}</span>
+            </span>
+          </li>
+        ))}
+      </ol>
+    </figure>
+  );
+}
 
 const FIELDS = [
   { id: 'salle', label: 'Nom de la salle', type: 'text', autoComplete: 'organization' },
@@ -42,6 +105,7 @@ export function PourLesSalles({ meta }: { meta: SectionMeta }) {
       lead={<>Vos grimpeurs boivent déjà un verre après la séance. Comme les salles B’Wall, donnez-leur un kombucha vivant, bio, bien frais.</>}
     >
       <SectionInner>
+        <AnnotatedBar />
         <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.95fr)] lg:gap-16">
           <div>
             <div className="grid gap-4 sm:grid-cols-2">

@@ -63,6 +63,19 @@ function Stage({ product }: { product: Product }) {
   );
 }
 
+/** Version flottante (devant une photo) : seulement une ombre de contact douce. */
+function FloatingShadow() {
+  const mat = useMemo(
+    () => new THREE.MeshBasicMaterial({ map: makeShadowTexture(), transparent: true, depthWrite: false, color: '#000', opacity: 0.85 }),
+    [],
+  );
+  return (
+    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0.04, 0.002, 0]} material={mat}>
+      <planeGeometry args={[1.1, 0.75]} />
+    </mesh>
+  );
+}
+
 /**
  * Angle figé pour les captures de contrôle : `window.__olStill = { bottleRot }`
  * posé avant le chargement de la page.
@@ -72,8 +85,22 @@ function stillAngle(): number | undefined {
   return (window as Window & { __olStill?: { bottleRot?: number } }).__olStill?.bottleRot;
 }
 
-/** Le produit : rotation au glisser avec inertie, petit saut à chaque changement. */
-function Turntable({ product, spin, dragging, idle }: { product: Product; spin: { current: SpinState }; dragging: { current: boolean }; idle: number }) {
+export type Facing = 'free' | 'front' | 'back';
+
+/** Le produit : rotation au glisser avec inertie, petit saut à chaque changement, face ou dos sur demande. */
+function Turntable({
+  product,
+  spin,
+  dragging,
+  idle,
+  facing,
+}: {
+  product: Product;
+  spin: { current: SpinState };
+  dragging: { current: boolean };
+  idle: number;
+  facing: Facing;
+}) {
   const caps = useCapabilities();
   const gl = useThree((s) => s.gl);
   const group = useRef<THREE.Group>(null);
@@ -86,6 +113,19 @@ function Turntable({ product, spin, dragging, idle }: { product: Product; spin: 
     spin.current.vel += 7.5;
   }, [product.id, spin]);
 
+  // face ou dos : on vise l'angle le plus proche (face à 0, dos à pi, modulo un tour)
+  const hold = useRef<number | null>(null);
+  useEffect(() => {
+    if (facing === 'free') {
+      hold.current = null;
+      return;
+    }
+    const s = spin.current;
+    const base = facing === 'back' ? Math.PI : 0;
+    hold.current = base + Math.round((s.rot - base) / (Math.PI * 2)) * Math.PI * 2;
+    s.vel = 0;
+  }, [facing, spin]);
+
   useFrame((_, dt) => {
     const s = spin.current;
     if (still !== undefined) {
@@ -93,7 +133,13 @@ function Turntable({ product, spin, dragging, idle }: { product: Product; spin: 
       s.rot = still;
       s.tilt = 0;
       swap.current = 1;
+    } else if (hold.current !== null && !dragging.current) {
+      s.vel = 0;
+      s.rot = THREE.MathUtils.damp(s.rot, hold.current, 4.5, dt);
+      s.tilt = THREE.MathUtils.damp(s.tilt, 0, 4, dt);
+      swap.current = Math.min(1, swap.current + dt / 0.7);
     } else {
+      if (dragging.current) hold.current = null;
       if (!dragging.current) s.vel = THREE.MathUtils.damp(s.vel, idle, 0.9, dt);
       s.rot += s.vel * dt;
       s.tilt = THREE.MathUtils.damp(s.tilt, THREE.MathUtils.clamp(-s.vel * 0.03, -0.18, 0.18), 4, dt);
@@ -147,6 +193,10 @@ function Rig({ product }: { product: Product }) {
 
 interface Props {
   product: Product;
+  /** « stage » : décor de salle complet ; « floating » : fond transparent, à poser devant une photo */
+  variant?: 'stage' | 'floating';
+  /** « front » ou « back » tourne la boisson face ou dos à la caméra et l'y garde */
+  facing?: Facing;
   className?: string;
   /** vitesse de rotation au repos (rad/s) */
   idle?: number;
@@ -154,7 +204,7 @@ interface Props {
   label?: string;
 }
 
-export default function ProductCanvas({ product, className = '', idle = 0.35, label }: Props) {
+export default function ProductCanvas({ product, variant = 'stage', facing = 'free', className = '', idle = 0.35, label }: Props) {
   const caps = useCapabilities();
   const wrap = useRef<HTMLDivElement>(null);
   const spin = useRef<SpinState>({ rot: -0.08, vel: 0, tilt: 0 });
@@ -204,17 +254,17 @@ export default function ProductCanvas({ product, className = '', idle = 0.35, la
         resize={{ offsetSize: true }}
         frameloop={onScreen ? 'always' : 'never'}
         dpr={[1, caps.tier === 'high' ? 1.75 : 1.25]}
-        gl={{ antialias: true, alpha: false, powerPreference: 'high-performance', toneMapping: THREE.NeutralToneMapping }}
+        gl={{ antialias: true, alpha: variant === 'floating', powerPreference: 'high-performance', toneMapping: THREE.NeutralToneMapping }}
         camera={{ fov: 30, position: [0, 1.1, 4.2], near: 0.05, far: 30 }}
       >
-        <color attach="background" args={['#15130f']} />
+        {variant === 'stage' && <color attach="background" args={['#15130f']} />}
         <ambientLight intensity={0.25} />
         <directionalLight position={[-2.5, 3.5, 2.5]} intensity={2.2} color="#fff3e4" />
         <directionalLight position={[2.5, 1.5, -1.5]} intensity={1.2} color="#ffd6a8" />
         <spotLight position={[0, 4.5, 1.5]} angle={0.5} penumbra={0.9} intensity={18} distance={10} color="#fff5e6" />
         <spotLight position={[0.4, 2.2, -2.4]} angle={0.6} penumbra={1} intensity={14} distance={8} color="#ffcf9a" />
-        <Stage product={product} />
-        <Turntable product={product} spin={spin} dragging={dragging} idle={idle} />
+        {variant === 'stage' ? <Stage product={product} /> : <FloatingShadow />}
+        <Turntable product={product} spin={spin} dragging={dragging} idle={idle} facing={facing} />
         <Rig product={product} />
         <Environment resolution={256} frames={1}>
           <Lightformer intensity={5} color="#fff6ea" position={[-2.4, 1.1, 2.2]} rotation={[0, Math.PI / 3.2, 0]} scale={[0.5, 4, 1]} />

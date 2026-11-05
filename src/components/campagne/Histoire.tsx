@@ -54,7 +54,25 @@ export function Histoire({ meta }: { meta: SectionMeta }) {
               Au départ, il y a un rugbyman. Jonny Wilkinson a été champion du monde en 2003. Il a aussi parlé
               ouvertement de l’anxiété qui accompagnait cette quête de perfection, et l’équilibre mental est devenu son combat.
             </p>
-            <p className="mt-7">
+            <figure className="relative my-12 rotate-[1.2deg] md:ml-10" data-reveal>
+              <span className="tape -top-2.5 right-10 z-10 rotate-[6deg]" aria-hidden />
+              <div className="relative aspect-square overflow-hidden rounded-[6px] bg-ply-800 shadow-[0_40px_70px_-30px_rgba(0,0,0,.85)]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/brand/produits/fondateur.jpg"
+                  alt="Jonny Wilkinson boit un shot One Living dans une salle de sport"
+                  loading="lazy"
+                  decoding="async"
+                  draggable={false}
+                  className="h-full w-full object-cover"
+                />
+              </div>
+              <figcaption className="mt-3 flex flex-wrap items-baseline justify-between gap-2 text-[13px] text-dust">
+                <span>Jonny Wilkinson, fondateur de One Living.</span>
+                <span className="label-mono text-[9px] text-dust/70">Photo oneliving.com</span>
+              </figcaption>
+            </figure>
+            <p>
               En 2018, sa marque de boissons naît sous le nom No.1 Living. En 2024, elle devient One Living. Le chiffre devient un
               mot : on ne cherche plus à battre les autres, on cherche à se sentir aligné.
             </p>

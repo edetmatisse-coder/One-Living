@@ -412,6 +412,12 @@ html[data-motion='reduce'] .roll-strip {
 html[data-motion='reduce'] .grain {
   animation: none;
 }
+/* mouvement réduit : les apparitions au défilement deviennent instantanées */
+html[data-motion='reduce'] [data-reveal],
+html[data-motion='reduce'] [data-reveal] * {
+  transition: none !important;
+  animation: none !important;
+}
 
 @keyframes climbHint {
   0% {

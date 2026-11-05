@@ -122,11 +122,24 @@ export function VoieDuMois({ meta }: { meta: SectionMeta }) {
                 <button
                   type="button"
                   onClick={() => setPlaying((p) => !p)}
-                  className="plywood relative block aspect-[4/5] w-full overflow-hidden"
+                  className="relative block aspect-[4/5] w-full overflow-hidden bg-ply-900"
                   aria-label={playing ? 'Mettre en pause la démo vidéo' : 'Lancer la démo vidéo'}
                 >
+                  {/* la paroi de B'Wall Vannes, 15 m, en guise d'image de la vidéo */}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/brand/bwall/voie-du-mois.jpg"
+                    alt=""
+                    aria-hidden
+                    loading="lazy"
+                    decoding="async"
+                    draggable={false}
+                    className={`absolute inset-0 h-full w-full object-cover transition-transform duration-[6000ms] ease-linear ${playing ? 'scale-[1.12]' : 'scale-100'}`}
+                  />
+                  <span aria-hidden className="absolute inset-0 bg-[linear-gradient(180deg,rgba(16,14,12,.35),rgba(16,14,12,.15)_40%,rgba(16,14,12,.7))]" />
+                  <span className="label-mono absolute bottom-7 right-4 text-[8.5px] text-chalk/70">Photo b-wall.fr</span>
                   <svg viewBox="0 0 100 125" className="absolute inset-0 h-full w-full" aria-hidden>
-                    <path d="M30 118 C 40 98, 62 92, 55 74 S 34 50, 52 34 S 70 14, 60 6" fill="none" stroke="rgba(243,239,232,.35)" strokeWidth="0.8" strokeDasharray="1.5 3" />
+                    <path d="M30 118 C 40 98, 62 92, 55 74 S 34 50, 52 34 S 70 14, 60 6" fill="none" stroke="rgba(243,239,232,.75)" strokeWidth="0.9" strokeDasharray="1.5 3" />
                     {[
                       [30, 112],
                       [52, 88],
@@ -135,7 +148,7 @@ export function VoieDuMois({ meta }: { meta: SectionMeta }) {
                       [54, 34],
                       [62, 16],
                     ].map(([x, y], i) => (
-                      <circle key={i} cx={x} cy={y} r={i === 5 ? 3.4 : 2.6} fill={color} />
+                      <circle key={i} cx={x} cy={y} r={i === 5 ? 3.4 : 2.6} fill={color} stroke="rgba(16,14,12,.6)" strokeWidth="0.6" />
                     ))}
                     <circle r="2.2" fill="#F3EFE8" style={{ offsetPath: "path('M30 118 C 40 98, 62 92, 55 74 S 34 50, 52 34 S 70 14, 60 6')", animation: playing ? 'routeClimb 6s cubic-bezier(.45,0,.55,1) infinite' : 'none' } as CSSProperties} />
                   </svg>

@@ -11,6 +11,7 @@ import { useInView } from '@/lib/use-in-view';
 import { playSfx } from '@/lib/sound';
 
 const ProductCanvas = dynamic(() => import('@/components/three/product/ProductCanvas'), { ssr: false });
+type Facing = 'free' | 'front' | 'back';
 
 /** Photo produit de oneliving.com, posée sur un fond clair (les photos sont sur fond blanc). */
 export function Packshot({ product, className = '', priority = false }: { product: Product; className?: string; priority?: boolean }) {
@@ -29,6 +30,7 @@ export function Packshot({ product, className = '', priority = false }: { produc
 
 export function Gamme({ meta }: { meta: SectionMeta }) {
   const [productId, setProductId] = useState(PRODUCTS[0].id);
+  const [facing, setFacing] = useState<Facing>('free');
   const product = PRODUCTS.find((p) => p.id === productId)!;
   const format = FORMAT_BY_ID[product.format];
   const siblings = PRODUCTS.filter((p) => p.format === product.format);
@@ -46,8 +48,10 @@ export function Gamme({ meta }: { meta: SectionMeta }) {
   const choose = (id: string) => {
     if (id === productId) return;
     setProductId(id);
+    setFacing('free');
     playSfx('fizz');
   };
+  const flip = () => setFacing((f) => (f === 'back' ? 'front' : 'back'));
   const chooseFormat = (f: FormatId) => {
     if (f === product.format) return;
     choose(PRODUCTS.find((p) => p.format === f)!.id);
@@ -149,7 +153,20 @@ export function Gamme({ meta }: { meta: SectionMeta }) {
               />
               <div className="relative mx-auto aspect-[4/5] w-full max-w-[560px] overflow-hidden rounded-[8px] border border-chalk/10">
                 {show3D ? (
-                  <ProductCanvas product={product} className="absolute inset-0" />
+                  <>
+                    <ProductCanvas product={product} facing={facing} className="absolute inset-0" />
+                    <button
+                      type="button"
+                      onClick={flip}
+                      aria-pressed={facing === 'back'}
+                      className="absolute right-3 top-3 inline-flex items-center gap-2 rounded-full border border-chalk/20 bg-ply-900/75 px-3.5 py-2 text-[13px] font-semibold text-chalk transition-colors hover:border-chalk/60"
+                    >
+                      <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden className={`transition-transform duration-500 ${facing === 'back' ? 'rotate-180' : ''}`}>
+                        <path d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9M12 1.8v2.6H9.4" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                      {facing === 'back' ? 'Voir la face' : 'Voir le dos'}
+                    </button>
+                  </>
                 ) : (
                   <div className="absolute inset-0 grid place-items-center bg-chalk">
                     <Packshot product={product} className="h-[88%] w-auto object-contain" />
