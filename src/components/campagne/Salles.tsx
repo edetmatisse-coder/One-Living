@@ -10,6 +10,7 @@ import { Badge } from '@/components/ui/Badge';
 import { BwallMark } from '@/components/ui/BwallMark';
 import { Arrow } from '@/components/ui/Button';
 import { useCapabilities } from '@/lib/device';
+import { asset } from '@/lib/asset';
 
 const BWALL = '#149ca4';
 const BWALL_SUN = '#fcd46c';
@@ -112,7 +113,7 @@ export function Salles({ meta }: { meta: SectionMeta }) {
                   <p className="mt-1 text-[15px] font-semibold text-ply-500">{gym.city}</p>
                 </div>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/brand/bwall/isotype.png" alt="" aria-hidden className="h-12 w-auto" draggable={false} />
+                <img src={asset('/brand/bwall/isotype.png')} alt="" aria-hidden className="h-12 w-auto" draggable={false} />
               </div>
 
               <ul className="mt-5 flex flex-wrap gap-1.5" aria-label="Chiffres clés">

@@ -5,6 +5,12 @@ import { Hold } from '@/components/ui/Hold';
 import { Arrow } from '@/components/ui/Button';
 import { scrollToY } from '@/lib/scroll';
 import { CoBrand } from '@/components/ui/CoBrand';
+import { ONLINE } from '@/lib/asset';
+
+/** Mention obligatoire ; « présentation locale » ne vaut que pour la version locale. */
+const MENTION = ONLINE
+  ? 'Projet étudiant WIN Sport School, non affilié à One Living ni à B’Wall · maquette non officielle'
+  : 'Projet étudiant WIN Sport School, non affilié à One Living, présentation locale';
 
 /**
  * Pied de page. La mention légale du projet est obligatoire :
@@ -49,7 +55,7 @@ export function Footer() {
             </div>
           </div>
           <p className="label-mono max-w-[46ch] text-[10.5px] text-dust md:text-right">
-            Projet étudiant WIN Sport School, non affilié à One Living, présentation locale
+            {MENTION}
           </p>
         </div>
       </div>

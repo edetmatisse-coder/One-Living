@@ -13,6 +13,7 @@ import { useCapabilities } from '@/lib/device';
 import { useInView } from '@/lib/use-in-view';
 import { scrollToElement } from '@/lib/scroll';
 import { Packshot } from './Gamme';
+import { asset } from '@/lib/asset';
 
 const ProductCanvas = dynamic(() => import('@/components/three/product/ProductCanvas'), { ssr: false });
 
@@ -73,7 +74,7 @@ export function CampagneHero({ meta }: { meta: SectionMeta }) {
           {/* la paroi de B'Wall Lorient, floue : la bouteille est en salle */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/brand/bwall/hero-paroi.jpg"
+            src={asset('/brand/bwall/hero-paroi.jpg')}
             alt=""
             aria-hidden
             className="absolute inset-0 h-full w-full scale-[1.04] object-cover object-[60%_45%]"

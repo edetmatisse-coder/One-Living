@@ -5,6 +5,7 @@ import type { SectionMeta } from '@/data/sections';
 import { Section, SectionInner } from '@/components/layout/Section';
 import { SourceChip } from '@/components/ui/SourceChip';
 import { useInView } from '@/lib/use-in-view';
+import { asset } from '@/lib/asset';
 
 /**
  * L'histoire de la marque, en mise en page éditoriale. Aucune citation :
@@ -59,7 +60,7 @@ export function Histoire({ meta }: { meta: SectionMeta }) {
               <div className="relative aspect-square overflow-hidden rounded-[6px] bg-ply-800 shadow-[0_40px_70px_-30px_rgba(0,0,0,.85)]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/brand/produits/fondateur.jpg"
+                  src={asset('/brand/produits/fondateur.jpg')}
                   alt="Jonny Wilkinson boit un shot One Living dans une salle de sport"
                   loading="lazy"
                   decoding="async"

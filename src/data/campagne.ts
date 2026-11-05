@@ -1,4 +1,5 @@
 import type { RouteColor } from './routes';
+import { asset } from '@/lib/asset';
 
 /**
  * Contenus de la maquette « Après la voie ». Les salles, les profils et les
@@ -60,8 +61,8 @@ export const PRODUCTS: Product[] = [
 
 export const PRODUCT_BY_ID = Object.fromEntries(PRODUCTS.map((p) => [p.id, p])) as Record<string, Product>;
 
-export const productImage = (id: string) => `/brand/produits/${id}.jpg`;
-export const productLabel = (id: string) => `/brand/produits/${id}-etiquette.webp`;
+export const productImage = (id: string) => asset(`/brand/produits/${id}.jpg`);
+export const productLabel = (id: string) => asset(`/brand/produits/${id}-etiquette.webp`);
 
 /** Salle type des exemples (hypothèses de travail, à confirmer avec One Living). */
 export const SALLE_TYPE = { jours: 330, passages: 150, tauxPct: 3, cession: 1.8, revente: 3.5 };
@@ -71,7 +72,7 @@ export const TEMPS = [
   {
     id: 'avant',
     label: 'Avant de grimper',
-    photo: '/brand/bwall/avant.jpg',
+    photo: asset('/brand/bwall/avant.jpg'),
     photoAlt: 'Deux grimpeurs s’encordent au pied des voies, chez B’Wall',
     product: 'shot-agrumes-gingembre',
     title: 'Un shot, et tu chausses.',
@@ -80,7 +81,7 @@ export const TEMPS = [
   {
     id: 'apres',
     label: 'Après la voie',
-    photo: '/brand/bwall/apres.jpg',
+    photo: asset('/brand/bwall/apres.jpg'),
     photoAlt: 'Des grimpeurs se posent dans l’espace détente de B’Wall Lorient',
     product: 'bouteille-gingembre',
     title: 'Tu souffles. Tu trinques.',
@@ -89,7 +90,7 @@ export const TEMPS = [
   {
     id: 'entre',
     label: 'Entre grimpeurs',
-    photo: '/brand/bwall/entre.jpg',
+    photo: asset('/brand/bwall/entre.jpg'),
     photoAlt: 'Une cordée discute au pied du mur, chez B’Wall',
     product: 'canette-framboise',
     title: 'Le verre de la cordée.',
@@ -131,7 +132,7 @@ export const GYMS: Gym[] = [
     city: 'Lanester, près de Lorient',
     address: '482 route de Kerviec, 56600 Lanester',
     lonlat: [-3.32, 47.775],
-    photo: '/brand/bwall/lorient-voies.jpg',
+    photo: asset('/brand/bwall/lorient-voies.jpg'),
     photoLabel: 'Le mur des voies de B’Wall Lorient',
     facts: ['2 300 m² au sol', '175 m de bloc', '41 lignes de corde', '130 voies jusqu’à 9 m'],
     url: 'https://www.b-wall.fr/salle-escalade/lorient/',
@@ -144,7 +145,7 @@ export const GYMS: Gym[] = [
     city: 'Vannes, face au golfe du Morbihan',
     address: '15 rue Daniel Gilard, 56000 Vannes',
     lonlat: [-2.75, 47.643],
-    photo: '/brand/bwall/vannes.jpg',
+    photo: asset('/brand/bwall/vannes.jpg'),
     photoLabel: 'Le bar de B’Wall Vannes',
     facts: ['1 900 m² sur 3 niveaux', '170 m de bloc', '42 lignes de corde', 'Voies jusqu’à 15 m'],
     url: 'https://www.b-wall.fr/salle-escalade/vannes/',
@@ -157,7 +158,7 @@ export const GYMS: Gym[] = [
     city: 'Quimper',
     address: '52 avenue de Kéradennec, 29000 Quimper',
     lonlat: [-4.12, 48.01],
-    photo: '/brand/bwall/quimper.jpg',
+    photo: asset('/brand/bwall/quimper.jpg'),
     photoLabel: 'Ouverture de B’Wall Quimper, le 3 octobre 2026',
     facts: ['1 700 m² au sol', '130 m de bloc', '40 lignes de corde', 'Voies jusqu’à 13 m'],
     url: 'https://www.b-wall.fr/salle-escalade/quimper/',

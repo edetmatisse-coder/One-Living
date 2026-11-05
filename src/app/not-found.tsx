@@ -2,6 +2,12 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Hold } from '@/components/ui/Hold';
 import { Arrow } from '@/components/ui/Button';
+import { ONLINE } from '@/lib/asset';
+
+/** Mention obligatoire ; « présentation locale » ne vaut que pour la version locale. */
+const MENTION = ONLINE
+  ? 'Projet étudiant WIN Sport School, non affilié à One Living ni à B’Wall · maquette non officielle'
+  : 'Projet étudiant WIN Sport School, non affilié à One Living, présentation locale';
 
 export const metadata: Metadata = {
   title: 'Hors voie · Après la voie',
@@ -31,7 +37,7 @@ export default function NotFound() {
             </span>
           </Link>
         </div>
-        <p className="label-mono mt-16 text-[10.5px] text-dust">Projet étudiant WIN Sport School, non affilié à One Living, présentation locale</p>
+        <p className="label-mono mt-16 text-[10.5px] text-dust">{MENTION}</p>
       </div>
     </main>
   );

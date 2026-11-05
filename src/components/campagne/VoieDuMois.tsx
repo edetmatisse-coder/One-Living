@@ -7,6 +7,7 @@ import { Section, SectionInner } from '@/components/layout/Section';
 import { Badge } from '@/components/ui/Badge';
 import { useInView } from '@/lib/use-in-view';
 import { IconPlay } from '@/components/ui/Icons';
+import { asset } from '@/lib/asset';
 
 const N = 25;
 
@@ -128,7 +129,7 @@ export function VoieDuMois({ meta }: { meta: SectionMeta }) {
                   {/* la paroi de B'Wall Vannes, 15 m, en guise d'image de la vidéo */}
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src="/brand/bwall/voie-du-mois.jpg"
+                    src={asset('/brand/bwall/voie-du-mois.jpg')}
                     alt=""
                     aria-hidden
                     loading="lazy"

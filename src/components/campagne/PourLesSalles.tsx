@@ -10,6 +10,7 @@ import { Section, SectionInner } from '@/components/layout/Section';
 import { Badge } from '@/components/ui/Badge';
 import { Hold } from '@/components/ui/Hold';
 import { Button } from '@/components/ui/Button';
+import { asset } from '@/lib/asset';
 
 const BENEFITS = [
   { kind: 'jug' as const, title: 'Frigo prêté', text: 'Prêté par One Living et installé au bar, aux couleurs de la campagne.' },
@@ -32,7 +33,7 @@ function AnnotatedBar() {
       <div className="relative aspect-[4/3] overflow-hidden rounded-[8px] bg-ply-800 shadow-[0_40px_80px_-40px_rgba(0,0,0,.9)] md:aspect-[16/8]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/brand/bwall/vannes.jpg"
+          src={asset('/brand/bwall/vannes.jpg')}
           alt="Le bar de B’Wall Vannes"
           loading="lazy"
           decoding="async"
