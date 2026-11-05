@@ -71,6 +71,12 @@
 }
 
 @layer base {
+  /* aucun défilement horizontal parasite (clip garde le sticky, contrairement à hidden) */
+  html,
+  body {
+    overflow-x: clip;
+  }
+
   /* ---------------------------- Base ---------------------------- */
 
   html {

@@ -5,7 +5,7 @@ Challenge Bachelor 3, WIN Sport School, problématique 2 : développer One Livin
 
 **Projet étudiant WIN Sport School, non affilié à One Living, présentation locale.** Le site n'est pas fait pour être mis en ligne.
 
-Une seule page, de haut en bas : le haut de page, le concept en 3 temps, la gamme en 3D, l'histoire de la marque, les salles B'Wall, la voie du mois, trois buveurs de kombucha, l'offre aux salles et la FAQ.
+Une seule page, de haut en bas : le haut de page (la bouteille 3D devant une paroi B'Wall, les quatre parfums qui défilent), un bandeau One Living × B'Wall, le concept en 3 temps (avec le chiffre clé : 69 % des grimpeurs boivent un verre après leur séance), la gamme en 3D (face et dos), l'histoire de la marque, les salles B'Wall, la voie du mois, trois buveurs de kombucha, l'offre aux salles et la FAQ.
 
 ## Lancer le site
 
@@ -39,7 +39,7 @@ Puis ouvrir http://localhost:3000 : les modifications s'affichent tout de suite.
 
 ## Ta photo du haut de page
 
-Le haut de page attend une photo de la bouteille dans une salle d'escalade. Tant qu'elle manque, la bouteille en 3D s'affiche à sa place.
+Le haut de page attend une photo de la bouteille dans une salle d'escalade. Tant qu'elle manque, la bouteille en 3D s'affiche devant une photo floutée de la paroi de B'Wall Lorient, et les quatre parfums défilent.
 
 1. Nommer la photo `photo-salle.jpg` (ou `.png`, `.webp`).
 2. La déposer dans le dossier `public/brand/`.
@@ -52,11 +52,11 @@ Conseils : une photo en largeur (paysage), d'au moins 2000 pixels de large. Le t
 | Fichier | Contenu | État |
 | --- | --- | --- |
 | `public/brand/logo-one-living.png` | Logo One Living | Repris de oneliving.com |
-| `public/brand/produits/` | Photos et étiquettes des 10 boissons | Repris de oneliving.com |
+| `public/brand/produits/` | Photos et étiquettes des 10 boissons, photo du fondateur | Repris de oneliving.com |
 | `public/brand/photo-salle.jpg` | Photo du haut de page | **À fournir** |
 | `public/brand/logo-win.png` | Logo WIN Sport School (pied de page) | **À fournir**, un emplacement propre s'affiche en attendant |
 | `public/brand/logo-bwall.png` | Logo B'Wall blanc, sans signature (en-tête, pied de page, salles) | Repris de b-wall.fr |
-| `public/brand/bwall/` | Logo B'Wall couleur, pictogramme, photos des trois salles | Repris de b-wall.fr |
+| `public/brand/bwall/` | Logo B'Wall couleur, pictogramme, photos des salles (paroi du haut de page, les 3 temps, voie du mois, bar de Vannes, fiches) | Repris de b-wall.fr |
 
 Les photos et les étiquettes appartiennent à One Living, les logos et les photos de salles à B'Wall ; ils ne servent qu'à cette présentation locale.
 
@@ -69,6 +69,8 @@ Les dix boissons de la gamme réelle (oneliving.com) :
 - **Shot 10 cl** : tropical, fraise-citron, agrumes-gingembre.
 
 Chaque modèle 3D est construit à partir des photos produits du site : la silhouette mesurée donne la forme exacte du contenant, et l'étiquette est « déroulée » à plat puis réenroulée sur le modèle. Le script `scripts/extract-products.py` (Python 3, Pillow, numpy) refait ce travail à partir des photos ; ses résultats sont déjà dans le projet.
+
+Le dos : le site de One Living ne montre que la face des produits. Le dos des bouteilles bio reprend donc leur fiche de dégustation (oneliving.com), posée sur l'étiquette noire ; les canettes et les shots sont imprimés recto verso (le même visuel au dos). Le bouton « Voir le dos » de la gamme fait pivoter la boisson.
 
 ## Ce qui est hypothétique ou fictif
 
@@ -85,7 +87,8 @@ Chaque modèle 3D est construit à partir des photos produits du site : la silho
 3. **Les vraies étiquettes, elles, restent lisibles sur les modèles 3D et les photos.** Sur les shots, on lit « Energy », « Gut », « Immunity », « 1BN live cultures », « Gut health & wellbeing » ; sur les canettes, « Sugar free ». Ce sont les mentions de la marque, pas les nôtres, mais un jury attentif peut le relever.
 4. **« L'alternative sans alcool » est devenue « l'alternative à la bière »** : la fermentation laisse des traces d'alcool, la FAQ l'explique.
 5. **Jonny Wilkinson** est présenté de façon factuelle (champion du monde 2003, a parlé ouvertement de son anxiété), sans aucune citation, ni de lui ni de la marque.
-6. Le Dossier interactif (matrice des 16 sports, simulateur), le mini-jeu, One Giving et les modes présentation et vidéo ont été retirés. Ils restent dans l'historique Git (commit `9450b59`) si besoin.
+6. **Le dos des boissons est une reconstitution** : fiche de dégustation de la marque pour les bouteilles, recto verso pour les canettes et les shots. Les vrais dos (ingrédients, valeurs nutritionnelles) ne sont pas publiés sur oneliving.com.
+7. Le Dossier interactif (matrice des 16 sports, simulateur), le mini-jeu, One Giving et les modes présentation et vidéo ont été retirés. Ils restent dans l'historique Git (commit `9450b59`) si besoin.
 
 ## Mouvement réduit et mobile
 

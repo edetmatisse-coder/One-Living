@@ -32,7 +32,8 @@ export function Salles({ meta }: { meta: SectionMeta }) {
     lonlat: g.lonlat,
     color: g.id === active ? BWALL_SUN : BWALL,
     kind: 'jug',
-    labelLeft: g.id === 'vannes',
+    // Lorient et Vannes sont proches : leurs noms passent tous deux à gauche
+    labelLeft: g.id === 'vannes' || g.id === 'lanester',
   }));
 
   return (

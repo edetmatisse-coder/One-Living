@@ -80,7 +80,7 @@ function Temps({ t, i }: { t: (typeof TEMPS)[number]; i: number }) {
         </div>
         {/* la boisson du moment, posée sur la photo */}
         <div
-          className={`absolute -bottom-6 ${flip ? '-left-3 md:-left-6' : '-right-3 md:-right-6'} w-[26%] max-w-[140px] rotate-[4deg] rounded-[6px] bg-chalk p-2 shadow-[0_24px_40px_-16px_rgba(0,0,0,.8)] transition-all duration-700 ${
+          className={`absolute -bottom-6 ${flip ? 'left-3 md:-left-6' : 'right-3 md:-right-6'} w-[26%] max-w-[140px] rotate-[4deg] rounded-[6px] bg-chalk p-2 shadow-[0_24px_40px_-16px_rgba(0,0,0,.8)] transition-all duration-700 ${
             on ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
           }`}
           style={{ transitionDelay: on ? '450ms' : '0ms' }}
