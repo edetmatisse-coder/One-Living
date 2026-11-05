@@ -25,7 +25,7 @@ const mix = (a: Rect, b: Rect, t: number): Rect => ({
 });
 
 /** 16 sports -> 4 -> ESCALADE plein écran. */
-export const Entonnoir: React.FC = () => {
+const EntonnoirContenu: React.FC = () => {
   const T = useMemo(() => tEntonnoir(), []);
   const frame = useCurrentFrame();
   const { W, H, v } = useFormat();
@@ -75,7 +75,7 @@ export const Entonnoir: React.FC = () => {
   const cy = v ? 330 : H / 2 - 40;
 
   return (
-    <Porte>
+    <>
       <AbsoluteFill style={{ background: C.fond }}>
         <Fond graine="ent" />
         <Camera
@@ -127,7 +127,9 @@ export const Entonnoir: React.FC = () => {
             if (elimine) {
               const f = T.tri[ordreTri.indexOf(nom)];
               barre = f;
-              o = interpolate(frame, [f + 4, f + 9, T.quatre, T.quatre + 6], [1, 0.2, 0.2, 0], CLAMP);
+              // barré, puis grisé ; disparaît quand il n'en reste que 4 (jamais avant d'avoir été lu barré)
+              const fin = Math.max(T.quatre, f + 7);
+              o = interpolate(frame, [f + 4, f + 9], [1, 0.2], CLAMP) * interpolate(frame, [fin, fin + 6], [1, 0], CLAMP);
             }
             if (j >= 0) {
               r = mix(caseDe(i), caseFinale(j), regroupe);
@@ -235,6 +237,13 @@ export const Entonnoir: React.FC = () => {
         </Camera>
         <Grain />
       </AbsoluteFill>
-    </Porte>
+    </>
   );
 };
+
+/** Mesures du texte seulement une fois les polices chargées (d'où la porte autour). */
+export const Entonnoir: React.FC = () => (
+  <Porte>
+    <EntonnoirContenu />
+  </Porte>
+);

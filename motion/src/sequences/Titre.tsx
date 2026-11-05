@@ -22,7 +22,7 @@ const couper = (ls: string[], max: number) =>
   });
 
 /** « COMMENT ONE LIVING PEUT SORTIR DU RUGBY ? » : les lettres claquent une à une, en bloc justifié. */
-export const Titre: React.FC = () => {
+const TitreContenu: React.FC = () => {
   const T = useMemo(() => tTitre(), []);
   const { W, H, v } = useFormat();
   const base = titre.lignes.map(fr);
@@ -43,7 +43,7 @@ export const Titre: React.FC = () => {
   let y = top;
   let k = 0;
   return (
-    <Porte>
+    <>
       <AbsoluteFill style={{ background: C.fond }}>
         <Fond graine="titre" />
         <Camera
@@ -86,6 +86,13 @@ export const Titre: React.FC = () => {
         </Camera>
         <Grain />
       </AbsoluteFill>
-    </Porte>
+    </>
   );
 };
+
+/** Mesures du texte seulement une fois les polices chargées (d'où la porte autour). */
+export const Titre: React.FC = () => (
+  <Porte>
+    <TitreContenu />
+  </Porte>
+);

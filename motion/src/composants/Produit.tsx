@@ -22,7 +22,9 @@ export const Produit: React.FC<{
   ombre?: string | null;
   flotte?: boolean;
   ressort?: Partial<SpringConfig>;
-}> = ({ id, hauteur, a, x, bas, depuis = 'bas', inclinaison = 32, rot = 0, reflet = null, ombre = null, flotte = true, ressort }) => {
+  /** image d'un petit saut sur place */
+  saut?: number | null;
+}> = ({ id, hauteur, a, x, bas, depuis = 'bas', inclinaison = 32, rot = 0, reflet = null, ombre = null, flotte = true, ressort, saut = null }) => {
   const frame = useCurrentFrame();
   const { width: W } = useVideoConfig();
   const [w0, h0] = TAILLES[id];
@@ -37,7 +39,9 @@ export const Produit: React.FC<{
   const rY = q * inclinaison * (dx !== 0 ? dx : 1);
   const rX = q * 14 * (dy !== 0 ? dy : 0.5);
   const rZ = rot + q * -13 * (dx !== 0 ? -dx : 1);
-  const fl = flotte ? Math.sin(t / 16) * hauteur * 0.007 : 0;
+  const ts = saut != null ? frame - saut : -1;
+  const hop = ts >= 0 && ts <= 12 ? -Math.sin((ts / 12) * Math.PI) * hauteur * 0.07 : 0;
+  const fl = (flotte ? Math.sin(t / 16) * hauteur * 0.007 : 0) + hop;
   const flr = flotte ? Math.sin(t / 29) * 0.7 : 0;
   const r = reflet != null ? lin(frame, reflet, reflet + 17, 0, 1, EASE) : 0;
   const src = staticFile(`produits/${id}.webp`);

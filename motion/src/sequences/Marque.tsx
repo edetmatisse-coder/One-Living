@@ -45,9 +45,9 @@ const SceneLogo: React.FC<{ T: TM }> = ({ T }) => {
   const d = T.logo.to - o + VOLET;
   const i1 = T.logo.impact1 - o;
   const i2 = T.logo.impact2 - o;
-  const lw = v ? 900 : 900;
+  const lw = v ? 880 : 840;
   const lh = (lw * 800) / 1372;
-  const sol = v ? H * 0.47 : H * 0.6;
+  const sol = v ? H * 0.48 : H * 0.64;
 
   // chute qui accélère, puis deux rebonds amortis, avec écrasement à l'impact
   let dy = 0;
@@ -193,7 +193,7 @@ const SceneChampion: React.FC<{ T: TM }> = ({ T }) => {
         <Eclats a={pose + 1} x={W / 2 + nombreW / 2 + 10} y={cy - taille * 0.3} angle={-30} couleur={C.jaune} longueur={v ? 60 : 80} />
         <Poudre a={pose} x={W / 2} y={cy + taille * 0.36} n={36} direction="cotes" vitesse={1.4} graine="2003" />
         <AbsoluteFill style={{ alignItems: 'center', top: v ? cy + taille * 0.46 : cy + taille * 0.37 }}>
-          <Bande lignes={lignes} a={bande} taille={v ? 92 : 100} fond={C.magnesie} couleur={C.fond} rot={-2.5} decalage={v ? 26 : 0} />
+          <Bande lignes={lignes} a={bande} taille={v ? 100 : 116} fond={C.magnesie} couleur={C.fond} rot={-2.5} decalage={v ? 26 : 0} />
         </AbsoluteFill>
       </Camera>
       <Flash a={pose} force={0.16} />
@@ -285,9 +285,10 @@ const Parfum: React.FC<{ T: TM; i: number }> = ({ T, i }) => {
   const d = s.to - s.from + VOLET;
   const fond = coul(p.couleur);
   const encre = fonce(fond, 0.3);
-  const lignes = v ? [...p.nom, ...p.nom] : p.nom;
+  const brut = v ? [...p.nom, ...p.nom] : p.nom;
   const cap = v ? 300 : 470;
-  const tailles = lignes.map((l) => ajuste(l, W * 0.94, cap));
+  const tailles = brut.map((l) => ajuste(l, W * 0.94, cap));
+  const lignes = brut.map((l, k) => (largeur(l, tailles[k]) < W * 0.6 ? [l, l, l, l].join('\u2003') : l));
   const hTotal = tailles.reduce((acc, t) => acc + t * 0.84, 0);
   const pose = s.pose - s.from;
   let y = H / 2 - hTotal / 2 + (v ? -40 : 0);
@@ -344,6 +345,17 @@ const Parfum: React.FC<{ T: TM; i: number }> = ({ T, i }) => {
           reflet={s.reflet - s.from}
           ombre="rgba(0,0,0,0.42)"
         />
+        <Pastille
+          a={s.nom - s.from}
+          fond={C.magnesie}
+          couleur={C.fond}
+          taille={v ? 52 : 50}
+          police="texte"
+          rot={v ? 6 : -5}
+          style={{ left: v ? W * 0.74 : W / 2 + 390, top: v ? H * 0.19 : H * 0.7 }}
+        >
+          {p.nom.join('-').toLowerCase().replace(/^./, (c) => c.toUpperCase())}
+        </Pastille>
         <Pastille
           a={s.index - s.from}
           rond={v ? 150 : 140}
@@ -427,6 +439,7 @@ const SceneShots: React.FC<{ T: TM }> = ({ T }) => {
             reflet={rel(T.shots.arrivees[i]) + 12}
             ombre="rgba(0,0,0,0.55)"
             ressort={{ damping: 10, stiffness: 220, mass: 0.7 }}
+            saut={rel(T.shots.hop) + i * 2}
           />
         ))}
         <div style={{ position: 'absolute', left: 0, right: 0, top: v ? H * 0.62 : H * 0.705 }}>
@@ -485,7 +498,7 @@ const SceneGiving: React.FC<{ T: TM }> = ({ T }) => {
   const lignes = v ? g.titre.texte.split(' ') : [g.titre.texte];
   const tTitre = Math.min(...lignes.map((l) => ajuste(l, W * (v ? 0.86 : 0.8), v ? 380 : 400)));
   const hTitre = tTitre * 0.86 * lignes.length;
-  const tPhrase = v ? 66 : 64;
+  const tPhrase = v ? 68 : 68;
   const lignesPhrase = v ? 3 : 1;
   const ecartTitre = v ? 70 : 56;
   const top = (H - (hTitre + ecartTitre + lignesPhrase * tPhrase * 1.22)) / 2 - (v ? 40 : 10);
@@ -514,6 +527,7 @@ const SceneGiving: React.FC<{ T: TM }> = ({ T }) => {
           taille={v ? 120 : 130}
           couleur={C.rose}
           epaisseur={11}
+          pouls={rel(T.giving.pouls)}
         />
         <div style={{ position: 'absolute', left: W * 0.08, right: W * 0.08, top: top + hTitre + ecartTitre }}>
           <Mots
@@ -526,6 +540,7 @@ const SceneGiving: React.FC<{ T: TM }> = ({ T }) => {
             couleur={C.fond}
             interligne={1.22}
             espaceMots={0.26}
+            largeurMax={W * 0.84}
             souligne={{ a: rel(T.giving.trait), couleur: C.rose, epaisseur: tPhrase * 0.16, duree: 6 }}
           />
         </div>

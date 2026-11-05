@@ -15,7 +15,7 @@ import { Eclats } from '../composants/Stickers';
 import { Flash } from '../composants/Bande';
 
 /** 0 -> 69, le « % » qui claque, la phrase, la source. */
-export const SoixanteNeuf: React.FC = () => {
+const SoixanteNeufContenu: React.FC = () => {
   const T = useMemo(() => tSoixanteNeuf(), []);
   const frame = useCurrentFrame();
   const { W, H, v } = useFormat();
@@ -44,7 +44,7 @@ export const SoixanteNeuf: React.FC = () => {
   const jetons = ws.map((t, i) => ({ t, souligne: i >= debutSouligne }));
   const source = lin(frame, T.source, T.source + 10, 0, 1, EASE);
   return (
-    <Porte>
+    <>
       <AbsoluteFill style={{ background: C.fond }}>
         <FlouDefs />
         <Fond graine="69" />
@@ -100,6 +100,7 @@ export const SoixanteNeuf: React.FC = () => {
               couleur={C.magnesie}
               interligne={1.2}
               espaceMots={0.26}
+              largeurMax={W * 0.86}
               souligne={{ a: T.trait, couleur: C.jaune, epaisseur: tPhrase * 0.15, duree: 5 }}
             />
           </div>
@@ -124,6 +125,13 @@ export const SoixanteNeuf: React.FC = () => {
         <Flash a={T.pose} force={0.14} />
         <Grain />
       </AbsoluteFill>
-    </Porte>
+    </>
   );
 };
+
+/** Mesures du texte seulement une fois les polices chargées (d'où la porte autour). */
+export const SoixanteNeuf: React.FC = () => (
+  <Porte>
+    <SoixanteNeufContenu />
+  </Porte>
+);

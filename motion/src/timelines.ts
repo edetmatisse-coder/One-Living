@@ -96,29 +96,33 @@ export function tMarque() {
       pose: from + ENTREE_BOUTEILLE + POSE_BOUTEILLE,
       reflet: from + 22,
       index: from + 34,
+      nom: from + 46,
       to: i < m.parfums.liste.length - 1 ? img(m.parfums.liste[i + 1].a) : debut.shots,
     };
   });
   m.parfums.liste.forEach((p, i) => {
     const s = slides[i];
-    b.push({ t: sec(s.from), son: 'whoosh', quoi: `volet ${p.couleur}, ${p.nom.join(' ').toLowerCase()}` });
+    b.push({ t: sec(s.from), son: 'whoosh', quoi: `volet ${p.couleur}, ${p.nom.join('-').toLowerCase()}` });
     b.push({
       t: sec(s.pose),
       son: i === 0 ? 'bouteille' : 'pop',
       quoi: i === 0 ? 'la bouteille se pose (ouverture de bouteille, « pschitt »)' : 'la bouteille se pose',
     });
+    b.push({ t: sec(s.nom), son: 'pop', quoi: `pastille « ${p.nom.join('-').toLowerCase()} » (pop léger)` });
   });
 
   // shots
   const arrivees = m.shots.images.map((_, i) => img(m.shots.rafale.a + i * m.shots.rafale.ecart));
   const titreShots = img(m.shots.titre.a);
   const pastilleShots = img(m.shots.pastille.a);
+  const hop = pastilleShots + 16;
   b.push({ t: sec(debut.shots), son: 'whoosh', quoi: 'volet anthracite' });
   arrivees.forEach((a, i) =>
     b.push({ t: sec(a + 5), son: i === 0 ? 'bouteille' : 'pop', quoi: i === 0 ? 'premier shot (ouverture, « pschitt » court)' : `shot ${i + 1}` }),
   );
   b.push({ t: sec(titreShots), son: 'whoosh', quoi: `« ${m.shots.titre.texte} »` });
   if (m.shots.pastille.texte) b.push({ t: sec(pastilleShots), son: 'pop', quoi: `pastille « ${m.shots.pastille.texte} »` });
+  b.push({ t: sec(hop), son: 'pop', quoi: 'les 3 shots font un petit saut (3 pops légers, facultatif)' });
 
   // giving
   const titreGiving = img(m.giving.titre.a);
@@ -127,11 +131,13 @@ export function tMarque() {
   const nMots = mots(m.giving.phrase.texte).length;
   const traitGiving = phrase + nMots * ECART_MOTS + 6;
   const coeur = lettres[lettres.length - 1] + 8;
+  const pouls = traitGiving + 22;
   b.push({ t: sec(debut.giving), son: 'whoosh', quoi: 'volet magnésie (vers le haut)' });
   b.push({ t: sec(lettres[lettres.length - 1] + 3), son: 'impact', quoi: `« ${m.giving.titre.texte} » complet` });
   b.push({ t: sec(coeur), son: 'pop', quoi: 'cœur dessiné' });
   b.push({ t: sec(phrase), son: 'whoosh', quoi: 'la phrase monte (whoosh léger)' });
   if (m.giving.souligne) b.push({ t: sec(traitGiving), son: 'feutre', quoi: `souligné au feutre « ${m.giving.souligne} »` });
+  b.push({ t: sec(pouls), son: 'pop', quoi: 'le cœur bat une fois (pop léger)' });
 
   return {
     total,
@@ -140,8 +146,8 @@ export function tMarque() {
     champion: { from: debut.champion, to: debut.valeurs, bandeau: img(m.champion.bandeau.a), depart, pose },
     valeurs: { from: debut.valeurs, to: debut.parfums, tampons, buee, pastille: pastilleFroid },
     parfums: { from: debut.parfums, to: debut.shots, slides },
-    shots: { from: debut.shots, to: debut.giving, arrivees, titre: titreShots, pastille: pastilleShots },
-    giving: { from: debut.giving, to: total, titre: titreGiving, lettres, phrase, trait: traitGiving, coeur },
+    shots: { from: debut.shots, to: debut.giving, arrivees, titre: titreShots, pastille: pastilleShots, hop },
+    giving: { from: debut.giving, to: total, titre: titreGiving, lettres, phrase, trait: traitGiving, coeur, pouls },
     bruits: b,
   };
 }

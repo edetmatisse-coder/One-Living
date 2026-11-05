@@ -29,6 +29,8 @@ export const Mots: React.FC<{
   espaceMots?: number; // em
   inclinaison?: number;
   souligne?: { a: number; couleur: string; epaisseur?: number; duree?: number };
+  /** largeur disponible : les lignes sont alors équilibrées */
+  largeurMax?: number;
   style?: CSSProperties;
 }> = ({
   mots,
@@ -43,6 +45,7 @@ export const Mots: React.FC<{
   espaceMots = 0.24,
   inclinaison = 6,
   souligne,
+  largeurMax,
   style,
 }) => {
   const frame = useCurrentFrame();
@@ -50,6 +53,87 @@ export const Mots: React.FC<{
   const gap = espaceMots * taille;
   const soulignes = jetons.map((j, i) => (j.souligne ? i : -1)).filter((i) => i >= 0);
   const dureeTrait = souligne?.duree ?? 5;
+
+  // les mots soulignés qui se suivent restent ensemble sur la même ligne
+  const groupes: [number, number][] = [];
+  for (let i = 0; i < jetons.length; ) {
+    let k = i;
+    if (jetons[i].souligne) while (k + 1 < jetons.length && jetons[k + 1].souligne) k++;
+    groupes.push([i, k]);
+    i = k + 1;
+  }
+  const larg = jetons.map((j) => largeur(j.t, taille, { famille, poids }));
+
+  // lignes équilibrées : la plus petite largeur qui garde le même nombre de lignes (pas de mot seul en bout de phrase)
+  let largeurEquilibree: number | undefined;
+  if (largeurMax) {
+    const unites = groupes.map(([d, f]) => larg.slice(d, f + 1).reduce((acc, w) => acc + w, 0) + gap * (f - d));
+    const nbLignes = (w: number) => {
+      let n = 1;
+      let x = 0;
+      for (const u of unites) {
+        if (x > 0 && x + gap + u > w) {
+          n++;
+          x = u;
+        } else x = x > 0 ? x + gap + u : u;
+      }
+      return n;
+    };
+    const n0 = nbLignes(largeurMax);
+    let lo = Math.max(...unites);
+    let hi = largeurMax;
+    for (let it = 0; it < 24; it++) {
+      const mid = (lo + hi) / 2;
+      if (nbLignes(mid) > n0) lo = mid;
+      else hi = mid;
+    }
+    largeurEquilibree = Math.ceil(hi * 1.015) + 4;
+  }
+
+  const mot = (j: Jeton, i: number) => {
+    const d = a + i * ecart;
+    const p = sp(frame, d, RESSORT);
+    const k = soulignes.indexOf(i);
+    const continue_ = k >= 0 && k < soulignes.length - 1 && soulignes[k + 1] === i + 1;
+    return (
+      <span key={i} style={{ position: 'relative', display: 'inline-block', whiteSpace: 'nowrap' }}>
+        <span
+          style={{
+            display: 'inline-block',
+            overflow: 'hidden',
+            padding: '0.28em 0.1em 0.14em',
+            margin: '-0.28em -0.1em -0.14em',
+            verticalAlign: 'bottom',
+          }}
+        >
+          <span
+            style={{
+              display: 'inline-block',
+              transform: `translateY(${(1 - p) * 125}%) rotate(${(1 - p) * inclinaison}deg)`,
+              transformOrigin: '0% 100%',
+              opacity: frame >= d ? 1 : 0,
+              color: j.couleur,
+            }}
+          >
+            {j.t}
+          </span>
+        </span>
+        {j.souligne && souligne && (
+          <Trait
+            a={souligne.a + k * dureeTrait}
+            duree={dureeTrait}
+            largeur={larg[i] + (continue_ ? gap : 0)}
+            couleur={souligne.couleur}
+            epaisseur={souligne.epaisseur ?? taille * 0.12}
+            fin={!continue_}
+            graine={`s${i}`}
+            style={{ position: 'absolute', left: 0, top: '100%', marginTop: -taille * 0.08 }}
+          />
+        )}
+      </span>
+    );
+  };
+
   return (
     <div
       style={{
@@ -63,52 +147,19 @@ export const Mots: React.FC<{
         fontSize: taille,
         lineHeight: interligne,
         color: couleur,
+        ...(largeurEquilibree ? { maxWidth: largeurEquilibree, marginLeft: 'auto', marginRight: 'auto' } : {}),
         ...style,
       }}
     >
-      {jetons.map((j, i) => {
-        const d = a + i * ecart;
-        const p = sp(frame, d, RESSORT);
-        const k = soulignes.indexOf(i);
-        const continue_ = k >= 0 && k < soulignes.length - 1 && soulignes[k + 1] === i + 1;
-        return (
-          <span key={i} style={{ position: 'relative', display: 'inline-block', whiteSpace: 'nowrap' }}>
-            <span
-              style={{
-                display: 'inline-block',
-                overflow: 'hidden',
-                padding: '0.28em 0.1em 0.14em',
-                margin: '-0.28em -0.1em -0.14em',
-                verticalAlign: 'bottom',
-              }}
-            >
-              <span
-                style={{
-                  display: 'inline-block',
-                  transform: `translateY(${(1 - p) * 125}%) rotate(${(1 - p) * inclinaison}deg)`,
-                  transformOrigin: '0% 100%',
-                  opacity: frame >= d ? 1 : 0,
-                  color: j.couleur,
-                }}
-              >
-                {j.t}
-              </span>
-            </span>
-            {j.souligne && souligne && (
-              <Trait
-                a={souligne.a + k * dureeTrait}
-                duree={dureeTrait}
-                largeur={largeur(j.t, taille, { famille, poids }) + (continue_ ? gap : 0)}
-                couleur={souligne.couleur}
-                epaisseur={souligne.epaisseur ?? taille * 0.12}
-                fin={!continue_}
-                graine={`s${i}`}
-                style={{ position: 'absolute', left: 0, top: '100%', marginTop: -taille * 0.08 }}
-              />
-            )}
+      {groupes.map(([d, f]) =>
+        d === f ? (
+          mot(jetons[d], d)
+        ) : (
+          <span key={`g${d}`} style={{ display: 'inline-flex', columnGap: gap, whiteSpace: 'nowrap' }}>
+            {jetons.slice(d, f + 1).map((j, k) => mot(j, d + k))}
           </span>
-        );
-      })}
+        ),
+      )}
     </div>
   );
 };

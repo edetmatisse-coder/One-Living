@@ -18,7 +18,7 @@ const fondIncrustation = (transparent: boolean) => (transparent ? 'transparent' 
 
 // ---------------------------------------------------------------------------
 /** Question de l'interview, sur bandeau jaune façon Konbini. */
-export const Question: React.FC<{ index: number; transparent?: boolean }> = ({ index, transparent = false }) => {
+const QuestionContenu: React.FC<{ index: number; transparent?: boolean }> = ({ index, transparent = false }) => {
   const T = useMemo(() => tQuestion(), []);
   const frame = useCurrentFrame();
   const { W, v } = useFormat();
@@ -27,7 +27,7 @@ export const Question: React.FC<{ index: number; transparent?: boolean }> = ({ i
   const ls = lignes(texte, taille, (v ? W * 0.84 : W * 0.78) - taille * 0.6);
   const flotte = Math.sin(frame / 17) * 4;
   return (
-    <Porte>
+    <>
       <AbsoluteFill style={{ background: fondIncrustation(transparent), alignItems: 'center', justifyContent: 'center' }}>
         <div style={{ transform: `translateY(${flotte}px) rotate(${-1.8 + Math.sin(frame / 31) * 0.35}deg)` }}>
           <Bande
@@ -43,13 +43,13 @@ export const Question: React.FC<{ index: number; transparent?: boolean }> = ({ i
           />
         </div>
       </AbsoluteFill>
-    </Porte>
+    </>
   );
 };
 
 // ---------------------------------------------------------------------------
 /** Petit carton « Interview imaginée… », en haut à gauche. */
-export const Carton: React.FC<{ transparent?: boolean }> = ({ transparent = false }) => {
+const CartonContenu: React.FC<{ transparent?: boolean }> = ({ transparent = false }) => {
   const T = useMemo(() => tCarton(), []);
   const frame = useCurrentFrame();
   const { v } = useFormat();
@@ -59,7 +59,7 @@ export const Carton: React.FC<{ transparent?: boolean }> = ({ transparent = fals
   const ouvert = Math.max(0, Math.min(1, p)) * (1 - s);
   const point = sp(frame, 6, { damping: 9, stiffness: 260, mass: 0.6 });
   return (
-    <Porte>
+    <>
       <AbsoluteFill style={{ background: fondIncrustation(transparent) }}>
         <div
           style={{
@@ -96,13 +96,13 @@ export const Carton: React.FC<{ transparent?: boolean }> = ({ transparent = fals
           </span>
         </div>
       </AbsoluteFill>
-    </Porte>
+    </>
   );
 };
 
 // ---------------------------------------------------------------------------
 /** Bandeau nominatif bas d'écran : prénom · rôle (rôle joué). */
-export const BandeauNom: React.FC<{ prenom: string; transparent?: boolean }> = ({ prenom, transparent = false }) => {
+const BandeauNomContenu: React.FC<{ prenom: string; transparent?: boolean }> = ({ prenom, transparent = false }) => {
   const T = useMemo(() => tNom(), []);
   const frame = useCurrentFrame();
   const { v } = useFormat();
@@ -163,7 +163,7 @@ export const BandeauNom: React.FC<{ prenom: string; transparent?: boolean }> = (
     </div>
   );
   return (
-    <Porte>
+    <>
       <AbsoluteFill style={{ background: fondIncrustation(transparent) }}>
         <div
           style={{
@@ -179,7 +179,28 @@ export const BandeauNom: React.FC<{ prenom: string; transparent?: boolean }> = (
           {boiteRole}
         </div>
       </AbsoluteFill>
-    </Porte>
+    </>
   );
 };
 
+
+/** Mesures du texte seulement une fois les polices chargées (d'où la porte autour). */
+export const Question: React.FC<{ index: number; transparent?: boolean }> = (props) => (
+  <Porte>
+    <QuestionContenu {...props} />
+  </Porte>
+);
+
+/** Mesures du texte seulement une fois les polices chargées (d'où la porte autour). */
+export const Carton: React.FC<{ transparent?: boolean }> = (props) => (
+  <Porte>
+    <CartonContenu {...props} />
+  </Porte>
+);
+
+/** Mesures du texte seulement une fois les polices chargées (d'où la porte autour). */
+export const BandeauNom: React.FC<{ prenom: string; transparent?: boolean }> = (props) => (
+  <Porte>
+    <BandeauNomContenu {...props} />
+  </Porte>
+);

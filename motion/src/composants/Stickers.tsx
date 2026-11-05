@@ -171,7 +171,7 @@ export const Fleche: React.FC<{
 
 // ---------------------------------------------------------------------------
 /** Cœur dessiné d'un trait. */
-export const Coeur: React.FC<{ a: number; x: number; y: number; taille: number; couleur: string; epaisseur?: number; rot?: number }> = ({
+export const Coeur: React.FC<{ a: number; x: number; y: number; taille: number; couleur: string; epaisseur?: number; rot?: number; pouls?: number | null }> = ({
   a,
   x,
   y,
@@ -179,14 +179,16 @@ export const Coeur: React.FC<{ a: number; x: number; y: number; taille: number; 
   couleur,
   epaisseur = 9,
   rot = 8,
+  pouls = null,
 }) => {
   const frame = useCurrentFrame();
   if (frame < a) return null;
   const d = `M 0 ${s * 0.32} C ${-s * 0.05} ${s * 0.18}, ${-s * 0.55} ${s * 0.02}, ${-s * 0.5} ${-s * 0.25} C ${-s * 0.45} ${-s * 0.52}, ${-s * 0.08} ${-s * 0.5}, 0 ${-s * 0.2} C ${s * 0.08} ${-s * 0.52}, ${s * 0.47} ${-s * 0.55}, ${s * 0.52} ${-s * 0.26} C ${s * 0.57} ${s * 0.02}, ${s * 0.1} ${s * 0.2}, ${-s * 0.02} ${s * 0.36}`;
   const p = sp(frame, a, POP);
+  const bat = pouls != null && frame >= pouls ? Math.sin(Math.min(1, (frame - pouls) / 8) * Math.PI) * 0.28 : 0;
   return (
     <svg
-      style={{ position: 'absolute', left: x, top: y, overflow: 'visible', pointerEvents: 'none', transform: `rotate(${rot}deg) scale(${0.6 + 0.4 * p})` }}
+      style={{ position: 'absolute', left: x, top: y, overflow: 'visible', pointerEvents: 'none', transform: `rotate(${rot}deg) scale(${(0.6 + 0.4 * p) * (1 + bat)})` }}
       width={1}
       height={1}
     >

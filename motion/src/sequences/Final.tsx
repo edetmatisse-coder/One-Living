@@ -12,7 +12,7 @@ import { Lettres } from '../composants/Mots';
 import { TraitCraie } from '../composants/Stickers';
 
 /** « APRÈS LA VOIE. » s'écrit, trait de magnésie, l'équipe, la mention du projet. */
-export const Final: React.FC = () => {
+const FinalContenu: React.FC = () => {
   const T = useMemo(() => tFinal(), []);
   const frame = useCurrentFrame();
   const { W, H, v } = useFormat();
@@ -32,7 +32,7 @@ export const Final: React.FC = () => {
   const mention = lin(frame, T.mention, T.mention + 10, 0, 1, EASE);
   let n = 0;
   return (
-    <Porte>
+    <>
       <AbsoluteFill style={{ background: C.fond }}>
         <Fond graine="final" particules={1.3} />
         <Camera impacts={[{ f: derniere + 2, force: 0.9 }, { f: T.trait + 10, force: 0.35 }]} zoom={[1, 1.05]} duree={T.total}>
@@ -110,6 +110,13 @@ export const Final: React.FC = () => {
         </Camera>
         <Grain />
       </AbsoluteFill>
-    </Porte>
+    </>
   );
 };
+
+/** Mesures du texte seulement une fois les polices chargées (d'où la porte autour). */
+export const Final: React.FC = () => (
+  <Porte>
+    <FinalContenu />
+  </Porte>
+);
