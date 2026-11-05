@@ -12,4 +12,4 @@
 Formats acceptés pour `photo-salle` et `logo-win` : `.svg`, `.png`, `.webp`, `.jpg`, `.jpeg`.
 Après un ajout, relancer `npm run build` puis `npm run start`.
 
-Les visuels de One Living et de B'Wall appartiennent à ces marques et ne servent qu'à cette présentation locale.
+Les visuels de One Living et de B'Wall appartiennent à ces marques et ne servent qu'à cette maquette étudiante, en local et en ligne.

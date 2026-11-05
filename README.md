@@ -3,7 +3,7 @@
 Maquette du site de la campagne « Après la voie » : les boissons One Living au bar des salles d'escalade B'Wall (Quimper, Lorient, Vannes). Cobranding One Living × B'Wall, partenariat imaginé pour le projet.
 Challenge Bachelor 3, WIN Sport School, problématique 2 : développer One Living dans le sport amateur, hors rugby.
 
-**Projet étudiant WIN Sport School, non affilié à One Living, présentation locale.** Le site n'est pas fait pour être mis en ligne.
+**Projet étudiant WIN Sport School, non affilié à One Living ni à B'Wall.** Maquette non officielle : en local pour la soutenance, et en ligne sur GitHub Pages.
 
 Une seule page, de haut en bas : le haut de page (la bouteille 3D devant une paroi B'Wall, les quatre parfums qui défilent), un bandeau One Living × B'Wall, le concept en 3 temps (avec le chiffre clé : 69 % des grimpeurs boivent un verre après leur séance), la gamme en 3D (à faire tourner au glisser), l'histoire de la marque, les salles B'Wall, la voie du mois, trois buveurs de kombucha, l'offre aux salles et la FAQ.
 
@@ -37,6 +37,15 @@ npm run dev
 
 Puis ouvrir http://localhost:3000 : les modifications s'affichent tout de suite.
 
+## Le site en ligne
+
+https://edetmatisse-coder.github.io/One-Living/
+
+GitHub republie le site tout seul à chaque push sur la branche `claude/loving-goodall-iiro2p`, en 2 minutes environ (à suivre dans l'onglet Actions, « Mise en ligne (GitHub Pages) »). En ligne, le pied de page dit « maquette non officielle » au lieu de « présentation locale ».
+
+- Première mise en ligne : sur GitHub, Settings → Pages → Source : « GitHub Actions ».
+- Pour retirer le site (après la soutenance, par exemple) : Settings → Pages → « Unpublish site ».
+
 ## Ta photo du haut de page
 
 Le haut de page attend une photo de la bouteille dans une salle d'escalade. Tant qu'elle manque, la bouteille en 3D s'affiche devant une photo floutée de la paroi de B'Wall Lorient, et les quatre parfums défilent.
@@ -44,6 +53,7 @@ Le haut de page attend une photo de la bouteille dans une salle d'escalade. Tant
 1. Nommer la photo `photo-salle.jpg` (ou `.png`, `.webp`).
 2. La déposer dans le dossier `public/brand/`.
 3. Relancer `npm run build` puis `npm run start`.
+4. Pour le site en ligne : sur GitHub, ouvrir le dossier `public/brand/`, « Add file » → « Upload files », déposer la photo, puis « Commit changes ». Le site en ligne se met à jour en 2 minutes environ.
 
 Conseils : une photo en largeur (paysage), d'au moins 2000 pixels de large. Le titre se pose sur la gauche de l'image, assombrie en dégradé : placer la bouteille plutôt à droite.
 
@@ -58,7 +68,7 @@ Conseils : une photo en largeur (paysage), d'au moins 2000 pixels de large. Le t
 | `public/brand/logo-bwall.png` | Logo B'Wall blanc, sans signature (en-tête, pied de page, salles) | Repris de b-wall.fr |
 | `public/brand/bwall/` | Logo B'Wall couleur, pictogramme, photos des salles (paroi du haut de page, les 3 temps, voie du mois, bar de Vannes, fiches) | Repris de b-wall.fr |
 
-Les photos et les étiquettes appartiennent à One Living, les logos et les photos de salles à B'Wall ; ils ne servent qu'à cette présentation locale.
+Les photos et les étiquettes appartiennent à One Living, les logos et les photos de salles à B'Wall ; ils ne servent qu'à cette maquette étudiante, en local et en ligne.
 
 ### La gamme en 3D
 
@@ -89,6 +99,7 @@ Le dos : le site de One Living ne montre que la face des produits. Le dos des bo
 5. **Jonny Wilkinson** est présenté de façon factuelle (champion du monde 2003, a parlé ouvertement de son anxiété), sans aucune citation, ni de lui ni de la marque.
 6. **Le dos des boissons est une reconstitution** : fiche de dégustation de la marque pour les bouteilles, recto verso pour les canettes et les shots. Les vrais dos (ingrédients, valeurs nutritionnelles) ne sont pas publiés sur oneliving.com.
 7. Le Dossier interactif (matrice des 16 sports, simulateur), le mini-jeu, One Giving et les modes présentation et vidéo ont été retirés. Ils restent dans l'historique Git (commit `9450b59`) si besoin.
+8. **La version en ligne est publique** : toute personne qui a le lien la voit. Les logos et les photos appartiennent à One Living et à B'Wall, et le pied de page dit « maquette non officielle ». La retirer après la soutenance si besoin (voir « Le site en ligne »).
 
 ## Mouvement réduit et mobile
 
