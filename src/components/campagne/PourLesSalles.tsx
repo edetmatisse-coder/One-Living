@@ -101,7 +101,7 @@ export function PourLesSalles({ meta }: { meta: SectionMeta }) {
       meta={meta}
       solid
       title={['Votre bar,', 'une recette en plus.']}
-      cardFoot="Pour les salles"
+      cardFoot="Frigo prêté · dotation · marge"
       lead={<>Vos grimpeurs boivent déjà un verre après la séance. Comme les salles B’Wall, donnez-leur un kombucha vivant, bio, bien frais.</>}
     >
       <SectionInner>

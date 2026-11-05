@@ -6,6 +6,7 @@ import { useSectionTracking } from '@/lib/use-section-tracking';
 import { CampagneHeader } from './CampagneHeader';
 import { CampagneHero } from './CampagneHero';
 import { Concept } from './Concept';
+import { CoBrandBand } from './CoBrandBand';
 import { Gamme } from './Gamme';
 import { Histoire } from './Histoire';
 import { Salles } from './Salles';
@@ -24,6 +25,7 @@ export function CampagnePage() {
       <CampagneHeader />
       <main id="campagne" className="relative z-10">
         <CampagneHero meta={S['apres-la-voie']} />
+        <CoBrandBand />
         <Concept meta={S.concept} />
         <Gamme meta={S.gamme} />
         <Histoire meta={S.histoire} />

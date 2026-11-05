@@ -8,6 +8,8 @@ import { Section, SectionInner } from '@/components/layout/Section';
 import { Hold, type HoldKind } from '@/components/ui/Hold';
 import { useInView } from '@/lib/use-in-view';
 import { Packshot } from './Gamme';
+import { RollingNumber } from '@/components/ui/RollingNumber';
+import { SourceChip } from '@/components/ui/SourceChip';
 
 const KINDS: HoldKind[] = ['crimp', 'jug', 'sloper'];
 const COLORS = [ROUTE_COLORS.yellow, ROUTE_COLORS.pink, ROUTE_COLORS.blue];
@@ -97,10 +99,25 @@ export function Concept({ meta }: { meta: SectionMeta }) {
       meta={meta}
       solid
       title={['Trois temps,', 'un rituel']}
-      cardFoot="Le concept"
+      cardFoot="Avant · après · entre grimpeurs"
       lead={<>Une séance, trois moments où le kombucha a sa place. Le plus important arrive juste après la voie.</>}
     >
       <SectionInner>
+        {/* le chiffre qui fonde la campagne */}
+        <div className="mb-6 grid gap-6 rounded-[8px] border border-chalk/10 bg-ply-900/40 p-7 md:grid-cols-[auto_minmax(0,1fr)] md:items-center md:gap-10 md:p-10">
+          <p className="font-display flex items-start text-[clamp(96px,11vw,170px)] leading-[0.8] text-chalk">
+            <RollingNumber value="69" />
+            <span className="ml-2 mt-[0.08em] text-[0.42em] text-route">%</span>
+          </p>
+          <div>
+            <p className="max-w-[30ch] text-[clamp(22px,2.2vw,32px)] font-medium leading-[1.2] text-chalk">
+              des grimpeurs boivent un verre après leur séance.
+            </p>
+            <p className="mt-4 flex flex-wrap items-center gap-3 text-[14px] text-dust">
+              Le moment existe déjà : la campagne s’y installe. <SourceChip id="obs-escalade" withLabel />
+            </p>
+          </div>
+        </div>
         <ol>
           {TEMPS.map((t, i) => (
             <Temps key={t.id} t={t} i={i} />

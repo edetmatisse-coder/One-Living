@@ -15,7 +15,7 @@ export function Histoire({ meta }: { meta: SectionMeta }) {
   const on = useInView(ref, { rootMargin: '0px 0px -25% 0px' });
 
   return (
-    <Section meta={meta} solid title={['De No.1', 'à One']} cardFoot="L’histoire" lead={<>Un nom qui a changé de sens, et une idée qui va bien à la grimpe.</>}>
+    <Section meta={meta} solid title={['De No.1', 'à One']} cardFoot="2018 · 2024 · Jonny Wilkinson" lead={<>Un nom qui a changé de sens, et une idée qui va bien à la grimpe.</>}>
       <SectionInner>
         <div ref={ref} className="grid gap-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-20">
           {/* le nom qui change */}

@@ -9,7 +9,7 @@ import { Section, SectionInner } from '@/components/layout/Section';
 export function Faq({ meta }: { meta: SectionMeta }) {
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <Section meta={meta} solid title={['Questions', 'fréquentes']} cardFoot="FAQ" lead={<>Ce qu’on nous demande le plus au bar.</>}>
+    <Section meta={meta} solid title={['Questions', 'fréquentes']} cardFoot="Kombucha · alcool · caféine" lead={<>Ce qu’on nous demande le plus au bar.</>}>
       <SectionInner>
         <ul className="divide-y divide-chalk/10 border-y border-chalk/10">
           {FAQ.map((f, i) => {
