@@ -47,10 +47,18 @@ function Temps({ t, i }: { t: (typeof TEMPS)[number]; i: number }) {
         <p className="label-mono mt-6 text-route">{t.label}</p>
         <h3 className={`font-display mt-3 text-[clamp(44px,5.4vw,92px)] ${key ? 'text-chalk' : 'text-chalk-dim'}`}>{t.title}</h3>
         <p className="mt-5 max-w-[42ch] text-[18px] leading-relaxed text-chalk-dim md:text-[20px]">{t.text}</p>
-        <p className="mt-6 inline-flex items-center gap-2.5 rounded-full border border-chalk/12 px-3 py-1.5 text-[13.5px] text-chalk-dim">
-          <span className="h-2.5 w-2.5 rounded-full" style={{ background: ROUTE_COLORS[product.route] }} />
-          {FORMAT_BY_ID[product.format].label} {FORMAT_BY_ID[product.format].volume} · {product.name.toLowerCase()}
-        </p>
+        <div className="mt-7 inline-flex items-center gap-3.5 rounded-[8px] border border-chalk/12 bg-ply-900/40 py-2 pl-2 pr-5">
+          <span className="block h-14 w-14 shrink-0 overflow-hidden rounded-[5px] bg-chalk">
+            <Packshot product={product} className="h-full w-full object-cover" />
+          </span>
+          <span className="leading-tight">
+            <span className="label-mono block text-[9.5px] text-dust">La boisson du moment</span>
+            <span className="mt-1 flex items-center gap-2 text-[14.5px] font-semibold text-chalk">
+              <span className="h-2.5 w-2.5 rounded-full" style={{ background: ROUTE_COLORS[product.route] }} />
+              {FORMAT_BY_ID[product.format].label} {FORMAT_BY_ID[product.format].volume} · {product.name.toLowerCase()}
+            </span>
+          </span>
+        </div>
       </div>
 
       <figure
@@ -77,15 +85,6 @@ function Temps({ t, i }: { t: (typeof TEMPS)[number]; i: number }) {
           />
           <div aria-hidden className="absolute inset-0 bg-[linear-gradient(180deg,transparent_55%,rgba(16,14,12,.65))]" />
           <figcaption className="label-mono absolute bottom-3 left-4 text-[9px] text-chalk/75">Photo b-wall.fr</figcaption>
-        </div>
-        {/* la boisson du moment, posée sur la photo */}
-        <div
-          className={`absolute -bottom-6 ${flip ? 'left-3 md:-left-6' : 'right-3 md:-right-6'} w-[26%] max-w-[140px] rotate-[4deg] rounded-[6px] bg-chalk p-2 shadow-[0_24px_40px_-16px_rgba(0,0,0,.8)] transition-all duration-700 ${
-            on ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
-          }`}
-          style={{ transitionDelay: on ? '450ms' : '0ms' }}
-        >
-          <Packshot product={product} className="aspect-[3/4] w-full object-cover" />
         </div>
       </figure>
     </li>

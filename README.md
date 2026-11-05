@@ -5,7 +5,7 @@ Challenge Bachelor 3, WIN Sport School, problématique 2 : développer One Livin
 
 **Projet étudiant WIN Sport School, non affilié à One Living, présentation locale.** Le site n'est pas fait pour être mis en ligne.
 
-Une seule page, de haut en bas : le haut de page (la bouteille 3D devant une paroi B'Wall, les quatre parfums qui défilent), un bandeau One Living × B'Wall, le concept en 3 temps (avec le chiffre clé : 69 % des grimpeurs boivent un verre après leur séance), la gamme en 3D (face et dos), l'histoire de la marque, les salles B'Wall, la voie du mois, trois buveurs de kombucha, l'offre aux salles et la FAQ.
+Une seule page, de haut en bas : le haut de page (la bouteille 3D devant une paroi B'Wall, les quatre parfums qui défilent), un bandeau One Living × B'Wall, le concept en 3 temps (avec le chiffre clé : 69 % des grimpeurs boivent un verre après leur séance), la gamme en 3D (à faire tourner au glisser), l'histoire de la marque, les salles B'Wall, la voie du mois, trois buveurs de kombucha, l'offre aux salles et la FAQ.
 
 ## Lancer le site
 
@@ -70,7 +70,7 @@ Les dix boissons de la gamme réelle (oneliving.com) :
 
 Chaque modèle 3D est construit à partir des photos produits du site : la silhouette mesurée donne la forme exacte du contenant, et l'étiquette est « déroulée » à plat puis réenroulée sur le modèle. Le script `scripts/extract-products.py` (Python 3, Pillow, numpy) refait ce travail à partir des photos ; ses résultats sont déjà dans le projet.
 
-Le dos : le site de One Living ne montre que la face des produits. Le dos des bouteilles bio reprend donc leur fiche de dégustation (oneliving.com), posée sur l'étiquette noire ; les canettes et les shots sont imprimés recto verso (le même visuel au dos). Le bouton « Voir le dos » de la gamme fait pivoter la boisson.
+Le dos : le site de One Living ne montre que la face des produits. Le dos des bouteilles bio reprend donc leur fiche de dégustation (oneliving.com), posée sur l'étiquette noire ; les canettes et les shots sont imprimés recto verso (le même visuel au dos). On le voit en faisant tourner la boisson au glisser.
 
 ## Ce qui est hypothétique ou fictif
 
