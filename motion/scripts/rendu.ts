@@ -137,8 +137,9 @@ async function main() {
       console.log(`\r${id.padEnd(22)} ok  ${path.relative(ICI, mp4)}  (${taille} Mo, ${((Date.now() - debut) / 1000).toFixed(0)} s)`);
       if (t.png != null) {
         const png = path.join(OUT, `${rel}.png`);
+        const transparente = await selectComposition({ serveUrl, id, inputProps: { ...props, transparent: true }, browserExecutable: navigateur });
         await renderStill({
-          composition,
+          composition: transparente,
           serveUrl,
           output: png,
           frame: Math.min(t.png, composition.durationInFrames - 1),

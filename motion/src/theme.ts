@@ -23,4 +23,5 @@ export const fr = (s: string) =>
   s
     .replace(/ ([?!:;%])/g, ' $1')
     .replace(/ °/g, ' °')
-    .replace(/'/g, '’');
+    .replace(/'/g, '’')
+    .replace(/\b(one) (living)\b/gi, '$1\u00A0$2');

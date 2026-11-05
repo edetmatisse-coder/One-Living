@@ -23,11 +23,11 @@ const FinalContenu: React.FC = () => {
   })() : [titre];
   const taille = Math.min(...lignes.map((l) => ajuste(l, W * (v ? 0.84 : 0.84), v ? 330 : 320)));
   const hTitre = taille * 0.86 * lignes.length;
-  const top = v ? H * 0.25 : H * 0.2;
+  const top = v ? H * 0.27 : H * 0.23;
   const largeurTitre = Math.max(...lignes.map((l) => largeur(l, taille)));
   const yTrait = top + hTitre + taille * 0.02;
-  const tNom = v ? 62 : 58;
-  const tPrenom = v ? 36 : 32;
+  const tNom = v ? 76 : 74;
+  const tPrenom = v ? 40 : 38;
   const derniere = T.lettres[T.lettres.length - 1];
   const mention = lin(frame, T.mention, T.mention + 10, 0, 1, EASE);
   let n = 0;
@@ -68,7 +68,7 @@ const FinalContenu: React.FC = () => {
               position: 'absolute',
               left: v ? W * 0.08 : W * 0.05,
               right: v ? W * 0.08 : W * 0.05,
-              top: yTrait + taille * (v ? 0.5 : 0.42),
+              top: yTrait + taille * (v ? 0.56 : 0.5),
               display: 'grid',
               gridTemplateColumns: v ? '1fr 1fr' : `repeat(${final.equipe.length}, auto)`,
               justifyContent: 'center',
@@ -94,11 +94,11 @@ const FinalContenu: React.FC = () => {
               position: 'absolute',
               left: W * 0.06,
               right: W * 0.06,
-              bottom: v ? 300 : 70,
+              bottom: v ? 360 : 72,
               textAlign: 'center',
               fontFamily: TEXTE,
               fontWeight: 600,
-              fontSize: v ? 32 : 28,
+              fontSize: v ? 34 : 30,
               letterSpacing: '0.02em',
               color: C.jaune,
               opacity: mention,

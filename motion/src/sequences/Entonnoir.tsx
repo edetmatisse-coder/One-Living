@@ -32,7 +32,7 @@ const EntonnoirContenu: React.FC = () => {
   const e = entonnoir;
 
   // grille de départ
-  const g = v ? { x: 70, y: 650, w: W - 140, h: 1060, cols: 2 } : { x: 700, y: 150, w: 1100, h: 780, cols: 4 };
+  const g = v ? { x: 70, y: 720, w: W - 140, h: 980, cols: 2 } : { x: 700, y: 150, w: 1100, h: 780, cols: 4 };
   const rangs = Math.ceil(e.sports.length / g.cols);
   const ecart = v ? 14 : 18;
   const cw = (g.w - ecart * (g.cols - 1)) / g.cols;
@@ -56,7 +56,7 @@ const EntonnoirContenu: React.FC = () => {
   const ordreTri = useMemo(() => [...T.elimines].sort((a, b) => random(`tri${a}`) - random(`tri${b}`)), [T]);
 
   // compteur : 16, puis -1 à chaque nom barré, puis à chaque nom qui tombe
-  const seuils = [...T.tri, ...T.chute];
+  const seuils = [...T.tri, ...T.chute.map((f) => f + 4)];
   const restants = e.sports.length - seuils.filter((f) => frame >= f).length;
   const dernierChangement = Math.max(T.seize, ...seuils.filter((f) => frame >= f));
   const pop = coup(frame, dernierChangement, 2.6);
@@ -72,7 +72,7 @@ const EntonnoirContenu: React.FC = () => {
   const nombreTaille = v ? 330 : 420;
   const etiquette = restants > 1 ? e.etiquette.plusieurs : e.etiquette.un;
   const cx = v ? W / 2 : 360;
-  const cy = v ? 330 : H / 2 - 40;
+  const cy = v ? 430 : H / 2 - 40;
 
   return (
     <>
@@ -212,7 +212,7 @@ const EntonnoirContenu: React.FC = () => {
             poids={900}
             rot={-8}
             ombre={false}
-            style={{ left: v ? W * 0.22 : W / 2 - largeur(e.gagnant.toUpperCase(), tGeant, { poids: 800 }) / 2 - 20, top: v ? H / 2 - tGeant * 0.95 : H / 2 - tGeant * 0.62 }}
+            style={{ left: v ? W / 2 : W * 0.13, top: v ? H / 2 - tGeant * 1.15 : H / 2 - tGeant * 0.7 }}
           >
             <span style={{ lineHeight: 0.8 }}>1</span>
             <span style={{ fontSize: v ? 30 : 32, letterSpacing: '0.08em', color: C.jaune, fontWeight: 800, marginTop: 4 }}>{e.etiquette.un}</span>

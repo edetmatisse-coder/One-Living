@@ -29,7 +29,7 @@ const SoixanteNeufContenu: React.FC = () => {
   const gap = taille * 0.04;
   const total = nombreW + gap + pctW;
   const x0 = (W - total) / 2;
-  const top = v ? H * 0.2 : H * 0.06;
+  const top = v ? H * 0.27 : H * 0.1;
   const bump = coup(frame, T.pose, 3.2);
   // « % » : arrive de très grand, tourné, et claque
   const p = sp(frame, T.pourcent, SEC);
@@ -109,7 +109,7 @@ const SoixanteNeufContenu: React.FC = () => {
               position: 'absolute',
               left: W * 0.06,
               right: W * 0.06,
-              bottom: v ? 300 : 64,
+              bottom: v ? 380 : 64,
               textAlign: 'center',
               fontFamily: TEXTE,
               fontWeight: 500,

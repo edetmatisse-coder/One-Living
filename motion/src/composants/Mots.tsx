@@ -195,8 +195,8 @@ export const Lettres: React.FC<{
         let clipPath: string | undefined;
         if (mode === 'claque') {
           const p = sp(frame, d, SEC);
-          const s = 2.3 - 1.3 * p;
-          const flou = Math.max(0, 1 - p) * 16;
+          const s = 1.9 - 0.9 * p;
+          const flou = Math.max(0, 1 - p) * 12;
           transform = `translateY(${(1 - p) * -0.12}em) scale(${s})`;
           if (flou > 0.6) filter = `blur(${flou.toFixed(1)}px)`;
         } else if (mode === 'tombe') {

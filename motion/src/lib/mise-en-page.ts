@@ -50,3 +50,17 @@ export const lignes = (texte: string, taille: number, max: number, p: Police = {
   if (ligne) out.push(ligne);
   return out;
 };
+
+/** Comme `lignes`, mais équilibrées : la plus petite largeur qui garde le même nombre de lignes. */
+export const lignesEquilibrees = (texte: string, taille: number, max: number, p: Police = {}) => {
+  const n = lignes(texte, taille, max, p).length;
+  if (n <= 1) return [texte];
+  let lo = 0;
+  let hi = max;
+  for (let i = 0; i < 22; i++) {
+    const mid = (lo + hi) / 2;
+    if (lignes(texte, taille, mid, p).length > n) lo = mid;
+    else hi = mid;
+  }
+  return lignes(texte, taille, hi + 1, p);
+};

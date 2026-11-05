@@ -4,7 +4,7 @@ import { bandeaux, questions } from '../../config';
 import { C, DISPLAY, TEXTE, fr } from '../theme';
 import { tCarton, tNom, tQuestion } from '../timelines';
 import { EASE, EASE_IN, lin, sp } from '../lib/temps';
-import { lignes, useFormat } from '../lib/mise-en-page';
+import { lignesEquilibrees, useFormat } from '../lib/mise-en-page';
 import { Porte } from '../composants/Porte';
 import { Bande } from '../composants/Bande';
 import { Mots } from '../composants/Mots';
@@ -23,8 +23,8 @@ const QuestionContenu: React.FC<{ index: number; transparent?: boolean }> = ({ i
   const frame = useCurrentFrame();
   const { W, v } = useFormat();
   const texte = fr(questions.liste[index]).toUpperCase();
-  const taille = v ? 106 : 118;
-  const ls = lignes(texte, taille, (v ? W * 0.84 : W * 0.78) - taille * 0.6);
+  const taille = v ? 120 : 136;
+  const ls = lignesEquilibrees(texte, taille, (v ? W * 0.86 : W * 0.84) - taille * 0.6);
   const flotte = Math.sin(frame / 17) * 4;
   return (
     <>
@@ -107,8 +107,8 @@ const BandeauNomContenu: React.FC<{ prenom: string; transparent?: boolean }> = (
   const frame = useCurrentFrame();
   const { v } = useFormat();
   const n = bandeaux.nom;
-  const tNomP = v ? 84 : 76;
-  const tRole = v ? 36 : 34;
+  const tNomP = v ? 92 : 86;
+  const tRole = v ? 40 : 38;
   // le prénom s'ouvre, puis le rôle glisse de derrière ; sortie dans l'ordre inverse
   const pNom = sp(frame, 0, { damping: 15, stiffness: 240, mass: 0.6 });
   const pRole = sp(frame, 6, { damping: 17, stiffness: 200, mass: 0.7 });
@@ -169,7 +169,7 @@ const BandeauNomContenu: React.FC<{ prenom: string; transparent?: boolean }> = (
           style={{
             position: 'absolute',
             left: v ? 64 : 110,
-            bottom: v ? 430 : 120,
+            bottom: v ? 540 : 120,
             display: 'flex',
             flexDirection: v ? 'column' : 'row',
             alignItems: v ? 'flex-start' : 'flex-end',

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Img, staticFile, useCurrentFrame, useVideoConfig, type SpringConfig } from 'remotion';
 import { TAILLES } from '../tailles';
-import { EASE, LOURD, lin, sp } from '../lib/temps';
+import { EASE_IO, LOURD, lin, sp } from '../lib/temps';
 
 const borne = (v: number) => Math.max(0, Math.min(1, v));
 
@@ -43,7 +43,7 @@ export const Produit: React.FC<{
   const hop = ts >= 0 && ts <= 12 ? -Math.sin((ts / 12) * Math.PI) * hauteur * 0.07 : 0;
   const fl = (flotte ? Math.sin(t / 16) * hauteur * 0.007 : 0) + hop;
   const flr = flotte ? Math.sin(t / 29) * 0.7 : 0;
-  const r = reflet != null ? lin(frame, reflet, reflet + 17, 0, 1, EASE) : 0;
+  const r = reflet != null ? lin(frame, reflet, reflet + 20, 0, 1, EASE_IO) : 0;
   const src = staticFile(`produits/${id}.webp`);
   const masque = `url(${src})`;
   return (
@@ -81,11 +81,11 @@ export const Produit: React.FC<{
               WebkitMaskSize: '100% 100%',
               maskSize: '100% 100%',
               background:
-                'linear-gradient(104deg, rgba(255,255,255,0) 38%, rgba(255,255,255,0.12) 45%, rgba(255,255,255,0.85) 50%, rgba(255,255,255,0.12) 55%, rgba(255,255,255,0) 62%)',
+                'linear-gradient(104deg, rgba(255,255,255,0) 34%, rgba(255,255,255,0.14) 42%, rgba(255,255,255,0.8) 48%, rgba(255,255,255,0.14) 53%, rgba(255,255,255,0) 56%, rgba(255,255,255,0.55) 58.5%, rgba(255,255,255,0) 61%)',
               backgroundSize: '340% 100%',
               backgroundPosition: `${100 - r * 100}% 0%`,
               mixBlendMode: 'screen',
-              opacity: Math.min(1, Math.sin(r * Math.PI) * 1.6),
+              opacity: Math.min(1, Math.sin(r * Math.PI) * 1.8),
             }}
           />
         )}
