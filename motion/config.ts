@@ -205,7 +205,7 @@ export const titre = {
 // ---------------------------------------------------------------------------
 export const introInterview = {
   duree: 4,
-  prenom: '[Prénom]', // prénom de l'étudiant qui joue l'employé
+  prenom: 'Matisse', // prénom de l'étudiant qui joue l'employé
 
   // 0,00 à 0,40 s : trois bandes diagonales (jaune, rose, bleu) recouvrent la vidéo d'avant
   entree: {

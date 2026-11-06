@@ -57,7 +57,7 @@ L'intro dure 4 s : ses bandes recouvrent la dernière 0,4 s de la vidéo de la m
 
 Si CapCut affiche du noir à la place de la transparence, prendre `08_intro_interview_vert.mp4` au même endroit, puis l'incrustation chroma (Vidéo → Supprimer l'arrière-plan → Incrustation chroma, pipette sur le vert, comme pour les questions). La version `08_intro_interview.mp4`, à fond plein, se pose comme un plan normal, en coupe franche.
 
-Le prénom affiché par défaut est « [PRÉNOM] » : le remplacer dans `config.ts` (`introInterview.prenom`), puis relancer `npm run rendu -- 08` (les 3 versions, horizontal et vertical, en une minute environ).
+Le prénom affiché est « MATISSE » (`introInterview.prenom` dans `config.ts`) : pour le changer, modifier cette valeur puis relancer `npm run rendu -- 08` (les 3 versions, horizontal et vertical, en une minute environ). Dans l'interview, le bandeau nominatif qui va avec est `05_bandeaux/bandeau-nom_matisse.mp4`.
 
 ### Le son
 
