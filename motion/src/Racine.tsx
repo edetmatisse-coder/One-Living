@@ -1,7 +1,7 @@
 import React from 'react';
 import { Composition, Folder } from 'remotion';
 import { IMAGES_PAR_SECONDE as FPS, bandeaux, questions } from '../config';
-import { tCarton, tEntonnoir, tFinal, tMarque, tNom, tQuestion, tSoixanteNeuf, tTitre } from './timelines';
+import { tCarton, tEntonnoir, tFinal, tIntro, tMarque, tNom, tQuestion, tSoixanteNeuf, tTitre } from './timelines';
 import { slug } from './slug';
 import { Marque } from './sequences/Marque';
 import { Entonnoir } from './sequences/Entonnoir';
@@ -9,6 +9,7 @@ import { SoixanteNeuf } from './sequences/SoixanteNeuf';
 import { BandeauNom, Carton, Question } from './sequences/Incrustations';
 import { Final } from './sequences/Final';
 import { Titre } from './sequences/Titre';
+import { IntroInterview } from './sequences/IntroInterview';
 
 const FORMATS = [
   { suffixe: 'h', width: 1920, height: 1080 },
@@ -85,6 +86,20 @@ export const Racine: React.FC = () => (
     <Folder name="s07-titre">
       {FORMATS.map((f) => (
         <Composition key={f.suffixe} id={`titre-${f.suffixe}`} component={Titre} durationInFrames={tTitre().total} fps={FPS} width={f.width} height={f.height} />
+      ))}
+    </Folder>
+    <Folder name="s08-intro-interview">
+      {FORMATS.map((f) => (
+        <Composition
+          key={f.suffixe}
+          id={`intro-${f.suffixe}`}
+          component={IntroInterview}
+          defaultProps={{ fond: 'plein' as 'plein' | 'transparent' | 'vert' }}
+          durationInFrames={tIntro().total}
+          fps={FPS}
+          width={f.width}
+          height={f.height}
+        />
       ))}
     </Folder>
   </>

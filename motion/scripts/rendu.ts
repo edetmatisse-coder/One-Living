@@ -1,10 +1,10 @@
 /**
  * Rendu de toutes les séquences.
  *
- *   npm run rendu                 tout (horizontal + vertical, MP4 + PNG, planches contact)
+ *   npm run rendu                 tout (horizontal + vertical, MP4/MOV + PNG, planches contact)
  *   npm run rendu -- 01 03        seulement les séquences 01 et 03
  *   npm run rendu -- 04 --h       seulement l'horizontal (--v : seulement le vertical)
- *   npm run rendu -- --planches   refaire seulement les planches contact (depuis les MP4)
+ *   npm run rendu -- --planches   refaire seulement les planches contact (depuis les vidéos)
  *
  * Sortie : out/ (horizontal), out/vertical/ (vertical), out/previews/ (planches contact).
  */
@@ -15,7 +15,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { bandeaux, questions } from '../config';
+import { IMAGES_PAR_SECONDE as FPS, bandeaux, questions } from '../config';
 import { slug } from '../src/slug';
 
 const ICI = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -33,6 +33,10 @@ interface Travail {
   fichier: string; // chemin relatif dans out/ (sans extension)
   props?: Record<string, unknown>;
   png?: number; // image du PNG transparent
+  /** prores : ProRes 4444 avec couche alpha (.mov) ; sinon H.264 (.mp4) */
+  codec?: 'h264' | 'prores';
+  /** planche contact : une image toutes les `pas` secondes (0,5 par défaut) */
+  pas?: number;
 }
 
 const travaux: Travail[] = [
@@ -54,30 +58,44 @@ const travaux: Travail[] = [
   })),
   { seq: '06', id: 'final', fichier: '06_final' },
   { seq: '07', id: 'titre', fichier: '07_titre' },
+  { seq: '08', id: 'intro', fichier: '08_intro_interview', props: { fond: 'plein' }, pas: 0.25 },
+  { seq: '08', id: 'intro', fichier: '08_intro_interview_alpha', props: { fond: 'transparent' }, codec: 'prores' as const, pas: 0.25 },
+  { seq: '08', id: 'intro', fichier: '08_intro_interview_vert', props: { fond: 'vert' }, pas: 0.25 },
 ].filter((t) => !seulement.length || seulement.includes(t.seq));
+
+const extension = (t: Travail) => (t.codec === 'prores' ? '.mov' : '.mp4');
 
 const dejavu = ['/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', '/usr/share/fonts/TTF/DejaVuSans-Bold.ttf'].find((f) =>
   fs.existsSync(f),
 );
 
-/** Planche contact : une image toutes les 0,5 s, horodatée. */
-function planche(mp4: string, sortie: string, vertical: boolean) {
+/**
+ * Planche contact : une image toutes les `pas` secondes, horodatée.
+ * Une vidéo avec transparence (.mov) est posée sur un damier, pour voir ce qui est transparent.
+ */
+function planche(video: string, sortie: string, vertical: boolean, pas = 0.5) {
   try {
-    const duree = Number(execFileSync('ffprobe', ['-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', mp4]).toString().trim());
-    const n = Math.max(1, Math.floor(duree * 2 + 0.001));
-    const cols = vertical ? Math.min(10, n) : Math.min(6, n);
+    const duree = Number(execFileSync('ffprobe', ['-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', video]).toString().trim());
+    const n = Math.max(1, Math.floor(duree / pas + 0.001));
+    const images = Array.from({ length: n }, (_, k) => Math.round(k * pas * FPS));
+    const choix = `select='${images.map((i) => `eq(n\\,${i})`).join('+')}'`;
+    const cols = vertical ? Math.min(pas < 0.5 ? 8 : 10, n) : Math.min(pas < 0.5 ? 4 : 6, n);
     const lignes = Math.ceil(n / cols);
     const echelle = vertical ? 'scale=216:384' : 'scale=384:216';
     const texte = dejavu
       ? `,drawtext=fontfile=${dejavu}:text='%{pts\\:hms}':x=6:y=6:fontsize=15:fontcolor=white:box=1:boxcolor=black@0.65:boxborderw=4`
       : '';
+    const fin = `${echelle}${texte},tile=${cols}x${lignes}:padding=6:margin=6:color=0x0b0b0b`;
     fs.mkdirSync(path.dirname(sortie), { recursive: true });
-    execFileSync('ffmpeg', [
-      '-v', 'error', '-y', '-i', mp4,
-      '-vf', `select='not(mod(n\\,15))',${echelle}${texte},tile=${cols}x${lignes}:padding=6:margin=6:color=0x0b0b0b`,
-      '-fps_mode', 'passthrough',
-      '-frames:v', '1', '-q:v', '3', sortie,
-    ]);
+    const [w, h] = vertical ? [1080, 1920] : [1920, 1080];
+    const entree = video.endsWith('.mov')
+      ? [
+          '-f', 'lavfi', '-i', `nullsrc=s=${w}x${h}:r=${FPS},format=gray,geq=lum='if(mod(floor(X/48)+floor(Y/48)\\,2)\\,185\\,125)'`,
+          '-i', video,
+          '-filter_complex', `[0:v][1:v]overlay=shortest=1,${choix},${fin}`,
+        ]
+      : ['-i', video, '-vf', `${choix},${fin}`];
+    execFileSync('ffmpeg', ['-v', 'error', '-y', ...entree, '-fps_mode', 'passthrough', '-frames:v', '1', '-q:v', '3', sortie]);
     console.log(`   planche  ${path.relative(ICI, sortie)}`);
   } catch {
     console.log('   (planche contact ignorée : ffmpeg introuvable)');
@@ -86,15 +104,16 @@ function planche(mp4: string, sortie: string, vertical: boolean) {
 
 async function main() {
   if (!travaux.length) {
-    console.log('Rien à rendre : numéros de séquence de 01 à 07.');
+    console.log('Rien à rendre : numéros de séquence de 01 à 08.');
     return;
   }
+  const apercu = (rel: string) => path.join(OUT, 'previews', `${rel.replace(/\//g, '__')}.jpg`);
   if (planchesSeules) {
     for (const t of travaux)
       for (const f of formats) {
         const rel = f === 'v' ? path.join('vertical', t.fichier) : t.fichier;
-        const mp4 = path.join(OUT, `${rel}.mp4`);
-        if (fs.existsSync(mp4)) planche(mp4, path.join(OUT, 'previews', `${rel.replace(/\//g, '__')}.jpg`), f === 'v');
+        const video = path.join(OUT, `${rel}${extension(t)}`);
+        if (fs.existsSync(video)) planche(video, apercu(rel), f === 'v', t.pas);
       }
     return;
   }
@@ -103,38 +122,55 @@ async function main() {
   for (const t of travaux) {
     for (const f of formats) {
       const rel = f === 'v' ? path.join('vertical', t.fichier) : t.fichier;
-      const mp4 = path.join(OUT, `${rel}.mp4`);
-      fs.mkdirSync(path.dirname(mp4), { recursive: true });
+      const video = path.join(OUT, `${rel}${extension(t)}`);
+      fs.mkdirSync(path.dirname(video), { recursive: true });
       const id = `${t.id}-${f}`;
       const props = t.props ?? {};
       const composition = await selectComposition({ serveUrl, id, inputProps: props, browserExecutable: navigateur });
       const debut = Date.now();
       let dernier = -1;
-      await renderMedia({
+      const commun = {
         composition,
         serveUrl,
-        codec: 'h264',
-        outputLocation: mp4,
+        outputLocation: video,
         inputProps: props,
-        crf: 20,
-        x264Preset: 'slow',
-        pixelFormat: 'yuv420p',
-        colorSpace: 'bt709',
-        imageFormat: 'jpeg',
-        jpegQuality: 95,
         muted: true,
         concurrency: concurrence,
         browserExecutable: navigateur,
-        onProgress: ({ progress }) => {
+        onProgress: ({ progress }: { progress: number }) => {
           const p = Math.floor(progress * 10);
           if (p !== dernier) {
             dernier = p;
             process.stdout.write(`\r${id.padEnd(22)} ${String(p * 10).padStart(3)} %`);
           }
         },
-      });
-      const taille = (fs.statSync(mp4).size / 1e6).toFixed(1);
-      console.log(`\r${id.padEnd(22)} ok  ${path.relative(ICI, mp4)}  (${taille} Mo, ${((Date.now() - debut) / 1000).toFixed(0)} s)`);
+      };
+      if (t.codec === 'prores') {
+        // ProRes 4444 avec couche alpha : les zones transparentes le restent dans CapCut
+        // quantificateur 6 et alpha 8 bits : qualité intacte, ~30 Mo au lieu de ~180 Mo pour 4 s
+        await renderMedia({
+          ...commun,
+          codec: 'prores',
+          proResProfile: '4444',
+          pixelFormat: 'yuva444p10le',
+          imageFormat: 'png',
+          ffmpegOverride: ({ args }) =>
+            args.includes('prores_ks') ? [...args.slice(0, -1), '-qscale:v', '6', '-alpha_bits', '8', args[args.length - 1]] : args,
+        });
+      } else {
+        await renderMedia({
+          ...commun,
+          codec: 'h264',
+          crf: 20,
+          x264Preset: 'slow',
+          pixelFormat: 'yuv420p',
+          colorSpace: 'bt709',
+          imageFormat: 'jpeg',
+          jpegQuality: 95,
+        });
+      }
+      const taille = (fs.statSync(video).size / 1e6).toFixed(1);
+      console.log(`\r${id.padEnd(22)} ok  ${path.relative(ICI, video)}  (${taille} Mo, ${((Date.now() - debut) / 1000).toFixed(0)} s)`);
       if (t.png != null) {
         const png = path.join(OUT, `${rel}.png`);
         const transparente = await selectComposition({ serveUrl, id, inputProps: { ...props, transparent: true }, browserExecutable: navigateur });
@@ -149,7 +185,7 @@ async function main() {
         });
         console.log(`   png      ${path.relative(ICI, png)}`);
       }
-      planche(mp4, path.join(OUT, 'previews', `${rel.replace(/\//g, '__')}.jpg`), f === 'v');
+      planche(video, apercu(rel), f === 'v', t.pas);
     }
   }
   console.log('Terminé.');

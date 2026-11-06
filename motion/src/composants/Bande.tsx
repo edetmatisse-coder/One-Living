@@ -22,7 +22,23 @@ export const Bande: React.FC<{
   aligner?: 'gauche' | 'centre';
   decalage?: number;
   etiquette?: { texte: string; a: number; fond: string; couleur: string } | null;
-}> = ({ lignes, a, taille, fond, couleur, rot = 0, ombre = null, sortie = null, aligner = 'centre', decalage = 0, etiquette = null }) => {
+  famille?: string;
+  poids?: number;
+}> = ({
+  lignes,
+  a,
+  taille,
+  fond,
+  couleur,
+  rot = 0,
+  ombre = null,
+  sortie = null,
+  aligner = 'centre',
+  decalage = 0,
+  etiquette = null,
+  famille = DISPLAY,
+  poids = 900,
+}) => {
   const frame = useCurrentFrame();
   return (
     <div
@@ -63,7 +79,7 @@ export const Bande: React.FC<{
                 transform: s > 0 ? `translateX(${s * taille * 0.6}px)` : undefined,
               }}
             >
-              <Mots mots={mots(l)} a={d + 3} ecart={2} taille={taille} famille={DISPLAY} poids={900} couleur={couleur} interligne={1} />
+              <Mots mots={mots(l)} a={d + 3} ecart={2} taille={taille} famille={famille} poids={poids} couleur={couleur} interligne={1} />
             </div>
             {i === 0 && etiquette && <Etiquette {...etiquette} sortie={sortie} taille={taille} />}
           </div>

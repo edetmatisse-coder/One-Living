@@ -8,7 +8,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { IMAGES_PAR_SECONDE as FPS, bandeaux, questions } from '../config';
-import { type Bruit, type Son, tCarton, tEntonnoir, tFinal, tMarque, tNom, tQuestion, tSoixanteNeuf, tTitre } from '../src/timelines';
+import { type Bruit, type Son, tCarton, tEntonnoir, tFinal, tIntro, tMarque, tNom, tQuestion, tSoixanteNeuf, tTitre } from '../src/timelines';
 
 const ICI = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -22,6 +22,7 @@ export const SONS: Record<Son, { nom: string; chercher: string }> = {
   feutre: { nom: 'Feutre', chercher: '« marker », « scribble »' },
   souffle: { nom: 'Souffle', chercher: '« air », « breath », « powder »' },
   clic: { nom: 'Clics rapides', chercher: '« typewriter », « click »' },
+  tic: { nom: 'Tic rapide', chercher: '« tick », « clock tick »' },
 };
 
 /** 3.27 -> « 3,27 s » */
@@ -56,6 +57,7 @@ export function feuille() {
   parties.push(`### 05_bandeaux : bandeau nominatif (${bandeaux.nom.prenoms.join(', ')})`, tableau(tNom().bruits));
   parties.push('### 06_final.mp4', tableau(tFinal().bruits));
   parties.push('### 07_titre.mp4', tableau(tTitre().bruits));
+  parties.push('### 08_intro_interview (les trois versions : plein, alpha, vert)', tableau(tIntro().bruits));
   const sons = Object.values(SONS)
     .map((s) => `- **${s.nom}** : chercher ${s.chercher}`)
     .join('\n');

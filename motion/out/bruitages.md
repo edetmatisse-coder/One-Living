@@ -15,6 +15,7 @@ Sons à chercher dans la bibliothèque de CapCut (Audio → Effets sonores) :
 - **Feutre** : chercher « marker », « scribble »
 - **Souffle** : chercher « air », « breath », « powder »
 - **Clics rapides** : chercher « typewriter », « click »
+- **Tic rapide** : chercher « tick », « clock tick »
 
 Conseil : baisser les whoosh et les clics à 40-60 % du volume de la voix off, garder les impacts et les tampons un peu plus forts.
 
@@ -133,3 +134,21 @@ Conseil : baisser les whoosh et les clics à 40-60 % du volume de la voix off, g
 | 0,10 s à 1,20 s | 00:00:03 | Clics rapides | les lettres claquent une à une (machine à écrire rapide) |
 | 1,27 s | 00:01:08 | Impact | la question est complète |
 | 1,47 s | 00:01:14 | Feutre | souligné sous la dernière ligne |
+
+### 08_intro_interview (les trois versions : plein, alpha, vert)
+
+| Moment | Repère CapCut | Son | Sur quoi |
+| --- | --- | --- | --- |
+| 0,00 s | 00:00:00 | Whoosh | bande jaune (entrée) |
+| 0,07 s | 00:00:02 | Whoosh | bande rose (entrée) |
+| 0,13 s | 00:00:04 | Whoosh | bande bleue (entrée) |
+| 0,57 s | 00:00:17 | Impact | « ON A » |
+| 0,77 s | 00:00:23 | Impact | « POSÉ » |
+| 1,00 s | 00:01:00 | Impact | « 5 QUESTIONS » |
+| 1,63 s | 00:01:19 | Pop | le logo One Living |
+| 2,40 s | 00:02:12 | Tic rapide | question 1/5 |
+| 2,60 s | 00:02:18 | Tic rapide | question 2/5 |
+| 2,80 s | 00:02:24 | Tic rapide | question 3/5 |
+| 3,00 s | 00:03:00 | Tic rapide | question 4/5 |
+| 3,20 s | 00:03:06 | Tic rapide | question 5/5 |
+| 3,40 s | 00:03:12 | Whoosh | les bandes repartent (sortie) |

@@ -8,6 +8,7 @@ import {
   bandeaux,
   entonnoir,
   final,
+  introInterview,
   marque,
   questions,
   soixanteNeuf,
@@ -19,7 +20,7 @@ export const img = (s: number) => Math.round(s * FPS);
 /** images -> secondes */
 export const sec = (i: number) => Math.round((i / FPS) * 100) / 100;
 
-export type Son = 'whoosh' | 'pop' | 'tampon' | 'bouteille' | 'impact' | 'compteur' | 'feutre' | 'souffle' | 'clic';
+export type Son = 'whoosh' | 'pop' | 'tampon' | 'bouteille' | 'impact' | 'compteur' | 'feutre' | 'souffle' | 'clic' | 'tic';
 
 export interface Bruit {
   /** seconde dans la séquence */
@@ -277,4 +278,53 @@ export function tTitre() {
     { t: sec(fin + 8), son: 'feutre', quoi: 'souligné sous la dernière ligne' },
   ];
   return { total, lettres, fin, trait: fin + 8, bruits: b };
+}
+
+// ---------------------------------------------------------------------------
+/** Images entre le début d'un mot de l'accroche et son impact (zoom qui recule). */
+export const IMPACT_MOT = 4;
+export const COULEURS_BANDES = ['jaune', 'rose', 'bleu'] as const;
+
+export function tIntro() {
+  const c = introInterview;
+  const total = img(c.duree);
+  const noms = ['jaune', 'rose', 'bleue'];
+  const entree = COULEURS_BANDES.map((_, k) => img(c.entree.a + k * c.entree.ecart));
+  const traversee = Math.max(2, img(c.entree.traversee));
+  const finEntree = entree[entree.length - 1] + traversee;
+  const mots = c.accroche.mots.map((m) => img(m.a));
+  const impacts = mots.map((f) => f + IMPACT_MOT);
+  const invite = img(c.invite.a);
+  const par = Math.max(2, img(c.teaser.parQuestion));
+  const cartes = c.teaser.questions.map((_, i) => img(c.teaser.a) + i * par);
+  // les bandes repartent dans l'ordre inverse : bleue, rose, jaune
+  const sortie = COULEURS_BANDES.map((_, k) => img(c.sortie.a + k * c.sortie.ecart));
+  const traverseeSortie = Math.max(2, img(c.sortie.traversee));
+  const b: Bruit[] = [
+    ...entree.map((f, k) => ({ t: sec(f), son: 'whoosh' as Son, quoi: `bande ${noms[k]} (entrée)` })),
+    ...impacts.map((f, k) => ({ t: sec(f), son: 'impact' as Son, quoi: `« ${c.accroche.mots[k].texte} »` })),
+    { t: c.invite.logoA, son: 'pop', quoi: 'le logo One Living' },
+    ...cartes.map((f, i) => ({ t: sec(f), son: 'tic' as Son, quoi: `question ${i + 1}/${cartes.length}` })),
+    { t: sec(sortie[0]), son: 'whoosh', quoi: 'les bandes repartent (sortie)' },
+  ];
+  return {
+    total,
+    entree,
+    traversee,
+    finEntree,
+    secousse: img(c.entree.secousse),
+    mots,
+    impacts,
+    invite,
+    role: img(c.invite.roleA),
+    logo: img(c.invite.logoA),
+    pastille: img(c.invite.pastille.a),
+    sortieInvite: img(c.invite.sortie),
+    teaser: img(c.teaser.a),
+    par,
+    cartes,
+    sortie,
+    traverseeSortie,
+    bruits: b,
+  };
 }

@@ -198,3 +198,52 @@ export const titre = {
   enJaune: 'DU RUGBY ?', // ligne en jaune
   temps: { lettres: 0.1, parLettre: 0.033 }, // une lettre par image
 };
+
+// ---------------------------------------------------------------------------
+// 08 · L'INTRO DE L'INTERVIEW (4 s) : entre la marque et l'interview
+// Trois rendus : fond plein (MP4), transparent (ProRes 4444 .mov), fond vert (MP4).
+// ---------------------------------------------------------------------------
+export const introInterview = {
+  duree: 4,
+  prenom: '[Prénom]', // prénom de l'étudiant qui joue l'employé
+
+  // 0,00 à 0,40 s : trois bandes diagonales (jaune, rose, bleu) recouvrent la vidéo d'avant
+  entree: {
+    a: 0, // première bande
+    ecart: 0.067, // délai entre deux bandes (2 images)
+    traversee: 0.27, // temps pour traverser l'écran (8 images)
+    secousse: 0.2, // petite secousse quand la dernière bande arrive
+  },
+
+  // 0,40 à 1,30 s : les mots claquent (le dernier en jaune, deux fois plus gros)
+  accroche: {
+    mots: [
+      { texte: 'ON A', a: 0.42 },
+      { texte: 'POSÉ', a: 0.62 },
+      { texte: '5 QUESTIONS', a: 0.85 },
+    ],
+  },
+
+  // 1,30 à 2,40 s : l'invité, sur bandeau jaune
+  invite: {
+    a: 1.3, // le bandeau du prénom s'ouvre
+    role: 'Développement sport amateur · One Living',
+    roleA: 1.47,
+    logoA: 1.63, // le logo One Living arrive en pop dans un coin
+    pastille: { texte: 'rôle joué', a: 1.8 },
+    sortie: 2.27, // tout repart, juste avant le teaser
+  },
+
+  // 2,40 à 3,40 s : les 5 questions en rafale (les mêmes que la séquence 04)
+  teaser: {
+    a: 2.4,
+    parQuestion: 0.2, // 6 images par question
+    questions: questions.liste,
+  },
+
+  // 3,40 à 4,00 s : les bandes repartent dans l'autre sens et dévoilent l'interview
+  sortie: { a: 3.4, ecart: 0.067, traversee: 0.3 },
+
+  // en petit, en bas à gauche, pendant toute la séquence
+  mention: 'Interview imaginée, rôle joué par un étudiant',
+};

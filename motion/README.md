@@ -6,7 +6,7 @@ Ce dossier est séparé du site : il a ses propres réglages et ses propres dép
 
 ## Les fichiers à importer
 
-Tout est dans `motion/out/`. Format : 1920 × 1080, 30 images par seconde, H.264, sans son. Les mêmes fichiers en vertical (1080 × 1920, pour les réseaux sociaux) sont dans `motion/out/vertical/`, avec les mêmes noms.
+Tout est dans `motion/out/`. Format : 1920 × 1080, 30 images par seconde, H.264, sans son (sauf `08_intro_interview_alpha.mov` : ProRes 4444 avec transparence). Les mêmes fichiers en vertical (1080 × 1920, pour les réseaux sociaux) sont dans `motion/out/vertical/`, avec les mêmes noms.
 
 | Fichier | Contenu | Durée |
 | --- | --- | --- |
@@ -19,7 +19,10 @@ Tout est dans `motion/out/`. Format : 1920 × 1080, 30 images par seconde, H.264
 | `05_bandeaux/bandeau-nom_<prénom>.mp4` / `.png` | Bandeau nominatif bas d'écran, un par prénom de l'équipe : garder celui de l'étudiant qui joue l'employé | 5 s |
 | `06_final.mp4` | APRÈS LA VOIE., trait de magnésie, l'équipe, la mention du projet | 5 s |
 | `07_titre.mp4` | COMMENT ONE LIVING PEUT SORTIR DU RUGBY ? (facultatif, juste après l'accroche) | 3 s |
-| `previews/` | Planches contact (une image toutes les 0,5 s), pour vérifier d'un coup d'œil | |
+| `08_intro_interview.mp4` | L'intro de l'interview, **fond plein** : bandes aux couleurs des voies, ON A POSÉ 5 QUESTIONS, l'invité, les 5 questions en rafale | 4 s |
+| `08_intro_interview_alpha.mov` | La même en ProRes 4444 **avec transparence** : l'entrée et la sortie se posent par-dessus la marque et l'interview | 4 s |
+| `08_intro_interview_vert.mp4` | La même sur **fond vert** `#00FF00` (« vert » = la couleur, pas le format vertical), si l'alpha ne passe pas dans CapCut | 4 s |
+| `previews/` | Planches contact (une image toutes les 0,5 s, toutes les 0,25 s pour la 08), pour vérifier d'un coup d'œil | |
 | `bruitages.md` | La feuille de bruitages (aussi plus bas) | |
 
 ## Dans CapCut
@@ -42,6 +45,19 @@ Les questions (04) et les bandeaux (05) se posent **au-dessus** de l'interview f
 Le fond est un vert pur (`#00FF00`), sans dégradé ni flou : il se détoure proprement. Le jaune des questions n'a rien à voir avec ce vert, il ne part pas avec.
 
 **Plus simple encore :** les PNG transparents (même nom que la vidéo) se posent directement au-dessus de l'image, sans incrustation. Ce sont des images fixes (la question entièrement affichée) : régler leur durée dans la timeline.
+
+### L'intro de l'interview (08) : la poser entre la marque et l'interview
+
+L'intro dure 4 s : ses bandes recouvrent la dernière 0,4 s de la vidéo de la marque, elle est opaque de 0,4 à 3,4 s, puis ses bandes repartent et dévoilent l'interview, dessous.
+
+1. Sur la piste principale : la vidéo de la marque, puis l'interview, collée juste après.
+2. Glisser `08_intro_interview_alpha.mov` sur la piste du dessus, en le faisant commencer **0,4 s avant la fin de la vidéo de la marque** (12 images avant, sur le repère de CapCut).
+3. L'intro cache alors les 3 premières secondes de l'interview : garder 3 s de marge au début du plan d'interview (l'employé qui s'installe, avant la première réponse). Ces 3 s sont sous l'intro ; à la sortie des bandes, l'interview est déjà lancée.
+4. Lire le raccord : à l'entrée, on doit voir la fin de la marque entre les bandes ; à la sortie, l'interview apparaître derrière la bande bleue.
+
+Si CapCut affiche du noir à la place de la transparence, prendre `08_intro_interview_vert.mp4` au même endroit, puis l'incrustation chroma (Vidéo → Supprimer l'arrière-plan → Incrustation chroma, pipette sur le vert, comme pour les questions). La version `08_intro_interview.mp4`, à fond plein, se pose comme un plan normal, en coupe franche.
+
+Le prénom affiché par défaut est « [PRÉNOM] » : le remplacer dans `config.ts` (`introInterview.prenom`), puis relancer `npm run rendu -- 08` (les 3 versions, horizontal et vertical, en une minute environ).
 
 ### Le son
 
@@ -121,6 +137,7 @@ Sons à chercher dans la bibliothèque de CapCut (Audio → Effets sonores) :
 - **Feutre** : chercher « marker », « scribble »
 - **Souffle** : chercher « air », « breath », « powder »
 - **Clics rapides** : chercher « typewriter », « click »
+- **Tic rapide** : chercher « tick », « clock tick »
 
 Conseil : baisser les whoosh et les clics à 40-60 % du volume de la voix off, garder les impacts et les tampons un peu plus forts.
 
@@ -239,6 +256,24 @@ Conseil : baisser les whoosh et les clics à 40-60 % du volume de la voix off, g
 | 0,10 s à 1,20 s | 00:00:03 | Clics rapides | les lettres claquent une à une (machine à écrire rapide) |
 | 1,27 s | 00:01:08 | Impact | la question est complète |
 | 1,47 s | 00:01:14 | Feutre | souligné sous la dernière ligne |
+
+### 08_intro_interview (les trois versions : plein, alpha, vert)
+
+| Moment | Repère CapCut | Son | Sur quoi |
+| --- | --- | --- | --- |
+| 0,00 s | 00:00:00 | Whoosh | bande jaune (entrée) |
+| 0,07 s | 00:00:02 | Whoosh | bande rose (entrée) |
+| 0,13 s | 00:00:04 | Whoosh | bande bleue (entrée) |
+| 0,57 s | 00:00:17 | Impact | « ON A » |
+| 0,77 s | 00:00:23 | Impact | « POSÉ » |
+| 1,00 s | 00:01:00 | Impact | « 5 QUESTIONS » |
+| 1,63 s | 00:01:19 | Pop | le logo One Living |
+| 2,40 s | 00:02:12 | Tic rapide | question 1/5 |
+| 2,60 s | 00:02:18 | Tic rapide | question 2/5 |
+| 2,80 s | 00:02:24 | Tic rapide | question 3/5 |
+| 3,00 s | 00:03:00 | Tic rapide | question 4/5 |
+| 3,20 s | 00:03:06 | Tic rapide | question 5/5 |
+| 3,40 s | 00:03:12 | Whoosh | les bandes repartent (sortie) |
 <!-- fin bruitages -->
 
 ## Ce qui est réel, ce qui ne l'est pas
@@ -272,6 +307,7 @@ Chaque séquence a été vérifiée sur sa planche contact (une image toutes les
 - **04 :** bandeaux plus grands, lignes équilibrées en vertical, « One Living » jamais coupé en deux, PNG réellement transparents.
 - **05 :** bandeau nominatif plus lisible et remonté en vertical (hors de la zone des sous-titres des réseaux sociaux).
 - **06 et 07 :** groupe recentré, noms de l'équipe plus grands, lettres qui claquent sans déborder sur la ligne d'au-dessus.
+- **08 :** les bandes partent dès la première image, le zoom de chaque mot se pose net pile sur l'impact (le flash blanc tombe sur un « 5 QUESTIONS » lisible), pastille « rôle joué » écartée du logo, questions plus grandes ; en vertical, pastille déplacée et rôle plus lisible. ProRes allégé : environ 34 Mo au lieu de 179 Mo pour 4 s, sans perte visible.
 
 ## Pour aller plus loin
 
