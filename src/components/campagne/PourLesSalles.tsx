@@ -4,7 +4,7 @@ import { useRef, useState, type FormEvent } from 'react';
 import { useInView } from '@/lib/use-in-view';
 import type { SectionMeta } from '@/data/sections';
 import { SALLE_TYPE as SALLE } from '@/data/campagne';
-import { margeAnnuelle, margeUnitaire } from '@/lib/salle';
+import { margeAnnuelle, margeUnitaire, reventeHT } from '@/lib/salle';
 import { fmtEuro, fmtNumber } from '@/lib/format';
 import { Section, SectionInner } from '@/components/layout/Section';
 import { Badge } from '@/components/ui/Badge';
@@ -91,6 +91,7 @@ export function PourLesSalles({ meta }: { meta: SectionMeta }) {
   const [sent, setSent] = useState(false);
   const unit = margeUnitaire(SALLE);
   const year = margeAnnuelle(SALLE);
+  const ht = reventeHT(SALLE);
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault(); // démo : rien ne part
@@ -127,11 +128,14 @@ export function PourLesSalles({ meta }: { meta: SectionMeta }) {
               </div>
               <p className="font-display mt-3 text-[clamp(64px,7vw,104px)] leading-[0.85]">
                 <span className="text-[0.42em]">environ </span>
-                {fmtNumber(unit, 2)}&nbsp;€
+                {fmtNumber(unit, 2)}&nbsp;€<span className="text-[0.42em]">&nbsp;HT</span>
               </p>
-              <p className="mt-2 text-[17px] font-medium">de marge par bouteille, revendue {fmtNumber(SALLE.revente, 2)} € au bar.</p>
+              <p className="mt-2 text-[17px] font-medium">
+                de marge par bouteille : revendue {fmtNumber(SALLE.revente, 2)}&nbsp;€ TTC au bar, soit {fmtNumber(ht, 2)}&nbsp;€ HT (TVA à{' '}
+                {SALLE.tvaPct}&nbsp;% sur place), moins {fmtNumber(SALLE.cession, 2)}&nbsp;€ HT de cession.
+              </p>
               <p className="mt-4 text-[14px] text-ply-900/75">
-                Pour une salle de {SALLE.passages} passages par jour, environ {fmtEuro(Math.round(year / 100) * 100)} de marge sur l’année.
+                Pour une salle de {SALLE.passages} passages par jour, environ {fmtEuro(Math.round(year / 100) * 100)} HT de marge sur l’année.
                 Valeurs de travail, à confirmer avec One Living.
               </p>
             </div>

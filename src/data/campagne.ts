@@ -64,8 +64,11 @@ export const PRODUCT_BY_ID = Object.fromEntries(PRODUCTS.map((p) => [p.id, p])) 
 export const productImage = (id: string) => asset(`/brand/produits/${id}.jpg`);
 export const productLabel = (id: string) => asset(`/brand/produits/${id}-etiquette.webp`);
 
-/** Salle type des exemples (hypothèses de travail, à confirmer avec One Living). */
-export const SALLE_TYPE = { jours: 330, passages: 150, tauxPct: 3, cession: 1.8, revente: 3.5 };
+/**
+ * Salle type des exemples (hypothèses de travail, à confirmer avec One Living).
+ * Cession en € HT, revente en € TTC (prix payé au bar), TVA à 10 % sur place.
+ */
+export const SALLE_TYPE = { jours: 330, passages: 150, tauxPct: 3, cession: 1.8, revente: 3.5, tvaPct: 10 };
 
 /** Le concept en 3 temps (ton de la campagne : tutoiement). */
 export const TEMPS = [

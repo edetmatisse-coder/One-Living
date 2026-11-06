@@ -86,7 +86,7 @@ Le dos : le site de One Living ne montre que la face des produits. Le dos des bo
 
 - **Salles B'Wall** : ce sont de vraies salles. Adresses, horaires, chiffres clés et photos viennent du site officiel [b-wall.fr](https://www.b-wall.fr/contact/). Le partenariat est imaginé (B'Wall n'est pas engagé, chaque fiche et le bandeau du haut le disent) ; le frigo, les boissons proposées et la voie du mois sont des exemples.
 - **Trois buveurs de kombucha** (Claire, Malik, Inès) : profils inventés, marqués « Exemple de profil ».
-- **Marge de la salle**, environ 1,70 € par bouteille (revente à 3,50 € moins cession à 1,80 €), et la salle type de 150 passages par jour : hypothèses de travail, marquées « Hypothèse », à confirmer avec One Living.
+- **Marge de la salle**, environ 1,38 € HT par bouteille (revente à 3,50 € TTC, soit 3,18 € HT avec la TVA à 10 % sur place, moins cession à 1,80 € HT), soit environ 2 000 € HT par an pour la salle type de 150 passages par jour : hypothèses de travail, marquées « Hypothèse », à confirmer avec One Living.
 - **Formulaire** « Devenir salle partenaire » : démo, rien n'est envoyé. Au clic : « Démo : aucune donnée n'est envoyée. »
 - **QR code** et vidéo de la voie du mois : démo.
 

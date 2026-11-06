@@ -126,7 +126,8 @@ export const HYPOTHESES: { label: string; detail: string }[] = [
   },
   {
     label: 'Marge de la salle',
-    detail: 'Environ 1,70 € par bouteille : revente à 3,50 € moins cession à 1,80 €.',
+    detail:
+      'Environ 1,38 € HT par bouteille : revente à 3,50 € TTC, soit 3,18 € HT avec la TVA à 10 % sur place, moins cession à 1,80 € HT. Environ 2 000 € HT par an pour la salle type (1 485 bouteilles).',
   },
   {
     label: 'Contenus de la campagne',
